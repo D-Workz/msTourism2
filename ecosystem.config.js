@@ -28,7 +28,7 @@ module.exports = {
         user: 'dworkz',
         host: '185.216.32.138',
         ref: 'origin/deployment',
-        repo: 'git@github.com:D-Dawg/msTourismGrp3.git',
+        repo: 'git@github.com:D-Dawg/msTourism2.git',
         path: '/home/dworkz/home/msTourism2',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
