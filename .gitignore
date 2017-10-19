@@ -110,3 +110,7 @@ typings/
 .env
 
 
+
+.idea/msTourism2.iml
+.idea/workspace.xml
+.idea/
