@@ -114,3 +114,7 @@ typings/
 .idea/msTourism2.iml
 .idea/workspace.xml
 .idea/
+
+# on my local machine a ngrok exe file
+ngrok/
+ngrok/ngrok.exe
