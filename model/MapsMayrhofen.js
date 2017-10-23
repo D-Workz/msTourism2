@@ -5,7 +5,7 @@ mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 mongoose.Promise = require('bluebird');
 
 
-let AnnotationsSchema = new mongoose.Schema({
+let mapsMayrhofenSchema = new mongoose.Schema({
     type:{type: String, unique: true},
     annotations:[],
     count:Number
@@ -13,8 +13,8 @@ let AnnotationsSchema = new mongoose.Schema({
 
 // {"name":"Fischerrun","id":"59b6a76f9b0def28bae6dfc3","UID":"rJ-DOvXE9-","CID":"GS-1001510-de","type":["SportsActivityLocation"],"enc_url":"https%3A%2F%2Fmaps.seefeld.com%2Fde%23resourceDetail%2C1001510"},
 
-AnnotationsSchema.statics.updateAnnotationCollection = function (annotation, type) {
-    const Annotations = mongoose.model('Annotations');
+mapsMayrhofenSchema.statics.updateAnnotationCollection = function (annotation, type, website) {
+    const Annotations = mongoose.model(website);
         let concatType = "";
         for(let k=0;k<type.length;k++) {
             concatType += type[k] + ", "
@@ -53,4 +53,4 @@ AnnotationsSchema.statics.updateAnnotationCollection = function (annotation, typ
 
 
 
-mongoose.model('Annotations', AnnotationsSchema);
+mongoose.model('MapsMayrhofen', mapsMayrhofenSchema);

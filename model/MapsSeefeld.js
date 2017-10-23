@@ -5,10 +5,10 @@ mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 mongoose.Promise = require('bluebird');
 
 
-let mapsMayrhofenSchema = new mongoose.Schema({
+let mapsSeefeldSchema = new mongoose.Schema({
     type:{type: String, unique: true},
     annotations:[],
     count:Number
 });
 
-mongoose.model('mapsMayrhofen', mapsMayrhofenSchema);
+mongoose.model('MapsSeefeld', mapsSeefeldSchema);

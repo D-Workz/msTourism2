@@ -7,7 +7,7 @@
 const app = require('jovo-framework').Jovo;
 const webhook = require('jovo-framework').Webhook;
 
-const handlers = require("./logic/mainLogic").getHandlers();
+const handlers = require("./logic/MainLogic").getHandlers();
 
 // Listen for post requests
 webhook.listen(3000, function() {

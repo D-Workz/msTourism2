@@ -2,26 +2,21 @@
 // App Logic
 // =================================================================================
 
+const SemantifyExtension = require("./SemantifyExtension");
+const config = require('config');
+const RateLimiter = require('limiter').RateLimiter;
+let limiter = new RateLimiter(1, 50000000);
 
-const app = require('jovo-framework').Jovo;
+let allApikeys = config.get("apikey");
 
 
-class SemantifyExtension {
-    constructor() {}
+for (let apikey in allApikeys) {
 
-   static requestAnnotationsFromSemantify(){
-        return {
-            'LAUNCH': function () {
-                app.toIntent('HelloWorldIntent');
-            },
+    limiter.removeTokens(1, function () {
+        let extension = new SemantifyExtension(allApikeys[apikey],apikey);
+        extension.requestAnnotationsFromSemantify();
+    });
 
-            'HelloWorldIntent': function () {
-                app.tell('Hello noo wakjgsakljy World!');
-            },
-        };
-    }
 
 }
-
-module.exports = Logic;
 

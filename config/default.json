@@ -1,13 +1,13 @@
-[
-	{
-		"userId": "API.AI Debugging",
-		"userData": {
-			"data": {},
-			"metaData": {
-				"createdAt": "2017-10-17T13:44:49.987Z",
-				"lastUsedAt": "2017-10-17T19:03:02.564Z",
-				"sessionsCount": 3
-			}
-		}
-	}
-]
+{
+  "requestPathListAnnotations" : "/api/annotation/list/",
+  "requestPathDetailsOfAnnotation" : "/api/annotation/cid/",
+  "host" : "https://semantify.it",
+  "DBUrl": "mongodb://localhost:27017/tourism2",
+  "port": 3000,
+  "apikey": {
+    "MapsMayrhofen": "ryJfFtrYZ",
+    "MapsSeefeld": "rk8gFtSKW",
+    "SeefeldAt": "r1Rpt-rpx",
+    "MayrhofenAt": "HycivrHG"
+  }
+}
