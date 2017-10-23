@@ -15,24 +15,20 @@ let mapsMayrhofenSchema = new mongoose.Schema({
 
 mapsMayrhofenSchema.statics.updateAnnotationCollection = function (annotation, type, website) {
     const Annotations = mongoose.model(website);
-        let concatType = "";
         for(let k=0;k<type.length;k++) {
-            concatType += type[k] + ", "
-        }
-        concatType = concatType.slice(0,-2);
             Annotations
-                .findOne({type:concatType})
+                .findOne({type:type[k]})
                 .then(function (annotationType) {
                     if(!annotationType){
                         let newAnnotationsType = new Annotations();
-                        newAnnotationsType.type = concatType;
+                        newAnnotationsType.type = type[k];
                         newAnnotationsType.count = 1;
                         newAnnotationsType.annotations.push(annotation);
                         newAnnotationsType.save(function (err) {
                             if (err) {
                                 return next(err);
                             } else {
-                                console.log("successfully created new annotation of type: " + concatType);
+                                console.log("successfully created new annotation of type: " + type[k]);
                             }
                         });
                     }else{
@@ -42,11 +38,13 @@ mapsMayrhofenSchema.statics.updateAnnotationCollection = function (annotation, t
                             if (err) {
                                 return next(err);
                             } else {
-                                console.log("successfully updated annotation of type: " + concatType);
+                                console.log("successfully updated annotation of type: " + type[k]);
                             }
                         });
                     }
                 })
+        }
+
 
 
 };

@@ -20,6 +20,7 @@ class SemantifyExtension {
         this.host = config.get("host");
         this.limiter = new RateLimiter(1, 750);
         this.websiteName = name;
+        this.count = -1;
     }
 
     requestAnnotationsFromSemantify() {
