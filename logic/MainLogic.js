@@ -41,7 +41,9 @@ function intendListHotels(app){
     MapsMayrhofen
         .findOne({type:"Hotel"})
         .then(function (hotelObject) {
-            app.tell('We found: '+ hotelObject.count + " Hotels in our Database.");
+            // parameters are:
+            // app.inputs.number
+            app.tell('We found: '+ hotelObject.count + " Hotels in our Database in " + app.inputs["geo-city"]);
         });
 }
 
