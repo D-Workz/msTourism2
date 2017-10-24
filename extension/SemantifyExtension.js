@@ -9,9 +9,6 @@ const RateLimiter = require('limiter').RateLimiter;
 
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/MapsMayrhofen');
-// require('../model/MapsSeefeld');
-// require('../model/MayrhofenAt');
-// require('../model/SeefeldAt');
 const MapsMayrhofen = mongoose.model('MapsMayrhofen');
 
 
@@ -66,7 +63,7 @@ class SemantifyExtension {
                             console.log("response.statusText: " + response.statusMessage);
                         }
                     } else {
-                        MapsMayrhofen.updateAnnotationCollection(body, type, that.websiteName, that);
+                        MapsMayrhofen.updateAnnotationCollection(body, type, that.websiteName, annotationCID, that);
                     }
                 });
             });
