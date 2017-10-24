@@ -9,11 +9,14 @@ const RateLimiter = require('limiter').RateLimiter;
 
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/MapsMayrhofen');
-const Annotations = mongoose.model('MapsMayrhofen');
+// require('../model/MapsSeefeld');
+// require('../model/MayrhofenAt');
+// require('../model/SeefeldAt');
+const MapsMayrhofen = mongoose.model('MapsMayrhofen');
 
 
 class SemantifyExtension {
-    constructor(apikey, name) {
+    constructor(apikey, name, startExtension) {
         this.apikey = apikey;
         this.requestPathListAnnotations = config.get("requestPathListAnnotations");
         this.requestPathDetailsOfAnnotation = config.get("requestPathDetailsOfAnnotation");
@@ -21,6 +24,7 @@ class SemantifyExtension {
         this.limiter = new RateLimiter(1, 750);
         this.websiteName = name;
         this.count = -1;
+        this.callbackStartExtension = startExtension;
     }
 
     requestAnnotationsFromSemantify() {
@@ -45,6 +49,7 @@ class SemantifyExtension {
     requestAnnotationDetailsFromSemantify(allAnnotationsOfAPIKEY) {
         let that = this;
         let jsonAnnotations = JSON.parse(allAnnotationsOfAPIKEY);
+        this.count = jsonAnnotations.length;
         for (let i = 0; i < jsonAnnotations.length; i++) {
             let annotationCID = jsonAnnotations[i].CID;
             let type = jsonAnnotations[i].type;
@@ -61,7 +66,7 @@ class SemantifyExtension {
                             console.log("response.statusText: " + response.statusMessage);
                         }
                     } else {
-                        Annotations.updateAnnotationCollection(body, type, that.websiteName);
+                        MapsMayrhofen.updateAnnotationCollection(body, type, that.websiteName, that);
                     }
                 });
             });
