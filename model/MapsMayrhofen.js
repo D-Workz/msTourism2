@@ -19,22 +19,38 @@ let mapsMayrhofenSchema = new mongoose.Schema({
 
 mapsMayrhofenSchema.statics.updateAnnotationCollection = function (annotation, type, website, cid, callbackSemantifyExtension) {
     const Annotations = mongoose.model(website);
-    let annotationDetailObject = {
-        cid: cid,
-        allTypes: type,
-        annotation: annotation
-    };
-    for (let k = 0; k < type.length; k++) {
-        Annotations
-            .findOne({type: type[k]})
-            .then(function (annotationType) {
-                if (!annotationType) {
-                    createNewAnnotationType(annotationDetailObject, type[k], website, callbackSemantifyExtension);
-                } else {
-                    updateExistingAnnotationType(annotationType, annotationDetailObject, type[k], website, callbackSemantifyExtension);
-                }
-            })
+    let annotationAsJson;
+    try {
+        annotationAsJson = JSON.parse(annotation);
+    } catch (err) {
+        console.error("Couldnt process Annotation: " + err)
     }
+    if (annotationAsJson) {
+        let lang = "unknown";
+        if (cid.indexOf("en") >= 0) {
+            lang = "en";
+        } else if (cid.indexOf("de") >= 0) {
+            lang = "de";
+        }
+        let annotationDetailObject = {
+            cid: cid,
+            allTypes: type,
+            language: lang,
+            annotation: annotationAsJson
+        };
+        for (let k = 0; k < type.length; k++) {
+            Annotations
+                .findOne({type: type[k]})
+                .then(function (annotationType) {
+                    if (!annotationType) {
+                        createNewAnnotationType(annotationDetailObject, type[k], website, callbackSemantifyExtension);
+                    } else {
+                        updateExistingAnnotationType(annotationType, annotationDetailObject, type[k], website, callbackSemantifyExtension);
+                    }
+                })
+        }
+    }
+
 };
 
 function updateExistingAnnotationType(annotationType, annotationDetailObject, type, website, callbackSemantifyExtension) {
@@ -55,7 +71,7 @@ function updateExistingAnnotationType(annotationType, annotationDetailObject, ty
     annotationType.markModified("annotations");
     annotationType.save(function (err) {
         if (err) {
-            return next(err);
+            console.error(err);
         } else {
             successfullySavingAnnotation(type, website, cid, found, callbackSemantifyExtension);
         }

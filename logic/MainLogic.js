@@ -41,9 +41,24 @@ function intendListHotels(app){
     MapsMayrhofen
         .findOne({type:"Hotel"})
         .then(function (hotelObject) {
-            // parameters are:
-            // app.inputs.number
-            app.tell('We found: '+ hotelObject.count + " Hotels in our Database in " + app.inputs["geo-city"]);
+            let maxBoundry = 0;
+            let responseMsg = "";
+            let foundAnnotations = [];
+            for(let k=0;k<hotelObject.annotations.length;k++){
+                let annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
+                if(annotationAddressLocality === app.inputs["geo-city"]){
+                    foundAnnotations.push(hotelObject.annotations[k].annotation);
+                }
+            }
+            if(foundAnnotations.length <= app.inputs.number){
+                maxBoundry = foundAnnotations.length;
+            }else{
+                maxBoundry = app.inputs.number;
+            }
+            for(let i=0;i<maxBoundry;i++){
+               responseMsg += foundAnnotations[i].name + ",\n "
+            }
+            app.tell('We found: '+ hotelObject.count + " Hotels in our Database in " + app.inputs["geo-city"]+" \nThe top: "+maxBoundry +" Hotelnames are: "+responseMsg);
         });
 }
 
