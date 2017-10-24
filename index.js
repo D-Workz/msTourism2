@@ -24,7 +24,7 @@ webhook.post('/webhook', function(req, res) {
 
 webhook.get('/hans', function(req, res) {
     app.handleRequest(req, res, handlers);
-    res.json({hans:"hans00"});
+    res.json({hans:"hans00c"});
     app.execute();
 });
 
