@@ -45,7 +45,12 @@ class SemantifyExtension {
 
     requestAnnotationDetailsFromSemantify(allAnnotationsOfAPIKEY) {
         let that = this;
-        let jsonAnnotations = JSON.parse(allAnnotationsOfAPIKEY);
+        let jsonAnnotations;
+        try{
+            jsonAnnotations = JSON.parse(allAnnotationsOfAPIKEY);
+        }catch (err){
+            jsonAnnotations = 0;
+        }
         this.count = jsonAnnotations.length;
         for (let i = 0; i < jsonAnnotations.length; i++) {
             let annotationCID = jsonAnnotations[i].CID;

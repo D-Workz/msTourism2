@@ -17,9 +17,10 @@ const MayrhofenAt = mongoose.model('MayrhofenAt');
 
 
 class Logic {
-    constructor() {}
+    constructor() {
+    }
 
-   static getHandlers(){
+    static getHandlers() {
         return {
             'LAUNCH': function () {
                 app.toIntent('HelloWorldIntent');
@@ -37,28 +38,44 @@ class Logic {
 
 }
 
-function intendListHotels(app){
+function intendListHotels(app) {
     MapsMayrhofen
-        .findOne({type:"Hotel"})
+        .findOne({type: "Hotel"})
         .then(function (hotelObject) {
             let maxBoundry = 0;
             let responseMsg = "";
             let foundAnnotations = [];
-            for(let k=0;k<hotelObject.annotations.length;k++){
-                let annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
-                if(annotationAddressLocality === app.inputs["geo-city"]){
-                    foundAnnotations.push(hotelObject.annotations[k].annotation);
+            let addressLocality;
+            for (let k = 0; k < hotelObject.annotations.length; k++) {
+                let annotationAddressLocality;
+                try {
+                    annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
+                } catch (err) {
+                    console.warn("Cant get address Locality");
+                }
+                if (annotationAddressLocality) {
+                    if (app.inputs["geo-city"] !== "") {
+                        addressLocality = app.inputs["geo-city"];
+                    } else if (app.inputs.villages !== "") {
+                        addressLocality = app.inputs.villages;
+                    } else {
+                        app.tell('Name a place.');
+                        return;
+                    }
+                    if (annotationAddressLocality === addressLocality) {
+                        foundAnnotations.push(hotelObject.annotations[k].annotation);
+                    }
                 }
             }
-            if(foundAnnotations.length <= app.inputs.number){
+            if (foundAnnotations.length <= app.inputs.number) {
                 maxBoundry = foundAnnotations.length;
-            }else{
+            } else {
                 maxBoundry = app.inputs.number;
             }
-            for(let i=0;i<maxBoundry;i++){
-               responseMsg += foundAnnotations[i].name + ",\n "
+            for (let i = 0; i < maxBoundry; i++) {
+                responseMsg += foundAnnotations[i].name + ", "
             }
-            app.tell('We found: '+ hotelObject.count + " Hotels in our Database in " + app.inputs["geo-city"]+" \nThe top: "+maxBoundry +" Hotelnames are: "+responseMsg);
+            app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
         });
 }
 
