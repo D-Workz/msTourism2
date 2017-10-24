@@ -5,16 +5,28 @@
 const SemantifyExtension = require("./SemantifyExtension");
 const config = require('config');
 
+let startParameters =
+    "all";
+    // "MapsMayrhofen";
+    // "MapsSeefeld";
+    // "SeefeldAt";
+    // "MayrhofenAt";
+
 let allApikeys = config.get("apikey");
 
 class StartExtension {
-    constructor() {
+    constructor(startParameters) {
         this.allApiKeys = [];
         this.timeouthandle;
+        this.startParameters = startParameters;
     }
     start(allApikeys){
-        for (let apikey in allApikeys) {
-            this.allApiKeys.push(apikey);
+        if(this.startParameters === "all"){
+            for (let apikey in allApikeys) {
+                this.allApiKeys.push(apikey);
+            }
+        }else{
+            this.allApiKeys.push(this.startParameters);
         }
         if(this.allApiKeys.length !== 0){
             this.startNewWebsite();
@@ -46,4 +58,4 @@ class StartExtension {
 module.exports = StartExtension;
 
 
-new StartExtension().start(allApikeys);
+new StartExtension(startParameters).start(allApikeys);
