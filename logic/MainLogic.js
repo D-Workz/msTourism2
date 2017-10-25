@@ -32,10 +32,68 @@ class Logic {
 
             'ListHotels': function () {
                 intendListHotels(app);
+            },
+            'HotelDescriptionWithContext': function () {
+                intendHotelDescriptionWithContext(app);
+            },
+            'HotelDescriptionWithoutContext': function () {
+                intendHotelDescriptionWithoutContext(app);
+            },
+            'HotelRoomsWithContext': function () {
+                intendHotelRoomsWithContext(app);
+            },
+            'HotelRoomsWithoutContext': function () {
+                intendHotelRoomsWithoutContext(app);
+            },
+            'HotelBedsWithContext': function () {
+                intendHotelBedsWithContext(app);
+            },
+            'HotelBedsWithoutContext': function () {
+                intendHotelBedsWithoutContext(app);
+            },
+            'HotelStarsWithContext': function () {
+                intendHotelStarsWithContext(app);
+            },
+            'HotelStarsWithoutContext': function () {
+                intendHotelStarsWithoutContext(app);
             }
         };
     }
 
+}
+
+function intendHotelStarsWithoutContext(app){
+    app.tell("Done hotel stars without context!" );
+}
+
+function intendHotelStarsWithContext(app){
+    app.tell("Done hotel stars with context!" );
+}
+
+
+function intendHotelBedsWithoutContext(app){
+    app.tell("Done hotel beds without context!" );
+}
+
+function intendHotelBedsWithContext(app){
+    app.tell("Done hotel beds with context!" );
+}
+
+function intendHotelRoomsWithoutContext(app){
+    app.tell("Done hotel rooms without context!" );
+}
+
+function intendHotelRoomsWithContext(app){
+    app.tell("Done hotel rooms with context!" );
+}
+
+function intendHotelDescriptionWithoutContext(app){
+    app.tell("Done hotel desc without context!" );
+}
+
+function intendHotelDescriptionWithContext(app) {
+
+    app.tell("Done hotel desc with context!" );
 }
 
 function intendListHotels(app) {
@@ -54,8 +112,8 @@ function intendListHotels(app) {
                     console.warn("Cant get address Locality");
                 }
                 if (annotationAddressLocality) {
-                    if (app.inputs["geo-city"] !== "") {
-                        addressLocality = app.inputs["geo-city"];
+                    if (app.inputs["villages"] !== "") {
+                        addressLocality = app.inputs["villages"];
                     } else if (app.inputs.villages !== "") {
                         addressLocality = app.inputs.villages;
                     } else {
