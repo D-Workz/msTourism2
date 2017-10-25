@@ -27,7 +27,7 @@ class Logic {
             },
 
             'HelloWorldIntent': function () {
-                app.tell('Hello hhhhhhhhh World!');
+                app.tell('Hello hhhhhhhhhsds World!');
             },
 
             'ListHotels': function () {
