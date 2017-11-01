@@ -26,12 +26,30 @@ class Logic {
                 app.toIntent('HelloWorldIntent');
             },
 
-            'HelloWorldIntent': function () {
-                app.tell('Hello hhhhhhhhhsds World!');
+            'HelloWorldIntent': function (data) {
+            	if(data){
+            		console.log(data)
+            	}
+                app.tell('I like trains');
             },
 
             'ListHotels': function () {
                 intendListHotels(app);
+            },
+            'TEST_TestIntentWithParam': function(){
+            	console.log(app.inputs);
+            	app.setSessionAttribute("prevInputs", app.inputs);
+            	//app.tell("Alright");
+            	app.followUpState('TestState').ask("Do you want something?","Yes or no");
+            },
+            'TestState' : {
+            	'TEST_YesIntent' : function(){
+            		console.log(app.getSessionAttribute("prevInputs"))
+            		app.tell("I like trains");
+            	},
+            	'TEST_NoIntent' : function(){
+            		app.tell("I don't like trains");
+            	}
             }
         };
     }
@@ -39,6 +57,7 @@ class Logic {
 }
 
 function intendListHotels(app) {
+//	console.log(app.inputs)
     MapsMayrhofen
         .findOne({type: "Hotel"})
         .then(function (hotelObject) {
