@@ -84,7 +84,8 @@ function intendHotelRoomsWithoutContext(app){
 }
 
 function intendHotelRoomsWithContext(app){
-    app.tell("Done hotel rooms with context!" );
+  //  var villages = app.inputs["hotelName"];
+    app.tell("Done hotel rooms with context! + "  );
 }
 
 function intendHotelDescriptionWithoutContext(app){
@@ -133,6 +134,7 @@ function intendListHotels(app) {
             for (let i = 0; i < maxBoundry; i++) {
                 responseMsg += foundAnnotations[i].name + ", "
             }
+
             app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
         });
 }
