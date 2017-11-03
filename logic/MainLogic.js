@@ -36,6 +36,38 @@ class Logic {
             'ListHotels': function () {
                 intendListHotels(app);
             },
+            'TEST_LIST_SOMETHING' : function(){
+            	console.log("\nTEST_LIST_SOMETHING-Intent activated");
+
+            	var thing = app.inputs.thing;
+            	var place = app.inputs.place;
+            	
+            	console.log("Input parameters: thing='"+thing+"', place='"+place+"'")
+            	
+            	var database;
+            	
+            	if(place==='Seefeld'){
+            		database=SeefeldAt;
+            	}else if(place==='Mayrhofen'){
+            		database=MapsMayrhofen;
+            	}else{
+            		app.tell("Where should I look?");
+            		return;
+            	}
+            	
+            	if(thing==='Things'){
+	            	database.aggregate({$unwind:"$annotations"}).then(function(dataSet){
+	            		app.tell("I found "+dataSet.length+" Things in "+place+". Can you be more specific?");
+	            		return;
+	            	})
+            	}else{
+	            	database.aggregate({$unwind:"$annotations"},{$match : {"type":thing}}).then(function(dataSet){
+	            		app.tell("I found "+dataSet.length+" "+thing+"s in "+place+". Can you be more specific?");
+	            		return;
+	            	})            		
+            	}            	            	
+            },            
+            //just test-intends
             'TEST_TestIntentWithParam': function(){
             	console.log(app.inputs);
             	app.setSessionAttribute("prevInputs", app.inputs);
@@ -54,6 +86,13 @@ class Logic {
         };
     }
 
+}
+
+function intendListThings(app, database){
+	database.find({}).then(function(dataSet){
+		console.log(dataSet.length)
+	})
+	aggregate({$unwind:"$annotations"}).toArray().length
 }
 
 function intendListHotels(app) {

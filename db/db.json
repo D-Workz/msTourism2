@@ -5,8 +5,19 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2017-11-01T18:08:50.186Z",
-				"lastUsedAt": "2017-11-01T22:03:26.077Z",
-				"sessionsCount": 29
+				"lastUsedAt": "2017-11-02T10:19:38.608Z",
+				"sessionsCount": 53
+			}
+		}
+	},
+	{
+		"userId": "API.AI Debugging",
+		"userData": {
+			"data": {},
+			"metaData": {
+				"createdAt": "2017-11-02T16:29:07.129Z",
+				"lastUsedAt": "2017-11-02T16:44:28.647Z",
+				"sessionsCount": 7
 			}
 		}
 	}
