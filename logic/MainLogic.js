@@ -94,7 +94,7 @@ function intendHotelDescriptionWithoutContext(app){
 
 function intendHotelDescriptionWithContext(app) {
 
-    app.tell("Done hotel desc with context!" );
+    app.tell("Done hotel desc with cosdfntext!" );
 }
 
 function intendListHotels(app) {
