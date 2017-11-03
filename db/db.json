@@ -16,8 +16,735 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2017-11-02T16:29:07.129Z",
-				"lastUsedAt": "2017-11-02T16:44:28.647Z",
-				"sessionsCount": 7
+				"lastUsedAt": "2017-11-03T19:38:36.146Z",
+				"sessionsCount": 76
+			}
+		},
+		"data": {
+			"selectedHotel": {
+				"_id": "59ef9726018351320cd132a9",
+				"count": 354,
+				"type": "Hotel",
+				"annotations": {
+					"annotation": {
+						"@context": "http://schema.org",
+						"@type": [
+							"Hotel"
+						],
+						"url": [
+							"http://www.klosterbraeu.com",
+							"http://www.moving-pictures.de/v6/klosterbraeu/index.php?neutral=yes",
+							"http://upload.seefeld.com/intranet/Deskline/AGBH2006.pdf"
+						],
+						"address": {
+							"@type": "PostalAddress",
+							"name": "Seyrling GmbH & Co KG",
+							"streetAddress": "Klosterstr. 30",
+							"addressLocality": "Seefeld",
+							"postalCode": "6100",
+							"addressCountry": "AT",
+							"telephone": "+4352122621",
+							"faxNumber": "+4352123885",
+							"email": "info@klosterbraeu.com",
+							"url": "http://www.klosterbraeu.at"
+						},
+						"name": "Hotel Klosterbräu",
+						"description": [
+							"The former monastery of Seefeld has been with the Seyrling family for 6 generations now. Located right in the centre of the town the Klosterbräu is known for its delicious cuisine, its incomparable style and architecture and its excellent service. The hotel offers a great variety of wellness-, relax-, fitness-, gourmet- and meeting facilities.",
+							"Extensive Gourmet breakfast buffet, or late-risers breakfast till 3 pm. Free of charge is: parking lot, PC-Internet access with W-LAN, transport and pick-up service within town limits, free use of gym and wellness facilities, daily live music and piano bar\nDogs: € 26 per day\ncovered garage: € 25 per day",
+							"Check-in: 3p.m./check-out: 11 a.m.\nSituated in the village centre, in the pedestrian area, access with car to the hotel allowed, own parking-area next to the hotel"
+						],
+						"aggregateRating": {
+							"@type": "AggregateRating",
+							"ratingValue": "4.6",
+							"reviewCount": "331"
+						},
+						"image": [
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/0b046122-4f93-46fb-8e47-85f17dc9a03c/99/image.png",
+								"caption": "Klosterbräu"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/ffe6046a-1152-405b-83cf-b8313500b169/99/image.jpg",
+								"caption": "Pool"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/312937fc-d5f4-4d8f-870a-71f1f4e7b435/99/image.jpg",
+								"caption": "Sommer"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/2790825b-231c-4140-b1d7-54ce7a6d585a/99/image.jpg",
+								"caption": "Winter"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/6640b9a5-9bdd-4a6a-9c30-ee5461219308/99/image.jpg",
+								"caption": "Familie Seyrling"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/7faaea58-945f-4038-9041-99be983d5897/99/image.jpg",
+								"caption": "Hotelhalle"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/17842d06-a005-42ef-9181-0bcf7e9cdb7b/99/image.jpg",
+								"caption": "Maximilianhalle"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/132701b8-23c3-4fd2-bd86-545c05f5d5c5/99/image.jpg",
+								"caption": "Pool innen"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/20450d8f-3eea-4e93-a736-68d0e38b7a2d/99/image.jpg",
+								"caption": "Weinkeller"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/4690b98f-2ec7-4786-82d3-f766b618cc3c/99/image.jpg",
+								"caption": "Eventsauna"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/4a42a478-60e7-4183-83de-80e81871132b/99/image.jpg",
+								"caption": "Ruhebereich"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/e1df941d-1a71-442d-87da-a32ea8335129/99/image.jpg",
+								"caption": "Garten"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/d9be1727-f491-4f67-9912-210f9d687905/99/image.jpg",
+								"caption": "Spa Gang"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/f25f5faa-ed5f-4b33-84f5-d23af749f2b8/99/image.jpg",
+								"caption": "Wellness Rezeption"
+							},
+							{
+								"@type": "ImageObject",
+								"url": "http://resc.deskline.net/images/SEE/1/d4dbde8d-0018-4b4d-a6c3-0ad46cb809c7/99/image.jpg",
+								"caption": "Bräukeller& Grill"
+							}
+						],
+						"geo": {
+							"@type": "GeoCoordinates",
+							"latitude": "47.3289130077641",
+							"longitude": "11.1857806361963"
+						},
+						"currenciesAccepted": "EUR",
+						"makesOffer": [
+							{
+								"@type": "Offer",
+								"name": "Suite, shower and bath, toilet",
+								"description": "The \"Family - suite\" approx. 40 - 55 m², is spacious equipped with two separate bedrooms (one for children with a bulk bed), bath/shower, sep. WC, safe, minbar, Sat-TV, radio/CD player, telephone, hair-dryer, bath robe, living area and balcony or terrace.",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "suite with shower, bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "265.00",
+										"maxPrice": "1889.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "265.00",
+										"maxPrice": "265.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 4",
+										"minPrice": "265.00",
+										"maxPrice": "265.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Suite, shower and bath, toilet",
+								"description": "The \"Emperior suite\" apprpx. 70 m² is spacious designed with two separate bed rooms (one for children with a bulk bed), a living room in Tyrolean style, a bath room with turquoise washbasin with lions as columns, sep. WC, additionally separated shower with washbasin, walk-in closet, safe, minibar, sat-tv, radio/CD player, telephone, hair-dryer, bath robe and balcony with afternoon sun.",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "suite with shower, bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "409.00",
+										"maxPrice": "1720.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "409.00",
+										"maxPrice": "1720.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 4",
+										"minPrice": "409.00",
+										"maxPrice": "1720.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Suite, shower and bath, toilet",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "suite with shower, bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "269.00",
+										"maxPrice": "1280.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Suite, shower and bath, toilet",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "suite with shower, bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "299.00",
+										"maxPrice": "1266.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "299.00",
+										"maxPrice": "1266.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 4",
+										"minPrice": "299.00",
+										"maxPrice": "1266.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Suite, shower and bath, toilet",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "Yoga und Naturtage, Suite Deluxe mit Balkon",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "458.00",
+										"maxPrice": "458.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "563.00",
+										"maxPrice": "563.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 4",
+										"minPrice": "668.00",
+										"maxPrice": "668.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Single room, bath, toilet",
+								"description": "Spacious single room, ca. 24 m², some rooms with older furnishings, mountain view.",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "single room with bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "1",
+										"minValue": "1"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 1",
+										"minPrice": "199.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "double room with small sitting area, ca. 24 m², some rooms with older furnishings",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "double room with bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "3",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "159.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "159.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "double room with sitting area, ca. 30 m², some rooms with older furnishings, balcony",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "Yoga und Naturtage, Doppelzimmer Comfort Plus",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "310.00",
+										"maxPrice": "310.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "415.00",
+										"maxPrice": "415.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "double room with sitting area, ca. 30 m², some rooms with older furnishings, balcony",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "double room with bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "179.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "179.00",
+										"maxPrice": "179.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "Double room, bath, toilet",
+									"image": [
+										{
+											"@type": "ImageObject",
+											"url": "http://resc.deskline.net/images/SEE/1/b4cbadf5-f982-47a4-a4a3-3d4857171a01/99/image.jpg",
+											"caption": "Langlauf"
+										}
+									],
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "2",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "675.00",
+										"maxPrice": "675.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "double room with bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "190.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "190.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, bath, toilet",
+								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "Yoga und Naturtage, Doppelzimmer Excellence",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "350.00",
+										"maxPrice": "350.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "455.00",
+										"maxPrice": "455.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, shower and bath, toilet",
+								"description": "spacious, modern double room with separated sleeping and sitting area, ca. 40 m², private terrace",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "Yoga und Naturtage, Doppelzimmer Royal",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "420.00",
+										"maxPrice": "420.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "525.00",
+										"maxPrice": "525.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Double room, shower and bath, toilet",
+								"description": "spacious, modern double room with separated sleeping and sitting area, ca. 40 m², private terrace",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "double room with shower, bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "229.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "229.00",
+										"maxPrice": "999.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							},
+							{
+								"@type": "Offer",
+								"name": "Suite, bath, toilet",
+								"description": "spacious living room with sitting area and dining table, separate bedroom, balcony, ca. 45 - 55 m²",
+								"availability": "http://schema.org/InStock",
+								"itemOffered": {
+									"@type": [
+										"HotelRoom",
+										"Product"
+									],
+									"name": "suite with bath tub, WC",
+									"bed": {
+										"@type": "BedDetails",
+										"numberOfBeds": "1"
+									},
+									"occupancy": {
+										"@type": "QuantitativeValue",
+										"maxValue": "4",
+										"minValue": "2"
+									}
+								},
+								"priceSpecification": [
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 2",
+										"minPrice": "245.00",
+										"maxPrice": "1018.00",
+										"priceCurrency": "EUR"
+									},
+									{
+										"@type": "PriceSpecification",
+										"description": "Pax 3",
+										"minPrice": "245.00",
+										"maxPrice": "1018.00",
+										"priceCurrency": "EUR"
+									}
+								]
+							}
+						],
+						"priceRange": "EUR 159.0 - 1889.0"
+					},
+					"language": "en",
+					"allTypes": [
+						"Hotel"
+					],
+					"cid": "b46edd20-74fe-40f9-947a-20b856e12fa4-en"
+				},
+				"__v": 354
+			}
+		}
+	},
+	{
+		"userId": "AI_yXq-yXfM3AODbucABLE2tE-jK",
+		"userData": {
+			"data": {},
+			"metaData": {
+				"createdAt": "2017-11-03T15:29:38.779Z",
+				"lastUsedAt": "2017-11-03T15:30:30.770Z",
+				"sessionsCount": 2
 			}
 		}
 	}
