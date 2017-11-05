@@ -33,68 +33,92 @@ class Logic {
             'ListHotels': function () {
                 intendListHotels(app);
             },
-            'HotelDescriptionWithContext': function () {
-                intendHotelDescriptionWithContext(app);
-            },
+
             'HotelDescriptionWithoutContext': function () {
                 intendHotelDescriptionWithoutContext(app);
             },
-            'HotelRoomsWithContext': function () {
-                intendHotelRoomsWithContext(app);
-            },
+
             'HotelRoomsWithoutContext': function () {
                 intendHotelRoomsWithoutContext(app);
             },
-            'HotelBedsWithContext': function () {
-                intendHotelBedsWithContext(app);
-            },
+
             'HotelBedsWithoutContext': function () {
                 intendHotelBedsWithoutContext(app);
             },
-            'HotelStarsWithContext': function () {
-                intendHotelStarsWithContext(app);
-            },
+
             'HotelStarsWithoutContext': function () {
                 intendHotelStarsWithoutContext(app);
+            },
+            'HotelNameKnownState': {
+                'HotelDescriptionWithContext': function () {
+                    intendHotelDescriptionWithContext(app);
+                },
+                'HotelRoomsWithContext': function () {
+                    intendHotelRoomsWithContext(app);
+                },
+                'HotelBedsWithContext': function () {
+                    intendHotelBedsWithContext(app);
+                },
+                'HotelStarsWithContext': function () {
+                    intendHotelStarsWithContext(app);
+                },
+
             }
+
         };
     }
 
 }
 
-function intendHotelStarsWithoutContext(app){
-    app.tell("Done hotel stars without context!" );
+function intendHotelStarsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel stars without context!");
 }
 
-function intendHotelStarsWithContext(app){
-    app.tell("Done hotel stars with context!" );
+function intendHotelStarsWithContext(app) {
+    app.tell("Done hotel stars with context!");
 }
 
 
-function intendHotelBedsWithoutContext(app){
-    app.tell("Done hotel beds without context!" );
+function intendHotelBedsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel beds without context!");
 }
 
-function intendHotelBedsWithContext(app){
-    app.tell("Done hotel beds with context!" );
+function intendHotelBedsWithContext(app) {
+    app.tell("Done hotel beds with context!");
 }
 
-function intendHotelRoomsWithoutContext(app){
-    app.tell("Done hotel rooms without context!" );
+function intendHotelRoomsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel rooms without context!");
 }
 
-function intendHotelRoomsWithContext(app){
-  //  var villages = app.inputs["hotelName"];
-    app.tell("Done hotel rooms with context! + "  );
+function intendHotelRoomsWithContext(app) {
+    //  var villages = app.inputs["hotelName"];
+    app.tell("Done hotel rooms with context! + ");
 }
 
-function intendHotelDescriptionWithoutContext(app){
-    app.tell("Done hotel desc without context!" );
+function intendHotelDescriptionWithoutContext(app) {
+    let hotelName = app.inputs['hotelName']
+    app.setSessionAttribute('hotelName', hotelName);
+    findAndTellDescriptionForHotelName(app, hotelName);
 }
 
 function intendHotelDescriptionWithContext(app) {
+    let hotelName = app.getSessionAttribute("hotelName");
+    findAndTellDescriptionForHotelName(app, hotelName);
+}
 
-    app.tell("Done hotel desc with cosdfntext!" );
+function findAndTellDescriptionForHotelName(app, hotelName) {
+    MapsMayrhofen.findOne({type: "Hotel"})
+        .then(function (hotelObject) {
+            for (let i = 0; i < hotelObject.annotations.length; i++) {
+                let name = hotelObject.annotations[i].annotation.name;
+
+                if (hotelName === name) {
+                    let desc = hotelObject.annotations[i].annotation.description;
+                    app.followUpState('HotelNameKnownState').tell(hotelName + ":      " + desc);
+                }
+            }
+        })
 }
 
 function intendListHotels(app) {
@@ -131,6 +155,7 @@ function intendListHotels(app) {
             } else {
                 maxBoundry = app.inputs.number;
             }
+
             for (let i = 0; i < maxBoundry; i++) {
                 responseMsg += foundAnnotations[i].name + ", "
             }
