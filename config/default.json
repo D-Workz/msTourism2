@@ -1,6 +1,6 @@
 {
   "requestPathListAnnotations" : "/api/annotation/list/",
-  "requestPathDetailsOfAnnotation" : "/api/annotation/cid/",
+  "requestPathDetailsOfAnnotation" : "/api/annotation/",
   "host" : "https://semantify.it",
   "DBUrl": "mongodb://localhost:27017/tourism2",
   "port": 3000,

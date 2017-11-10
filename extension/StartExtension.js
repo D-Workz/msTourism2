@@ -7,10 +7,10 @@ const config = require('config');
 
 let startParameters =
     "all";
-    // "MapsMayrhofen";
-    // "MapsSeefeld";
-    // "SeefeldAt";
-    // "MayrhofenAt";
+// "MapsMayrhofen";
+// "MapsSeefeld";
+// "SeefeldAt";
+// "MayrhofenAt";
 
 let allApikeys = config.get("apikey");
 
@@ -20,36 +20,54 @@ class StartExtension {
         this.timeouthandle;
         this.startParameters = startParameters;
     }
-    start(allApikeys){
-        if(this.startParameters === "all"){
+
+    start(allApikeys) {
+        if (this.startParameters === "all") {
             for (let apikey in allApikeys) {
-                this.allApiKeys.push(apikey);
+                let type;
+                if (apikey.indexOf("Mayrhofen") !== -1) {
+                    type = "Mayrhofen";
+                } else {
+                    type = "Seefeld";
+                }
+                this.allApiKeys.push(
+                    {
+                        apikey: allApikeys[apikey],
+                        type: type
+                    });
             }
-        }else{
-            this.allApiKeys.push(this.startParameters);
+        } else {
+            let type;
+            if (this.startParameters.indexOf("Mayrhofen") !== -1) {
+                type = "Mayrhofen";
+            } else type = "Seefled";
+            this.allApiKeys.push({
+                apikey: allApikeys[this.startParameters],
+                type: type
+            });
         }
-        if(this.allApiKeys.length !== 0){
+        if (this.allApiKeys.length !== 0) {
             this.startNewWebsite();
         }
     }
 
-    startNewWebsite(){
+    startNewWebsite() {
         let that = this;
         this.timeouthandle = setTimeout(function () {
             that.startNextWebsite();
-        }, 18*100000);
+        }, 18 * 100000);
         let firstWebsite = this.allApiKeys[0];
         this.allApiKeys.shift();
-        console.log("Website Started: " + firstWebsite);
-        let extension = new SemantifyExtension(allApikeys[firstWebsite],firstWebsite, this);
+        console.log("Website Started: " + firstWebsite["apikey"] + "of type: "+  firstWebsite["type"]);
+        let extension = new SemantifyExtension(firstWebsite, this);
         extension.requestAnnotationsFromSemantify();
     }
 
     startNextWebsite() {
         clearTimeout(this.timeouthandle);
-        if(this.allApiKeys.length === 0){
+        if (this.allApiKeys.length === 0) {
             console.log("Finished: Getting all Annotations from Semantify.");
-        }else{
+        } else {
             this.startNewWebsite();
         }
     }

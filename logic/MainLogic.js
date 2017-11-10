@@ -5,10 +5,10 @@ const config = require('config');
 const app = require('jovo-framework').Jovo;
 const mongoose = require('mongoose');
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
-require('../model/MapsMayrhofen');
+require('../model/Mayrhofen');
 require('../model/MapsSeefeld');
 require('../model/MayrhofenAt');
-require('../model/SeefeldAt');
+require('../model/Seefeld');
 
 const MapsMayrhofen = mongoose.model('MapsMayrhofen');
 const MapsSeefeld = mongoose.model('MapsSeefeld');
