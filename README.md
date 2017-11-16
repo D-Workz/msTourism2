@@ -139,7 +139,7 @@ The backend has three main parts, the logic, the extension and the mongoDB model
 * master: is only for readMe and initial server setup
 * development: latest development branch, latest working development branches are merged into here (should be working)
 * deployment: latest version of the server
-
+---
 * all other branches are development branches and under development... (not working)
 
 ## Configuration
