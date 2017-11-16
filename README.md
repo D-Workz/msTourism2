@@ -134,6 +134,14 @@ The backend has three main parts, the logic, the extension and the mongoDB model
 * The extension requests annotations from semantify.it and saves it in the mongoDB. 
 * The mongoDB model, is defining the annotation model. 
 
+## Branches 
+
+* master: is only for readMe and initial server setup
+* development: latest development branch, latest working development branches are merged into here (should be working)
+* deployment: latest version of the server
+---
+* all other branches are development branches and under development... (not working)
+
 ## Configuration
 The backend is configured with the config.json file. 
 ```
