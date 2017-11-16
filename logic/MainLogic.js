@@ -5,15 +5,9 @@ const config = require('config');
 const app = require('jovo-framework').Jovo;
 const mongoose = require('mongoose');
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
-require('../model/Mayrhofen');
-require('../model/MapsSeefeld');
-require('../model/MayrhofenAt');
-require('../model/Seefeld');
+require('../model/Annotation');
 
-const MapsMayrhofen = mongoose.model('MapsMayrhofen');
-const MapsSeefeld = mongoose.model('MapsSeefeld');
-const SeefeldAt = mongoose.model('SeefeldAt');
-const MayrhofenAt = mongoose.model('MayrhofenAt');
+const Annotations = mongoose.model('Annotation');
 
 
 class Logic {
@@ -39,7 +33,7 @@ class Logic {
 }
 
 function intendListHotels(app) {
-    MapsMayrhofen
+    Annotations
         .findOne({type: "Hotel"})
         .then(function (hotelObject) {
             let maxBoundry = 0;

@@ -24,26 +24,17 @@ class StartExtension {
     start(allApikeys) {
         if (this.startParameters === "all") {
             for (let apikey in allApikeys) {
-                let type;
-                if (apikey.indexOf("Mayrhofen") !== -1) {
-                    type = "Mayrhofen";
-                } else {
-                    type = "Seefeld";
-                }
                 this.allApiKeys.push(
                     {
                         apikey: allApikeys[apikey],
-                        type: type
+                        website: apikey
                     });
             }
         } else {
-            let type;
-            if (this.startParameters.indexOf("Mayrhofen") !== -1) {
-                type = "Mayrhofen";
-            } else type = "Seefled";
+
             this.allApiKeys.push({
                 apikey: allApikeys[this.startParameters],
-                type: type
+                website: this.startParameters
             });
         }
         if (this.allApiKeys.length !== 0) {
@@ -58,7 +49,7 @@ class StartExtension {
         }, 18 * 100000);
         let firstWebsite = this.allApiKeys[0];
         this.allApiKeys.shift();
-        console.log("Website Started: " + firstWebsite["apikey"] + "of type: "+  firstWebsite["type"]);
+        console.log("Website Started: " + firstWebsite["apikey"] + " name: "+  firstWebsite["website"]);
         let extension = new SemantifyExtension(firstWebsite, this);
         extension.requestAnnotationsFromSemantify();
     }
