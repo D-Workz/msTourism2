@@ -3,13 +3,14 @@
 This project uses the [Jovo](https://www.jovo.tech "Jovo's website") framework, to create a voice application for Google Home. 
 The Dialog is based on annotations from Mayrhofen and Seefeld. These are required from [semantify.it](https://www.semantify.it "semantify.it's website").
 
-The next section will explain how to setup the server and google dialogflow. 
+The following README, will first explain, how to setup the project and then go in the second section into more detail concerning the backend. 
+
 The setup description is based on the guide from Jovo of a Sample Voice App for Jovo. 
 
 Thanks for the good tutorial and the easy to use framework. 
 
 
-## Setup
+# Section 1 Setup
 
 ### Getting Started
 
@@ -120,3 +121,78 @@ You can find a reference to all Jovo functions [here](https://www.jovo.tech/fram
 
 ## We need your help
 Jovo is a free, open source framework for voice developers. We're improving it every day and appreciate any feedback. How to support us? Just go ahead and build something cool with the framework and let us know at feedback@jovo.tech. Thanks!
+
+
+
+# Section 2 Backend
+
+## Introduction 
+
+The backend has three main parts, the logic, the extension and the mongoDB model. 
+
+* The logic handles the intends coming from Google DialogFlow over the /webhook. 
+* The extension requests annotations from semantify.it and saves it in the mongoDB. 
+* The mongoDB model, is defining the annotation model. 
+
+## Configuration
+The backend is configured with the config.json file. 
+```
+{
+  "requestPathListAnnotations": "/api/annotation/list/",
+  "requestPathDetailsOfAnnotation": "/api/annotation/cid/",
+  "host": "https://semantify.it",
+  "DBUrl": "mongodb://localhost:27017/tourism2",
+  "port": 3000,
+  "apikey": {
+    "MayrhofenAt": "HycivrHG-",
+    "MapsMayrhofen": "ryJfFtrYZ",
+    "MapsSeefeld": "rk8gFtSKW",
+    "SeefeldAt": "r1Rpt-rpx"
+  },
+  "languages": {
+    "English": "en"
+  }
+}
+```
+* The two paths are configuring the way semantify.it is used to obtain the annotations. First a list of all annotations of an “apikey” are requested, then if the annotation has one of the “languages” it is downloaded and saved inside the mongoDB.
+* host: defines semantify.it as the host of our annotations. 
+* DBUrl: Defines the mongoDB/Tourism2 as our local Database
+* port: Defines the port used by Jovo to request the webhook
+* apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
+* languages: Annotations, in these languages will be saved in the database. 
+
+## The model
+The model is called annotation and is organized as following: 
+```
+    type: {type: String},
+    name: {type: String},
+    annotation: {type: Object},
+    annotationId: {type: String,  unique: true},
+    website:{type: String},
+    language:{type: String}
+```
+
+* type: type of annotation can be multiple 
+* name: name of the annotation 
+* annotation: the actual annotaion 
+* annotationId: id of the annotation used for update 
+* website: one of the websites defined in the config.json file
+* language: the language of the annotation format: "en", "de"
+
+## Extension 
+
+The extension can be run as a node module using
+```
+$ node extension\StartExtension.js
+
+```
+
+It uses the configuration of the config.json file 
+
+* host: where to get annotations from 
+* paths: which path to obtain annotation 
+* apikeys: which websites to parse 
+* languages: only annotations in the defined languages will be saved
+
+The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
+
