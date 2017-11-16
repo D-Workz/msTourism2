@@ -47,11 +47,11 @@ For the server you need mongoDB.
 
 Follow this guide to install it on your system.
 
-([Install MongoDB](https://docs.mongodb.com/manual/installation/ "MongoDB installation")):
+[Install MongoDB](https://docs.mongodb.com/manual/installation/ "MongoDB installation")
 
 A handy tool is 
 
-([Robomongo](https://robomongo.org/ "Robomongo")): to show your mongoDB collections/databases
+[Robomongo](https://robomongo.org/ "Robomongo") to show your mongoDB collections/databases
 
 
 #### Step 3: index.js
