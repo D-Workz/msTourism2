@@ -168,7 +168,7 @@ The backend is configured with the config.json file.
 * The two paths are configuring the way semantify.it is used to obtain the annotations. First a list of all annotations of an “apikey” are requested, then if the annotation has one of the “languages” it is downloaded and saved inside the mongoDB.
 * host: defines semantify.it as the host of our annotations. 
 * DBUrl: Defines the mongoDB/Tourism2 as our local Database
-* port: Defines the port used by Jovo to request the webhook
+* port: Our server port
 * apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
 * languages: Annotations, in these languages will be saved in the database. 
 * requestFrequencyMilliseconds: milliseconds between each request
