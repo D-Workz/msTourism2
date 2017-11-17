@@ -138,7 +138,7 @@ The backend has three main parts, the logic, the extension and the mongoDB model
 
 * master: is only for readMe and initial server setup
 * development: latest development branch, latest working development branches are merged into here (should be working)
-* deployment: latest version of the server
+* deployment: latest version of the server (working)
 ---
 * all other branches are development branches and under development... (not working)
 
@@ -209,8 +209,6 @@ It uses the configuration of the config.json file
 
 The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
 
-### Limiter 
-The extension contains a limiter, which regulates how many requests per millisecond will be send to semantify. Currently it is set to 1 request every 750 ms, since a higher frequency caused more failures inside the requests. 
 
 ## Setup your mongoDB, with annotations
 Two  possible ways to create your database "tourism2". 
