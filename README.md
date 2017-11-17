@@ -1,61 +1,76 @@
-# Sample Voice App for Jovo
+# msTourism
 
-[Jovo](https://www.jovo.tech "Jovo's website") is a framework for voice developers to create cross-platform apps. Use this repository as a starting point to create a voice application for Amazon Alexa and Google Home.
+This project uses the [Jovo](https://www.jovo.tech "Jovo's website") framework, to create a voice application for Google Home. 
+The Dialog is based on annotations from Mayrhofen and Seefeld. These are required from [semantify.it](https://www.semantify.it "semantify.it's website").
 
-You can find an early version of the documentation [here](https://docs.google.com/document/d/1SN_M-kS76Yz6B5pfMFrlYtM-ly2l10aZce3ULrZJztw/edit?usp=sharing "Jovo Docs"). You can also use the ["Get Started"](https://www.jovo.tech/get-started "Jovo Framework Quickstart Guide") guide on jovo.tech.
+The following README, will first explain, how to setup the project and then go in the second section into more detail concerning the backend. 
+
+The setup description is based on the guide from Jovo of a Sample Voice App for Jovo. 
+
+Thanks for the good tutorial and the easy to use framework. 
 
 
+# Section 1 Setup
 
-## Getting Started
+### Getting Started
 
-In this guide, you will learn how to create a "Hello World" voice app for both Amazon Alexa and Google Assistant.
+In this guide, you will learn how to create setup msTourism, which is a Voiceapp for Google Home. 
+The content of your communication will be based on Annotations from [semantify.it](https://www.semantify.it "semantify.it's website")
 
-### Step 1: Download Sample App
+#### Step 1: Download Sample App
 
 Clone this repository to your coding environment:
 
 ```
-$ git clone https://github.com/jovotech/jovo-sample-voice-app-nodejs.git
+$ git clone https://github.com/D-Dawg/msTourism2.git
 ```
 
 This repository includes
-* index.js, a "Hello World" template for local development
-* index_lambda.js, a "Hello World" template for AWS Lambda
-* /assets, a folder with files to easily configure your projects on Amazon and API.AI
-* package.json, including dependencies for the jovo-framework package
+* index.js, which includes the webhook used in Dialogflow
+* /extension, is an application, which connects to semantify.it and downloads all annotations from the defined apikeys (config file)
+* /config, contains a configuration file for the extension and mongoDB 
+* /logic, contains the logic of the apllication, what happens under which intend
+* /model, the mongoDB model, which holds the annotations
+* package.json, including dependencies for msTourism 
 
 
-Use node package manager to install the dependencies ([jovo-framework](https://www.npmjs.com/package/jovo-framework "Jovo NPM Package")):
+Use node package manager to install the dependencies for Jovo ([jovo-framework](https://www.npmjs.com/package/jovo-framework "Jovo NPM Package")):
+and for the server of msTourism
+
 
 ```
 $ npm install
 ```
 
+#### Step 2: Install mongoDB
 
-### Step 2: Configure index.js
+For the server you need mongoDB. 
 
-The index.js file, especially the handlers variable, is where your app's logic is happening. At this point, you don't need to change anything, but it's helpful to have a quick look at how the file is structured.
+Follow this guide to install it on your system.
 
-You can run this template in two ways:
-* Webhook (stick to the index.js)
-* AWS Lambda (use the index_lambda.js and rename it to index.js)
+([Install MongoDB](https://docs.mongodb.com/manual/installation/ "MongoDB installation")):
 
-For local development and debugging, we recommend using a webhook and a tunnel service like ngrok (see next step). If you wish to run your app as a Lambda function, you can use the index_lambda.js and rename it to index.js.)
+A handy tool is 
+
+([Robomongo](https://robomongo.org/ "Robomongo")): to show your mongoDB collections/databases
 
 
+#### Step 3: index.js
 
-### Step 3: Run local development server
+The index.js file, is configured to use a webhook, which is then called in DIalogFlow. 
+As the original guide of Jovo suggests it is a good tool to use ngrok to create an https-address to your localhost
 
-If you're using the webhook version (index.js), you can run a local development server with the following command: 
+#### Step 4: Run local development server
 
+To start the server, use: 
 ```
 $ node index.js
 
 // It should return this:
-Local development server listening on port 3000.
+Local development server listening on port 3000. <- which is defined in the config file
 ```
 
-#### Use ngrok to create a link to your local webhook
+##### Use ngrok to create a link to your local webhook
 
 The problem with running your code locally is that it is not accessible from the outside. This is where [ngrok](https://www.ngrok.com) comes into play. It's a tunneling service that points to your localhost to create an accessible web service. If you don't have ngrok yet, you can install it globally via npm:
 
@@ -73,110 +88,16 @@ Use the secure link and add "/webhook" to it, as shown below.
 
 This will be added to the projects on the respective developer platforms of Amazon and Google. Keep the ngrok terminal tab open in the background and move on to the next step.
 
+#### Step 5: Your dialog for Google Home
 
-
-### Step 4: "Hello World" on Amazon Alexa
-
-To create a project for Alexa, you need to go to the [Amazon Developer Portal](https://developer.amazon.com/) and sign up with the same account you use for your Alexa enabled device.
-
-If it's your first time to set up a project for Amazon Alexa, [here's a tutorial](https://github.com/alexa/skill-sample-nodejs-fact/blob/master/README.md)
-
-#### Skill Information
-
-Use "Custom Interaction Model" and choose a name and invocation name of your choice. For help with your invocation name, we recommend the [official guide by Amazon](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/choosing-the-invocation-name-for-an-alexa-skill).
-
-
-
-#### Interaction Model
-
-You can either manually create a custom intent called HelloWorldIntent with 2 utterances "say hello" or "say hi," or copy and paste the examples from below. We recommend the new Skill Builder (in beta), but feel free to use the old editor if you want to.
-
-##### Skill Builder Beta: Code Editor
-```
-{
-  "intents": [
-    {
-      "name": "AMAZON.CancelIntent",  
-      "samples": []  
-    },
-    {
-      "name": "AMAZON.HelpIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.StopIntent",
-      "samples": []
-    },
-    {
-      "name": "HelloWorldIntent",
-      "samples": [
-        "say hello",
-        "say hi"
-      ],
-      "slots": []
-    }
-  ]
-}
-```
-
-##### Old Editor: Intent Schema
-
-```
-{
-  "intents": [
-    { "intent": "HelloWorldIntent" },
-    { "intent": "AMAZON.HelpIntent" },
-    { "intent": "AMAZON.StopIntent" },
-    { "intent": "AMAZON.CancelIntent" }
-  ]
-}
-```
-
-##### Old Editor: Sample Utterances
-
-```
-HelloWorldIntent say hello
-HelloWorldIntent say hi
-```
-
-
-#### Configuration
-
-In this step, choose an HTTPS endpoint and paste your webhook link provided by ngrok. Important: Make sure to add "/webhook" to the url.
-
-
-#### SSL Certificate
-
-As you're using a subdomain provided by ngrok, please choose the second option: "My development endpoint is a sub-domain [...]"
-
-
-#### Testing
-You can test your Alexa skill either directly on the Amazon Developer Portal in the section "Test," or on your Alexa enabled device (if it's connected to the same email address).
-
-Just type in "say hello" and see what it returns!
-
-![Enter an utterance to test your Alexa skill](https://www.jovo.tech/img/get-started/alexa-test.jpg "Jovo Test with Alexa")
-
-Here are other tools that can be used to test your skill: [Reverb](https://reverb.ai/), [EchoSim](https://echosim.io/).
-
-
-
-### Step 5: "Hello World" on Google Home
-There are several possibilities to set up an Action for Google Home/Google Assistant. We recommend using API.AI for the first simple steps. 
-
+Google offers [DialogFlow](https://console.dialogflow.com/), to create a Dialog between your server and the Google Assistant. 
 If it's your first time to set up a project for Google Assistant, [here's a tutorial](https://developers.google.com/actions/apiai/tutorials/getting-started),
 
-#### Import Agent in API.AI
-
-Create a new agent on API.AI with any name and description you want.
-
-Now, go to the preferences section (gear wheel next to the name) and select "Export and Import." There, you can import the sample agent provided in the /assets folder. Or you can [download it here](https://github.com/jovotech/jovo-sample-voice-app-nodejs/blob/master/assets/APIAI_JovoSampleVoiceApp.zip).
-
-#### Fulfillment: Add Webhook
+##### Fulfillment: Add Webhook
 
 In the fulfillment section, add the webhook url provided by ngrok. Again, please make sure to append "/webhook".
 
-#### Integrations: Add Google Action
+##### Integrations: Add Google Action
 
 Choose the "Actions on Google" one-click integration and follow the steps to make the integration work. Done!
 
@@ -189,6 +110,10 @@ Activate test status in the Simulator. Make sure to use the right invocation (th
 ![Using the Simulator to test your Google Action](https://www.jovo.tech/img/get-started/google-test.jpg "Jovo Test with Google Assistant")
 
 
+
+
+Thanks to Jovo, 
+
 ## What else can I do with Jovo?
 
 Jovo is still in early beta, so we're still improving and appreciate any feedback!
@@ -196,3 +121,124 @@ You can find a reference to all Jovo functions [here](https://www.jovo.tech/fram
 
 ## We need your help
 Jovo is a free, open source framework for voice developers. We're improving it every day and appreciate any feedback. How to support us? Just go ahead and build something cool with the framework and let us know at feedback@jovo.tech. Thanks!
+
+
+
+# Section 2 Backend
+
+## Introduction 
+
+The backend has three main parts, the logic, the extension and the mongoDB model. 
+
+* The logic handles the intends coming from Google DialogFlow over the /webhook. 
+* The extension requests annotations from semantify.it and saves it in the mongoDB. 
+* The mongoDB model, is defining the annotation model. 
+
+## Branches 
+
+* master: is only for readMe and initial server setup
+* development: latest development branch, latest working development branches are merged into here (should be working)
+* deployment: latest version of the server
+---
+* all other branches are development branches and under development... (not working)
+
+## Configuration
+The backend is configured with the config.json file. 
+```
+{
+  "requestPathListAnnotations": "/api/annotation/list/",
+  "requestPathDetailsOfAnnotation": "/api/annotation/cid/",
+  "host": "https://semantify.it",
+  "DBUrl": "mongodb://localhost:27017/tourism2",
+  "port": 3000,
+  "apikey": {
+    "MayrhofenAt": "HycivrHG-",
+    "MapsMayrhofen": "ryJfFtrYZ",
+    "MapsSeefeld": "rk8gFtSKW",
+    "SeefeldAt": "r1Rpt-rpx"
+  },
+  "languages": {
+    "English": "en"
+  },
+  "requestFrequencyMilliseconds":{
+    "milliseconds": 75
+  }
+}
+```
+* The two paths are configuring the way semantify.it is used to obtain the annotations. First a list of all annotations of an “apikey” are requested, then if the annotation has one of the “languages” it is downloaded and saved inside the mongoDB.
+* host: defines semantify.it as the host of our annotations. 
+* DBUrl: Defines the mongoDB/Tourism2 as our local Database
+* port: Defines the port used by Jovo to request the webhook
+* apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
+* languages: Annotations, in these languages will be saved in the database. 
+* requestFrequencyMilliseconds: milliseconds between each request
+
+## The model
+The model is called annotation and is organized as following: 
+```
+    type: {type: String},
+    name: {type: String},
+    annotation: {type: Object},
+    annotationId: {type: String,  unique: true},
+    website:{type: String},
+    language:{type: String}
+```
+
+* type: type of annotation can be multiple 
+* name: name of the annotation 
+* annotation: the actual annotaion 
+* annotationId: id of the annotation used for update 
+* website: one of the websites defined in the config.json file
+* language: the language of the annotation format: "en", "de"
+
+## Extension 
+
+The extension can be run as a node module using
+```
+$ node extension\StartExtension.js
+
+```
+
+It uses the configuration of the config.json file 
+
+* host: where to get annotations from 
+* paths: which path to obtain annotation 
+* apikeys: which websites to parse 
+* languages: only annotations in the defined languages will be saved
+* requestFrequencyMilliseconds: milliseconds between each request
+
+The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
+
+### Limiter 
+The extension contains a limiter, which regulates how many requests per millisecond will be send to semantify. Currently it is set to 1 request every 750 ms, since a higher frequency caused more failures inside the requests. 
+
+## Setup your mongoDB, with annotations
+Two  possible ways to create your database "tourism2". 
+
+### Use the dump
+
+The repository contains a folder /mongoDump inside you find dumps of the database. 
+The files are organized as: 
+
+```
+171117_tourism2 --> YearMonthDay_DBName
+```
+
+* Download & unrar the version you want.
+* Make sure mongo is running. 
+* Navigate into the folder above the unrar result.
+* Then execute: 
+
+```
+mongorestore -d [your_db_name] [your_dump_dir]
+
+in your case
+
+mongorestore -d tourism2 tourism2/
+```
+
+### Run the Extension
+
+Run the extension as described above. 
+With the configuration of 75 ms between each request, it will take you around 45 minutes to update your database. 
+

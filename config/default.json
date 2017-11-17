@@ -1,13 +1,19 @@
 {
-  "requestPathListAnnotations" : "/api/annotation/list/",
-  "requestPathDetailsOfAnnotation" : "/api/annotation/cid/",
-  "host" : "https://semantify.it",
+  "requestPathListAnnotations": "/api/annotation/list/",
+  "requestPathDetailsOfAnnotation": "/api/annotation/cid/",
+  "host": "https://semantify.it",
   "DBUrl": "mongodb://localhost:27017/tourism2",
   "port": 3000,
   "apikey": {
+    "MayrhofenAt": "HycivrHG-",
     "MapsMayrhofen": "ryJfFtrYZ",
     "MapsSeefeld": "rk8gFtSKW",
-    "SeefeldAt": "r1Rpt-rpx",
-    "MayrhofenAt": "HycivrHG-"
+    "SeefeldAt": "r1Rpt-rpx"
+  },
+  "languages": {
+    "English": "en"
+  },
+  "requestFrequencyMilliseconds":{
+    "milliseconds": 75
   }
 }
