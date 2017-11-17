@@ -17,7 +17,7 @@ Thanks for the good tutorial and the easy to use framework.
 In this guide, you will learn how to create setup msTourism, which is a Voiceapp for Google Home. 
 The content of your communication will be based on Annotations from [semantify.it](https://www.semantify.it "semantify.it's website")
 
-#### Step 1: Download Sample App
+#### Step 1: Download msTourism2
 
 Clone this repository to your coding environment:
 
