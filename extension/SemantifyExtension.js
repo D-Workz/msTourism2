@@ -5,8 +5,7 @@
 const request = require('request');
 const mongoose = require('mongoose');
 const config = require('config');
-const RateLimiter = require('limiter').RateLimiter;
-const limiterConfig = config.get("limiter");
+const requestFrequency = config.get("requestFrequencyMilliseconds");
 
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 mongoose.Promise = require('bluebird');
@@ -20,7 +19,6 @@ class SemantifyExtension {
         this.requestPathListAnnotations = config.get("requestPathListAnnotations");
         this.requestPathDetailsOfAnnotation = config.get("requestPathDetailsOfAnnotation");
         this.host = config.get("host");
-        this.limiter = new RateLimiter(limiterConfig["requestsPerMs"], limiterConfig["milliseconds"]);
         this.website = apikey["website"];
         this.count = 0;
         this.totalCount = -1;
@@ -107,7 +105,7 @@ class SemantifyExtension {
                             }, 750);
                         } else {
                             that.updateAnnotationCollection(body, id, language);
-                            that.startNextAnnotation(annotations, index, size, 750);
+                            that.startNextAnnotation(annotations, index, size, requestFrequency);
                         }
                     });
                 })(annotationId, annotationCID, annotationLanguage, requestError, index, size);

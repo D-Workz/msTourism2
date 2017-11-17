@@ -160,10 +160,9 @@ The backend is configured with the config.json file.
   "languages": {
     "English": "en"
   },
-    "limiter":{
-      "requestsPerMs": 1,
-      "milliseconds": 750
-    }
+  "requestFrequencyMilliseconds":{
+    "milliseconds": 75
+  }
 }
 ```
 * The two paths are configuring the way semantify.it is used to obtain the annotations. First a list of all annotations of an “apikey” are requested, then if the annotation has one of the “languages” it is downloaded and saved inside the mongoDB.
@@ -172,7 +171,7 @@ The backend is configured with the config.json file.
 * port: Defines the port used by Jovo to request the webhook
 * apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
 * languages: Annotations, in these languages will be saved in the database. 
-* limiter: RateLimiter is a node module, which limits requests per millisecond, set the rate in which annotations are requested at semantify.it 
+* requestFrequencyMilliseconds: milliseconds between each request
 
 ## The model
 The model is called annotation and is organized as following: 
@@ -206,7 +205,7 @@ It uses the configuration of the config.json file
 * paths: which path to obtain annotation 
 * apikeys: which websites to parse 
 * languages: only annotations in the defined languages will be saved
-* limiter: to set request frequency
+* requestFrequencyMilliseconds: milliseconds between each request
 
 The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
 
@@ -225,13 +224,10 @@ The files are organized as:
 171117_tourism2 --> YearMonthDay_DBName
 ```
 
-Download & unrar the version you want, now run mongorestore with the follwoing parameters.
-
--/msTourism2
---/bson files of the mongoDB
-
-Make sure mongo is running. Then execute: 
-
+* Download & unrar the version you want.
+* Make sure mongo is running. 
+* Navigate into the folder above the unrar result.
+* Then execute: 
 
 ```
 mongorestore -d [your_db_name] [your_dump_dir]
@@ -244,4 +240,5 @@ mongorestore -d tourism2 tourism2/
 ### Run the Extension
 
 Run the extension as described above. 
-Note it takes up to 9 hours, depending on the configuration. 
+With the configuration of 75 ms between each request, it will take you around 45 minutes to update your database. 
+

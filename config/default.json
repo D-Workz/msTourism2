@@ -13,8 +13,7 @@
   "languages": {
     "English": "en"
   },
-  "limiter":{
-    "requestsPerMs": 1,
-    "milliseconds": 750
+  "requestFrequencyMilliseconds":{
+    "milliseconds": 75
   }
 }
