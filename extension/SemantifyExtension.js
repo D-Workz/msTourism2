@@ -6,6 +6,7 @@ const request = require('request');
 const mongoose = require('mongoose');
 const config = require('config');
 const RateLimiter = require('limiter').RateLimiter;
+const limiterConfig = config.get("limiter");
 
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 mongoose.Promise = require('bluebird');
@@ -19,7 +20,7 @@ class SemantifyExtension {
         this.requestPathListAnnotations = config.get("requestPathListAnnotations");
         this.requestPathDetailsOfAnnotation = config.get("requestPathDetailsOfAnnotation");
         this.host = config.get("host");
-        this.limiter = new RateLimiter(1, 1000);
+        this.limiter = new RateLimiter(limiterConfig["requestsPerMs"], limiterConfig["milliseconds"]);
         this.website = apikey["website"];
         this.count = 0;
         this.totalCount = -1;
@@ -58,7 +59,7 @@ class SemantifyExtension {
         let annotationLanguage = null;
         let desiredLanguages = config.get("languages");
         for (let language in desiredLanguages) {
-            if(annotationCID.indexOf(desiredLanguages[language])!==-1){
+            if (annotationCID.indexOf("-"+desiredLanguages[language]) !== -1) {
                 annotationLanguage = desiredLanguages[language];
                 break;
             }
@@ -71,7 +72,7 @@ class SemantifyExtension {
         let annotationCID = annotations[index].CID;
         if (annotationCID) {
             let annotationLanguage = this.checkIfAnnotationDesired(annotationCID);
-            if (annotationLanguage!==null) {
+            if (annotationLanguage !== null) {
                 let annotationId = annotations[index].id;
                 (function (id, cid, language, requestError, index, size) {
                     request({
@@ -88,7 +89,7 @@ class SemantifyExtension {
                             setTimeout(function () {
                                 requestError++;
                                 console.warn("Request failed, trying again. Times tried: " + requestError);
-                                if (requestError > 10) {
+                                if (requestError >= 5) {
                                     console.log("---------------" +
                                         "To many errors. On single Annotation \n Skipping: " + cid + "Starting next annotation.");
                                     index++;
@@ -139,12 +140,17 @@ class SemantifyExtension {
         let jsonAnnotations;
         try {
             jsonAnnotations = JSON.parse(allAnnotationsOfAPIKEY);
+            if (jsonAnnotations.metadata["total-count"]) {
+                this.totalCount = jsonAnnotations.metadata["total-count"];
+            } else {
+                this.totalCount = jsonAnnotations.data.length;
+            }
+            let numberOfRequests = jsonAnnotations.data.length;
+            this.doRequest(jsonAnnotations.data, numberOfRequests, 0, 0);
         } catch (err) {
-            jsonAnnotations = 0;
+            console.error(err);
         }
-        this.totalCount = jsonAnnotations.metadata["total-count"];
-        let numberOfRequests = jsonAnnotations.data.length;
-        this.doRequest(jsonAnnotations.data, numberOfRequests, 0, 0);
+
     }
 
 

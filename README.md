@@ -159,7 +159,11 @@ The backend is configured with the config.json file.
   },
   "languages": {
     "English": "en"
-  }
+  },
+    "limiter":{
+      "requestsPerMs": 1,
+      "milliseconds": 750
+    }
 }
 ```
 * The two paths are configuring the way semantify.it is used to obtain the annotations. First a list of all annotations of an “apikey” are requested, then if the annotation has one of the “languages” it is downloaded and saved inside the mongoDB.
@@ -168,6 +172,7 @@ The backend is configured with the config.json file.
 * port: Defines the port used by Jovo to request the webhook
 * apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
 * languages: Annotations, in these languages will be saved in the database. 
+* limiter: RateLimiter is a node module, which limits requests per millisecond, set the rate in which annotations are requested at semantify.it 
 
 ## The model
 The model is called annotation and is organized as following: 
@@ -201,6 +206,42 @@ It uses the configuration of the config.json file
 * paths: which path to obtain annotation 
 * apikeys: which websites to parse 
 * languages: only annotations in the defined languages will be saved
+* limiter: to set request frequency
 
 The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
 
+### Limiter 
+The extension contains a limiter, which regulates how many requests per millisecond will be send to semantify. Currently it is set to 1 request every 750 ms, since a higher frequency caused more failures inside the requests. 
+
+## Setup your mongoDB, with annotations
+Two  possible ways to create your database "tourism2". 
+
+### Use the dump
+
+The repository contains a folder /mongoDump inside you find dumps of the database. 
+The files are organized as: 
+
+```
+171117_tourism2 --> YearMonthDay_DBName
+```
+
+Download & unrar the version you want, now run mongorestore with the follwoing parameters.
+
+-/msTourism2
+--/bson files of the mongoDB
+
+Make sure mongo is running. Then execute: 
+
+
+```
+mongorestore -d [your_db_name] [your_dump_dir]
+
+in your case
+
+mongorestore -d tourism2 tourism2/
+```
+
+### Run the Extension
+
+Run the extension as described above. 
+Note it takes up to 9 hours, depending on the configuration. 

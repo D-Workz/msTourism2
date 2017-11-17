@@ -12,5 +12,9 @@
   },
   "languages": {
     "English": "en"
+  },
+  "limiter":{
+    "requestsPerMs": 1,
+    "milliseconds": 750
   }
 }
