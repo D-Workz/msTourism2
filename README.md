@@ -170,7 +170,7 @@ The backend is configured with the config.json file.
 * DBUrl: Defines the mongoDB/Tourism2 as our local Database
 * port: Our server port
 * apikey: All websites, with correct apikeys of semantify.it, registered here will be processed by the extension
-* languages: Annotations, in these languages will be saved in the database. 
+* languages: Annotations, in these languages will be requested and saved in the database. 
 * requestFrequencyMilliseconds: milliseconds between each request
 
 ## The model
@@ -208,7 +208,7 @@ It uses the configuration of the config.json file
 * requestFrequencyMilliseconds: milliseconds between each request
 
 The extension is desined to run as often as desired, it will update existing annotations and create new ones if required. 
-
+It only requests Annotations, which are in a language defined within the config file. 
 
 ## Setup your mongoDB, with annotations
 Two  possible ways to create your database "tourism2". 
