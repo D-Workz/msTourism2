@@ -10,7 +10,7 @@ class HotelRoomsHandler{
 				
 		app.db().load("selectedHotel", (err, data) => {
 			var hotelName = app.inputs.selectedHotelName;
-			var rooms = data.annotations.annotation.makesOffer;
+			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {}
 			rooms.forEach((roomEntry) => {
 				if(!roomDistribution[roomEntry.itemOffered.name]){

@@ -9,7 +9,7 @@ class HotelDescriptionHandler{
 	doFulfill(app,db){
 				
 		app.db().load("selectedHotel", (err, data) => {
-			var descriptionArr = data.annotations.annotation.description;
+			var descriptionArr = data.annotation.description;
 			var descriptionText = "";
 			descriptionArr.forEach((descEntry) => {
 				descriptionText += descEntry+". ";

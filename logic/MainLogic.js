@@ -3,22 +3,15 @@
 // =================================================================================
 const config = require('config');
 const app = require('jovo-framework').Jovo;
+const bluebird = require('bluebird');
 const mongoose = require('mongoose');
+
+mongoose.Promise = bluebird;
+
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
-require('../model/MapsMayrhofen');
-require('../model/MapsSeefeld');
-require('../model/MayrhofenAt');
-require('../model/SeefeldAt');
+require('../model/Annotation');
 
-const MapsMayrhofen = mongoose.model('MapsMayrhofen');
-const MapsSeefeld = mongoose.model('MapsSeefeld');
-const SeefeldAt = mongoose.model('SeefeldAt');
-const MayrhofenAt = mongoose.model('MayrhofenAt');
-
-var DBs = {
-		Mayrhofen : MapsMayrhofen,
-		Seefeld : SeefeldAt
-}
+const Annotations = mongoose.model('Annotation');
 
 //handler-factory
 const HandlerContainer = require('./HandlerContainer');
@@ -39,90 +32,130 @@ class Logic {
             },
 
             'ListHotels': function () {            	
-            	handlers.allHotelsHandler.doFulfill(app,DBs[app.inputs.villages]);
+            	handlers.allHotelsHandler.doFulfill(app,Annotations);
                 //intendListHotels(app);
             },
+
             'HotelSelectionWithContext': function () {            	
             	console.log("Selected hotel: '"+app.inputs.selectedHotelName+"'");
-            	handlers.hotelSelectionHandler.doFulfill(app,DBs[app.inputs.villages]);            	
+            	handlers.hotelSelectionHandler.doFulfill(app,Annotations);            	
             },            
             'HotelDescriptionWithContext': function () {
-            	handlers.hotelDescriptionHandler.doFulfill(app,DBs[app.inputs.villages]);            	
+            	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);            	
                 //intendHotelDescriptionWithContext(app);
             },
-            
+
+
             'HotelDescriptionWithoutContext': function () {
                 intendHotelDescriptionWithoutContext(app);
             },
+
             'HotelRoomsWithContext': function () {
-            	handlers.hotelRoomsHandler.doFulfill(app,DBs[app.inputs.villages]);
+            	handlers.hotelRoomsHandler.doFulfill(app,Annotations);
             	//intendHotelRoomsWithContext(app);
             },
+
             'HotelRoomsWithoutContext': function () {
                 intendHotelRoomsWithoutContext(app);
             },
+
             'HotelBedsWithContext': function () {
-            	handlers.hotelBedsHandler.doFulfill(app,DBs[app.inputs.villages]);            	
+            	handlers.hotelBedsHandler.doFulfill(app,Annotations);            	
                 //intendHotelBedsWithContext(app);
             },
+
             'HotelBedsWithoutContext': function () {
                 intendHotelBedsWithoutContext(app);
             },
+
             'HotelStarsWithContext': function () {
-            	handlers.hotelRatingHandler.doFulfill(app,DBs[app.inputs.villages]);            	
+            	handlers.hotelRatingHandler.doFulfill(app,Annotations);            	
                 //intendHotelStarsWithContext(app);
             },
+
             'HotelStarsWithoutContext': function () {
                 intendHotelStarsWithoutContext(app);
             },
-            
-            
+                        
             'HotelPriceWithContext': function () {
-            	handlers.hotelPriceHandler.doFulfill(app,DBs[app.inputs.villages]);            	
+            	handlers.hotelPriceHandler.doFulfill(app,Annotations);            	
                 //intendHotelStarsWithContext(app);
             },
+
+            'HotelNameKnownState': {
+                'HotelDescriptionWithContext': function () {
+                    intendHotelDescriptionWithContext(app);
+                },
+                'HotelRoomsWithContext': function () {
+                    intendHotelRoomsWithContext(app);
+                },
+                'HotelBedsWithContext': function () {
+                    intendHotelBedsWithContext(app);
+                },
+                'HotelStarsWithContext': function () {
+                    intendHotelStarsWithContext(app);
+                },
+
+            }
+
         };
     }
 
 }
 
-function intendHotelStarsWithoutContext(app){
-    app.tell("Done hotel stars without context!" );
+function intendHotelStarsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel stars without context!");
 }
 
-function intendHotelStarsWithContext(app){
-    app.tell("Done hotel stars with context!" );
+function intendHotelStarsWithContext(app) {
+    app.tell("Done hotel stars with context!");
 }
 
 
-function intendHotelBedsWithoutContext(app){
-    app.tell("Done hotel beds without context!" );
+function intendHotelBedsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel beds without context!");
 }
 
-function intendHotelBedsWithContext(app){
-    app.tell("Done hotel beds with context!" );
+function intendHotelBedsWithContext(app) {
+    app.tell("Done hotel beds with context!");
 }
 
-function intendHotelRoomsWithoutContext(app){
-    app.tell("Done hotel rooms without context!" );
+function intendHotelRoomsWithoutContext(app) {
+    app.followUpState('HotelNameKnownState').tell("Done hotel rooms without context!");
 }
 
-function intendHotelRoomsWithContext(app){
-  //  var villages = app.inputs["hotelName"];
-    app.tell("Done hotel rooms with context! + "  );
+function intendHotelRoomsWithContext(app) {
+    //  var villages = app.inputs["hotelName"];
+    app.tell("Done hotel rooms with context! + ");
 }
 
-function intendHotelDescriptionWithoutContext(app){
-    app.tell("Done hotel desc without context!" );
+function intendHotelDescriptionWithoutContext(app) {
+    let hotelName = app.inputs['hotelName']
+    app.setSessionAttribute('hotelName', hotelName);
+    findAndTellDescriptionForHotelName(app, hotelName);
 }
 
 function intendHotelDescriptionWithContext(app) {
+    let hotelName = app.getSessionAttribute("hotelName");
+    findAndTellDescriptionForHotelName(app, hotelName);
+}
 
-    app.tell("Done hotel desc with context!" );
+function findAndTellDescriptionForHotelName(app, hotelName) {
+    MapsMayrhofen.findOne({type: "Hotel"})
+        .then(function (hotelObject) {
+            for (let i = 0; i < hotelObject.annotations.length; i++) {
+                let name = hotelObject.annotations[i].annotation.name;
+
+                if (hotelName === name) {
+                    let desc = hotelObject.annotations[i].annotation.description;
+                    app.followUpState('HotelNameKnownState').tell(hotelName + ":      " + desc);
+                }
+            }
+        })
 }
 
 function intendListHotels(app) {
-    MapsMayrhofen
+    Annotations
         .findOne({type: "Hotel"})
         .then(function (hotelObject) {
             let maxBoundry = 0;
@@ -155,6 +188,7 @@ function intendListHotels(app) {
             } else {
                 maxBoundry = app.inputs.number;
             }
+
             for (let i = 0; i < maxBoundry; i++) {
                 responseMsg += foundAnnotations[i].name + ", "
             }

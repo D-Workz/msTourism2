@@ -10,12 +10,13 @@ class AllHotelsHandler{
 		var nrHotels = app.inputs.number;
 		var place = app.inputs.villages;
 		
-		db.aggregate({$unwind:"$annotations"},{$match:{type:"Hotel"}},{$limit: nrHotels}).then((data) => {
+		db.find({type:"Hotel"}).limit(nrHotels).then((data) => {
 			var allHotels = "";
 			data.forEach((entry) => {
-				var hotelName = entry.annotations.annotation.name;			
+				var hotelName = entry.annotation.name;			
 				allHotels += "'"+hotelName+"', ";
 			})
+
 			if(data.length===0){
 				app.tell("I didn't find any Hotel in "+place);
 			}else{

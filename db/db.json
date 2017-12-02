@@ -16,724 +16,139 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2017-11-02T16:29:07.129Z",
-				"lastUsedAt": "2017-11-03T19:38:36.146Z",
-				"sessionsCount": 76
+				"lastUsedAt": "2017-12-02T09:30:29.163Z",
+				"sessionsCount": 92
 			}
 		},
 		"data": {
 			"selectedHotel": {
-				"_id": "59ef9726018351320cd132a9",
-				"count": 354,
-				"type": "Hotel",
-				"annotations": {
-					"annotation": {
-						"@context": "http://schema.org",
-						"@type": [
-							"Hotel"
-						],
-						"url": [
-							"http://www.klosterbraeu.com",
-							"http://www.moving-pictures.de/v6/klosterbraeu/index.php?neutral=yes",
-							"http://upload.seefeld.com/intranet/Deskline/AGBH2006.pdf"
-						],
-						"address": {
-							"@type": "PostalAddress",
-							"name": "Seyrling GmbH & Co KG",
-							"streetAddress": "Klosterstr. 30",
-							"addressLocality": "Seefeld",
-							"postalCode": "6100",
-							"addressCountry": "AT",
-							"telephone": "+4352122621",
-							"faxNumber": "+4352123885",
-							"email": "info@klosterbraeu.com",
-							"url": "http://www.klosterbraeu.at"
-						},
-						"name": "Hotel Klosterbräu",
-						"description": [
-							"The former monastery of Seefeld has been with the Seyrling family for 6 generations now. Located right in the centre of the town the Klosterbräu is known for its delicious cuisine, its incomparable style and architecture and its excellent service. The hotel offers a great variety of wellness-, relax-, fitness-, gourmet- and meeting facilities.",
-							"Extensive Gourmet breakfast buffet, or late-risers breakfast till 3 pm. Free of charge is: parking lot, PC-Internet access with W-LAN, transport and pick-up service within town limits, free use of gym and wellness facilities, daily live music and piano bar\nDogs: € 26 per day\ncovered garage: € 25 per day",
-							"Check-in: 3p.m./check-out: 11 a.m.\nSituated in the village centre, in the pedestrian area, access with car to the hotel allowed, own parking-area next to the hotel"
-						],
-						"aggregateRating": {
-							"@type": "AggregateRating",
-							"ratingValue": "4.6",
-							"reviewCount": "331"
-						},
-						"image": [
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/0b046122-4f93-46fb-8e47-85f17dc9a03c/99/image.png",
-								"caption": "Klosterbräu"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/ffe6046a-1152-405b-83cf-b8313500b169/99/image.jpg",
-								"caption": "Pool"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/312937fc-d5f4-4d8f-870a-71f1f4e7b435/99/image.jpg",
-								"caption": "Sommer"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/2790825b-231c-4140-b1d7-54ce7a6d585a/99/image.jpg",
-								"caption": "Winter"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/6640b9a5-9bdd-4a6a-9c30-ee5461219308/99/image.jpg",
-								"caption": "Familie Seyrling"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/7faaea58-945f-4038-9041-99be983d5897/99/image.jpg",
-								"caption": "Hotelhalle"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/17842d06-a005-42ef-9181-0bcf7e9cdb7b/99/image.jpg",
-								"caption": "Maximilianhalle"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/132701b8-23c3-4fd2-bd86-545c05f5d5c5/99/image.jpg",
-								"caption": "Pool innen"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/20450d8f-3eea-4e93-a736-68d0e38b7a2d/99/image.jpg",
-								"caption": "Weinkeller"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/4690b98f-2ec7-4786-82d3-f766b618cc3c/99/image.jpg",
-								"caption": "Eventsauna"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/4a42a478-60e7-4183-83de-80e81871132b/99/image.jpg",
-								"caption": "Ruhebereich"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/e1df941d-1a71-442d-87da-a32ea8335129/99/image.jpg",
-								"caption": "Garten"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/d9be1727-f491-4f67-9912-210f9d687905/99/image.jpg",
-								"caption": "Spa Gang"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/f25f5faa-ed5f-4b33-84f5-d23af749f2b8/99/image.jpg",
-								"caption": "Wellness Rezeption"
-							},
-							{
-								"@type": "ImageObject",
-								"url": "http://resc.deskline.net/images/SEE/1/d4dbde8d-0018-4b4d-a6c3-0ad46cb809c7/99/image.jpg",
-								"caption": "Bräukeller& Grill"
-							}
-						],
-						"geo": {
-							"@type": "GeoCoordinates",
-							"latitude": "47.3289130077641",
-							"longitude": "11.1857806361963"
-						},
-						"currenciesAccepted": "EUR",
-						"makesOffer": [
-							{
-								"@type": "Offer",
-								"name": "Suite, shower and bath, toilet",
-								"description": "The \"Family - suite\" approx. 40 - 55 m², is spacious equipped with two separate bedrooms (one for children with a bulk bed), bath/shower, sep. WC, safe, minbar, Sat-TV, radio/CD player, telephone, hair-dryer, bath robe, living area and balcony or terrace.",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "suite with shower, bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
+				"_id": "5a0dff6f1aa073312cc51e07",
+				"website": "MayrhofenAt",
+				"annotation": {
+					"makesOffer": [
+						{
+							"itemOffered": {
+								"occupancy": {
+									"minValue": "2",
+									"maxValue": "2",
+									"@type": "QuantitativeValue"
 								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "265.00",
-										"maxPrice": "1889.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "265.00",
-										"maxPrice": "265.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 4",
-										"minPrice": "265.00",
-										"maxPrice": "265.00",
-										"priceCurrency": "EUR"
-									}
+								"bed": {
+									"numberOfBeds": "1",
+									"@type": "BedDetails"
+								},
+								"name": "double room with shower, WC",
+								"@type": [
+									"HotelRoom",
+									"Product"
 								]
 							},
-							{
-								"@type": "Offer",
-								"name": "Suite, shower and bath, toilet",
-								"description": "The \"Emperior suite\" apprpx. 70 m² is spacious designed with two separate bed rooms (one for children with a bulk bed), a living room in Tyrolean style, a bath room with turquoise washbasin with lions as columns, sep. WC, additionally separated shower with washbasin, walk-in closet, safe, minibar, sat-tv, radio/CD player, telephone, hair-dryer, bath robe and balcony with afternoon sun.",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "suite with shower, bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "409.00",
-										"maxPrice": "1720.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "409.00",
-										"maxPrice": "1720.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 4",
-										"minPrice": "409.00",
-										"maxPrice": "1720.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Suite, shower and bath, toilet",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "suite with shower, bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "269.00",
-										"maxPrice": "1280.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Suite, shower and bath, toilet",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "suite with shower, bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "299.00",
-										"maxPrice": "1266.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "299.00",
-										"maxPrice": "1266.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 4",
-										"minPrice": "299.00",
-										"maxPrice": "1266.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Suite, shower and bath, toilet",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "Yoga und Naturtage, Suite Deluxe mit Balkon",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "458.00",
-										"maxPrice": "458.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "563.00",
-										"maxPrice": "563.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 4",
-										"minPrice": "668.00",
-										"maxPrice": "668.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Single room, bath, toilet",
-								"description": "Spacious single room, ca. 24 m², some rooms with older furnishings, mountain view.",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "single room with bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "1",
-										"minValue": "1"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 1",
-										"minPrice": "199.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "double room with small sitting area, ca. 24 m², some rooms with older furnishings",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "double room with bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "3",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "159.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "159.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "double room with sitting area, ca. 30 m², some rooms with older furnishings, balcony",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "Yoga und Naturtage, Doppelzimmer Comfort Plus",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "310.00",
-										"maxPrice": "310.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "415.00",
-										"maxPrice": "415.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "double room with sitting area, ca. 30 m², some rooms with older furnishings, balcony",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "double room with bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "179.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "179.00",
-										"maxPrice": "179.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "Double room, bath, toilet",
-									"image": [
-										{
-											"@type": "ImageObject",
-											"url": "http://resc.deskline.net/images/SEE/1/b4cbadf5-f982-47a4-a4a3-3d4857171a01/99/image.jpg",
-											"caption": "Langlauf"
-										}
-									],
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "2",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "675.00",
-										"maxPrice": "675.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "double room with bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "190.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "190.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, bath, toilet",
-								"description": "Spacious modern double room, ca. 34 m², sitting area, balcony with mountain view",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "Yoga und Naturtage, Doppelzimmer Excellence",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "350.00",
-										"maxPrice": "350.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "455.00",
-										"maxPrice": "455.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, shower and bath, toilet",
-								"description": "spacious, modern double room with separated sleeping and sitting area, ca. 40 m², private terrace",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "Yoga und Naturtage, Doppelzimmer Royal",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "420.00",
-										"maxPrice": "420.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "525.00",
-										"maxPrice": "525.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Double room, shower and bath, toilet",
-								"description": "spacious, modern double room with separated sleeping and sitting area, ca. 40 m², private terrace",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "double room with shower, bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "229.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "229.00",
-										"maxPrice": "999.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							},
-							{
-								"@type": "Offer",
-								"name": "Suite, bath, toilet",
-								"description": "spacious living room with sitting area and dining table, separate bedroom, balcony, ca. 45 - 55 m²",
-								"availability": "http://schema.org/InStock",
-								"itemOffered": {
-									"@type": [
-										"HotelRoom",
-										"Product"
-									],
-									"name": "suite with bath tub, WC",
-									"bed": {
-										"@type": "BedDetails",
-										"numberOfBeds": "1"
-									},
-									"occupancy": {
-										"@type": "QuantitativeValue",
-										"maxValue": "4",
-										"minValue": "2"
-									}
-								},
-								"priceSpecification": [
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 2",
-										"minPrice": "245.00",
-										"maxPrice": "1018.00",
-										"priceCurrency": "EUR"
-									},
-									{
-										"@type": "PriceSpecification",
-										"description": "Pax 3",
-										"minPrice": "245.00",
-										"maxPrice": "1018.00",
-										"priceCurrency": "EUR"
-									}
-								]
-							}
-						],
-						"priceRange": "EUR 159.0 - 1889.0"
+							"availability": "http://schema.org/InStock",
+							"description": "Comfortable rooms with safe and television.",
+							"name": "Double room, shower, toilet",
+							"@type": "Offer"
+						}
+					],
+					"currenciesAccepted": "EUR",
+					"geo": {
+						"longitude": "11.8652665615082",
+						"latitude": "47.2044893200395",
+						"@type": "GeoCoordinates"
 					},
-					"language": "en",
-					"allTypes": [
+					"image": [
+						{
+							"caption": "Gasthof Post Hippach - Sommer",
+							"url": "http://resc.deskline.net/images/ZIL/1/3f9f5797-cdbd-451d-8efd-1143e6404f3e/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Gasthof Post Hippach - Winter",
+							"url": "http://resc.deskline.net/images/ZIL/1/b9f4dadc-a442-4833-bf91-654a09d56890/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Ahornbahn © Frank Bauer",
+							"url": "http://resc.deskline.net/images/ZIL/1/437bd237-1b63-4484-a84b-610bceeaab40/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Hochgebirgs-Naturpark Zillertaler Alpen © Norbert ",
+							"url": "http://resc.deskline.net/images/ZIL/1/031f127e-6b2c-4d0e-992e-1e1f19c01219/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Panorama © Laurin Moser",
+							"url": "http://resc.deskline.net/images/ZIL/1/6b0975cc-562c-44e5-ae0a-1f58e04a8b00/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Pistenspaß © Laurin Moser",
+							"url": "http://resc.deskline.net/images/ZIL/1/34150712-2849-4407-b62c-371540c276be/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Wandern am Stausee © Norbert Freudenthaler",
+							"url": "http://resc.deskline.net/images/ZIL/1/00466d7b-53d0-415e-8658-a32e9f3ebe83/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Wandern im Naturpark © Norbert Freudenthaler",
+							"url": "http://resc.deskline.net/images/ZIL/1/03316706-7e2c-4dfb-81f5-3f19d052cbf1/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Wandern im Stilluptal © Bernd Ritschel",
+							"url": "http://resc.deskline.net/images/ZIL/1/06ede821-dfea-42cf-a408-eb0c0b55066e/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Gipfel © Paul Sürth",
+							"url": "http://resc.deskline.net/images/ZIL/1/724dee83-f3bb-449e-8048-e86e4efb9ae7/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Winterwandern © Laurin Moser",
+							"url": "http://resc.deskline.net/images/ZIL/1/8c005706-a751-48a4-bba0-0f126b8b8ad8/99/image.jpg",
+							"@type": "ImageObject"
+						},
+						{
+							"caption": "Winter am Berg © Laurin Moser",
+							"url": "http://resc.deskline.net/images/ZIL/1/acba64b7-d081-4a55-b262-2730e3675d9e/99/image.jpg",
+							"@type": "ImageObject"
+						}
+					],
+					"description": [
+						"Check in 12.00 - Check out 10.00",
+						"Our hotel is situated in a central position in Hippach. swimming pool, tennis court, minigolf, apres ski and discos in the near.",
+						"children reduction on request"
+					],
+					"name": "Gasthof Post",
+					"address": {
+						"url": "http://www.gasthofposthippach.at",
+						"email": "h.hundsbichler@aon.at",
+						"faxNumber": "0043 5282 36527",
+						"telephone": "0043 5282 3652",
+						"addressCountry": "AT",
+						"postalCode": "6283",
+						"addressLocality": "Hippach",
+						"streetAddress": "Hippach-Dorf 18",
+						"name": "Hundsbichler Riedl KG",
+						"@type": "PostalAddress"
+					},
+					"url": [
+						"http://www.gasthofposthippach.at",
+						"http://maps.mayrhofen.at/?foreignResource=B34AA276-05CD-4193-A6F6-348C40BC063F"
+					],
+					"@type": [
 						"Hotel"
 					],
-					"cid": "b46edd20-74fe-40f9-947a-20b856e12fa4-en"
+					"@context": "http://schema.org"
 				},
-				"__v": 354
+				"language": "en",
+				"annotationId": "594bc7229f1f536c6f7d4bec",
+				"name": "Gasthof Post",
+				"type": "Hotel",
+				"__v": 0
 			}
 		}
 	},
