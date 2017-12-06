@@ -47,7 +47,8 @@ class Logic {
 
 
             'HotelDescriptionWithoutContext': function () {
-                intendHotelDescriptionWithoutContext(app);
+                handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+                // intendHotelDescriptionWithoutContext(app);
             },
 
             'HotelRoomsWithContext': function () {

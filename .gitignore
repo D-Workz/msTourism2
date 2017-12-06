@@ -121,7 +121,6 @@ msTourism2/
 
 # on my local machine a ngrok exe file
 ngrok/
-node_modules/
-package-lock.json
 
 ngrok/ngrok.exe
+
