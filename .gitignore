@@ -12,6 +12,8 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 
+mongodb/db
+
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -91,7 +93,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
- package-lock.json
+ .api/package-lock.json
 # Typescript v1 declaration files
 typings/
 
@@ -121,7 +123,9 @@ msTourism2/
 
 # on my local machine a ngrok exe file
 ngrok/
-node_modules/
-package-lock.json
+.api/node_modules/
+.api/ackage-lock.json
 
 ngrok/ngrok.exe
+/.idea/misc.xml
+/.idea/vcs.xml

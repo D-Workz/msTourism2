@@ -1,0 +1,27 @@
+{
+  "name": "msTourism",
+  "version": "0.0.1",
+  "description": "A touristic voice application",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "config": "^1.27.0",
+    "jovo-framework": "<=1.0.0",
+    "limiter": "^1.1.2",
+    "pm2": "^2.7.1",
+    "mongoose": "^4.12.4",
+    "ratelimiter": "^3.0.3",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/D-Dawg/msTourism2.git"
+  },
+  "author": "msTourism",
+  "license": "Apache-2.0"
+}

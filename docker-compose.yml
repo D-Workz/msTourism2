@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+
+  api:
+    container_name: msTourism
+    build: ./api
+    volumes:
+      - ./api:/var/msTourism2
+    ports:
+      - 127.0.0.1:3000:3000
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongo
+    image: mongo:3.4
+    volumes:
+      - ./mongodb/db:/data/db
+    ports:
+      - 127.0.0.1:27017:27017
+
+
