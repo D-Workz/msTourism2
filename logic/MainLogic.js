@@ -4,6 +4,7 @@
 const config = require('config');
 const app = require('jovo-framework').Jovo;
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/Annotation');
 
@@ -116,46 +117,51 @@ function findAndTellDescriptionForHotelName(app, hotelName) {
 }
 
 function intendListHotels(app) {
-    Annotations
-        .findOne({type: "Hotel"})
-        .then(function (hotelObject) {
-            let maxBoundry = 0;
-            let responseMsg = "";
-            let foundAnnotations = [];
-            let addressLocality;
-            for (let k = 0; k < hotelObject.annotations.length; k++) {
-                let annotationAddressLocality;
-                try {
-                    annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
-                } catch (err) {
-                    console.warn("Cant get address Locality");
-                }
-                if (annotationAddressLocality) {
-                    if (app.inputs["villages"] !== "") {
-                        addressLocality = app.inputs["villages"];
-                    } else if (app.inputs.villages !== "") {
-                        addressLocality = app.inputs.villages;
-                    } else {
-                        app.tell('Name a place.');
-                        return;
-                    }
-                    if (annotationAddressLocality === addressLocality) {
-                        foundAnnotations.push(hotelObject.annotations[k].annotation);
-                    }
-                }
-            }
-            if (foundAnnotations.length <= app.inputs.number) {
-                maxBoundry = foundAnnotations.length;
-            } else {
-                maxBoundry = app.inputs.number;
-            }
+    let query = {type:/Hotel/};
+    Annotations.mfind(query, function (result) {
+        console.log(result);
+    })
 
-            for (let i = 0; i < maxBoundry; i++) {
-                responseMsg += foundAnnotations[i].name + ", "
-            }
-
-            app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
-        });
+    // Annotations
+    //     .find({type: "Hotel"})
+    //     .then(function (hotelObject) {
+    //         let maxBoundry = 0;
+    //         let responseMsg = "";
+    //         let foundAnnotations = [];
+    //         let addressLocality;
+    //         for (let k = 0; k < hotelObject.annotations.length; k++) {
+    //             let annotationAddressLocality;
+    //             try {
+    //                 annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
+    //             } catch (err) {
+    //                 console.warn("Cant get address Locality");
+    //             }
+    //             if (annotationAddressLocality) {
+    //                 if (app.inputs["villages"] !== "") {
+    //                     addressLocality = app.inputs["villages"];
+    //                 } else if (app.inputs.villages !== "") {
+    //                     addressLocality = app.inputs.villages;
+    //                 } else {
+    //                     app.tell('Name a place.');
+    //                     return;
+    //                 }
+    //                 if (annotationAddressLocality === addressLocality) {
+    //                     foundAnnotations.push(hotelObject.annotations[k].annotation);
+    //                 }
+    //             }
+    //         }
+    //         if (foundAnnotations.length <= app.inputs.number) {
+    //             maxBoundry = foundAnnotations.length;
+    //         } else {
+    //             maxBoundry = app.inputs.number;
+    //         }
+    //
+    //         for (let i = 0; i < maxBoundry; i++) {
+    //             responseMsg += foundAnnotations[i].name + ", "
+    //         }
+    //
+    //         app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
+    //     });
 }
 
 module.exports = Logic;
