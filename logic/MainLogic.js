@@ -3,13 +3,19 @@
 // =================================================================================
 const config = require('config');
 const app = require('jovo-framework').Jovo;
+const bluebird = require('bluebird');
 const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+
+mongoose.Promise = bluebird;
+
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/Annotation');
 
 const Annotations = mongoose.model('Annotation');
 
+//handler-factory
+const HandlerContainer = require('./HandlerContainer');
+const handlers = new HandlerContainer();
 
 class Logic {
     constructor() {
@@ -26,24 +32,56 @@ class Logic {
             },
 
             'ListHotels': function () {
-                intendListHotels(app);
+            	handlers.allHotelsHandler.doFulfill(app,Annotations);
+                //intendListHotels(app);
             },
+
+            'HotelSelectionWithContext': function () {
+            	console.log("Selected hotel: '"+app.inputs.selectedHotelName+"'");
+            	handlers.hotelSelectionHandler.doFulfill(app,Annotations);
+            },
+            'HotelDescriptionWithContext': function () {
+            	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+                //intendHotelDescriptionWithContext(app);
+            },
+
 
             'HotelDescriptionWithoutContext': function () {
                 intendHotelDescriptionWithoutContext(app);
+            },
+
+            'HotelRoomsWithContext': function () {
+            	handlers.hotelRoomsHandler.doFulfill(app,Annotations);
+            	//intendHotelRoomsWithContext(app);
             },
 
             'HotelRoomsWithoutContext': function () {
                 intendHotelRoomsWithoutContext(app);
             },
 
+            'HotelBedsWithContext': function () {
+            	handlers.hotelBedsHandler.doFulfill(app,Annotations);
+                //intendHotelBedsWithContext(app);
+            },
+
             'HotelBedsWithoutContext': function () {
                 intendHotelBedsWithoutContext(app);
+            },
+
+            'HotelStarsWithContext': function () {
+            	handlers.hotelRatingHandler.doFulfill(app,Annotations);
+                //intendHotelStarsWithContext(app);
             },
 
             'HotelStarsWithoutContext': function () {
                 intendHotelStarsWithoutContext(app);
             },
+
+            'HotelPriceWithContext': function () {
+            	handlers.hotelPriceHandler.doFulfill(app,Annotations);
+                //intendHotelStarsWithContext(app);
+            },
+
             'HotelNameKnownState': {
                 'HotelDescriptionWithContext': function () {
                     intendHotelDescriptionWithContext(app);
