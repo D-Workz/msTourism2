@@ -32,8 +32,8 @@ class Logic {
             },
 
             'ListHotels': function () {
-            	handlers.allHotelsHandler.doFulfill(app,Annotations);
-                //intendListHotels(app);
+            	// handlers.allHotelsHandler.doFulfill(app,Annotations);
+                intendListHotels(app);
             },
 
             'HotelSelectionWithContext': function () {
@@ -140,66 +140,11 @@ function intendHotelDescriptionWithContext(app) {
     findAndTellDescriptionForHotelName(app, hotelName);
 }
 
-function findAndTellDescriptionForHotelName(app, hotelName) {
-    MapsMayrhofen.findOne({type: "Hotel"})
-        .then(function (hotelObject) {
-            for (let i = 0; i < hotelObject.annotations.length; i++) {
-                let name = hotelObject.annotations[i].annotation.name;
-
-                if (hotelName === name) {
-                    let desc = hotelObject.annotations[i].annotation.description;
-                    app.followUpState('HotelNameKnownState').tell(hotelName + ":      " + desc);
-                }
-            }
-        })
-}
-
 function intendListHotels(app) {
-    let query = {type:/Hotel/};
-    Annotations.mfind(query, function (result) {
+    let query = {type:/Hotel/, name:"Schweizerhof"};
+    Annotations.mfindOne(query).then(function (result) {
         console.log(result);
     })
-
-    // Annotations
-    //     .find({type: "Hotel"})
-    //     .then(function (hotelObject) {
-    //         let maxBoundry = 0;
-    //         let responseMsg = "";
-    //         let foundAnnotations = [];
-    //         let addressLocality;
-    //         for (let k = 0; k < hotelObject.annotations.length; k++) {
-    //             let annotationAddressLocality;
-    //             try {
-    //                 annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
-    //             } catch (err) {
-    //                 console.warn("Cant get address Locality");
-    //             }
-    //             if (annotationAddressLocality) {
-    //                 if (app.inputs["villages"] !== "") {
-    //                     addressLocality = app.inputs["villages"];
-    //                 } else if (app.inputs.villages !== "") {
-    //                     addressLocality = app.inputs.villages;
-    //                 } else {
-    //                     app.tell('Name a place.');
-    //                     return;
-    //                 }
-    //                 if (annotationAddressLocality === addressLocality) {
-    //                     foundAnnotations.push(hotelObject.annotations[k].annotation);
-    //                 }
-    //             }
-    //         }
-    //         if (foundAnnotations.length <= app.inputs.number) {
-    //             maxBoundry = foundAnnotations.length;
-    //         } else {
-    //             maxBoundry = app.inputs.number;
-    //         }
-    //
-    //         for (let i = 0; i < maxBoundry; i++) {
-    //             responseMsg += foundAnnotations[i].name + ", "
-    //         }
-    //
-    //         app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
-    //     });
 }
 
 module.exports = Logic;
