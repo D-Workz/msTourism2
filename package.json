@@ -1,29 +1,24 @@
 {
-  "name": "jovo-sample-voice-app-nodejs",
+  "name": "msTourism2",
   "version": "0.0.1",
-  "description": "A sample voice app that works with the Jovo framework",
+  "description": "A voice app, designed around annotations from semantify.it",
   "main": "index.js",
   "dependencies": {
     "bluebird": "^3.5.1",
     "config": "^1.27.0",
-    "jovo-framework": "<=1.0.0",
+    "jovo-framework": "^0.6.24",
     "limiter": "^1.1.2",
     "mongoose": "^4.12.4",
+    "ngrok": "^2.2.24",
     "ratelimiter": "^3.0.3",
     "request": "^2.83.0"
   },
-  "devDependencies": {},
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jovotech/jovo-sample-voice-app-nodejs.git"
-  },
-  "author": "Jovo",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/jovotech/jovo-sample-voice-app-nodejs/issues"
-  },
-  "homepage": "https://github.com/jovotech/jovo-sample-voice-app-nodejs#readme"
+    "url": "git+https://github.com/D-Dawg/msTourism2.git"
+  }
 }
