@@ -12,21 +12,24 @@ class HotelRoomsHandler{
 			var hotelName = app.inputs.selectedHotelName;
 			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {}
-			rooms.forEach((roomEntry) => {
-				if(!roomDistribution[roomEntry.itemOffered.name]){
-					roomDistribution[roomEntry.itemOffered.name]=0;
-				}
-				roomDistribution[roomEntry.itemOffered.name]+=1;
-			})
-			
-			var roomDistributionText = "";
-			
-			for(var propertyName in roomDistribution){
-				roomDistributionText += roomDistribution[propertyName] + " room"+(roomDistribution[propertyName] > 1 ? "s" : "")+" of type "+propertyName+", ";
+			if(rooms){
+				rooms.forEach((roomEntry) => {
+					if(!roomDistribution[roomEntry.itemOffered.name]){
+						roomDistribution[roomEntry.itemOffered.name]=0;
+					}
+					roomDistribution[roomEntry.itemOffered.name]+=1;
+				})
+				
+				var roomDistributionText = "";
+				
+				for(var propertyName in roomDistribution){
+					roomDistributionText += roomDistribution[propertyName] + " room"+(roomDistribution[propertyName] > 1 ? "s" : "")+" of type "+propertyName+", ";
+				}				
+	    	    app.tell(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available: "+roomDistributionText.substring(0,roomDistributionText.length-2)); 	    
 			}
-			
-    	    app.tell(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available: "+roomDistributionText.substring(0,roomDistributionText.length-2)); 	    
-    	        	    
+			else{
+				app.tell("This is strange. I couldn't find any rooms in '"+data.annotation.name+"'");
+			}
     	});
 		
 	}		

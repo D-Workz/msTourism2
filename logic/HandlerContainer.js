@@ -7,7 +7,8 @@ const HotelBedsHandler = require('./handler/HotelBedsHandler');
 const HotelPriceHandler = require('./handler/HotelPriceHandler');
 const HotelRoomsHandler = require('./handler/HotelRoomsHandler');
 const HotelRatingHandler = require('./handler/HotelRatingHandler');
-
+const HotelAddressHandler = require('./handler/HotelAddressHandler');
+const HotelContactHandler = require('./handler/HotelContactHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -18,6 +19,8 @@ class HandlerContainer{
 		this.hotelBedsHandler = new HotelBedsHandler();
 		this.hotelRoomsHandler = new HotelRoomsHandler();	
 		this.hotelRatingHandler = new HotelRatingHandler();			
+		this.hotelAddressHandler = new HotelAddressHandler();
+		this.hotelContactHandler = new HotelContactHandler();		
 	}	
 	
 }
