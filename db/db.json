@@ -16,262 +16,139 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2017-11-02T16:29:07.129Z",
-				"lastUsedAt": "2017-12-06T21:57:16.519Z",
-				"sessionsCount": 105
+				"lastUsedAt": "2018-01-04T15:29:12.034Z",
+				"sessionsCount": 107
 			}
 		},
 		"data": {
 			"selectedHotel": {
-				"_id": "5a0df5ef1aa073312cc516c0",
-				"website": "MayrhofenAt",
+				"__v": 0,
+				"type": "Hotel",
+				"name": "Gasthof Post",
+				"annotationId": "594bc7229f1f536c6f7d4bec",
+				"language": "en",
 				"annotation": {
-					"priceRange": "EUR 18.0 - 26.0",
-					"makesOffer": [
-						{
-							"priceSpecification": [
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 2",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 3",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 4",
-									"@type": "PriceSpecification"
-								}
-							],
-							"itemOffered": {
-								"occupancy": {
-									"minValue": "2",
-									"maxValue": "4",
-									"@type": "QuantitativeValue"
-								},
-								"numberOfRooms": "1.0",
-								"name": "ap/comb.living-bedr./1 bedroom/shower,wc, 45m²",
-								"@type": [
-									"Apartment",
-									"Product"
-								]
-							},
-							"availability": "http://schema.org/InStock",
-							"description": "apartment1 > size 45m² on first floor with balcony\n\n1 double bedroom, 1 combined lounge/bedroom with sofa bed, small kitchen fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), shower/WC (hair dryer, towels),\n\nSat-TV, W-LAN.\n\nBread delivery service.",
-							"name": "Apartment, shower, toilet, balcony",
-							"@type": "Offer"
-						},
-						{
-							"priceSpecification": [
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 2",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 3",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 4",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "22.00",
-									"description": "Pax 5",
-									"@type": "PriceSpecification"
-								}
-							],
-							"itemOffered": {
-								"occupancy": {
-									"minValue": "2",
-									"maxValue": "5",
-									"@type": "QuantitativeValue"
-								},
-								"numberOfRooms": "1.0",
-								"name": "5m²ap/comb.living-bedr./1 bedr./shower,",
-								"@type": [
-									"Apartment",
-									"Product"
-								]
-							},
-							"availability": "http://schema.org/InStock",
-							"description": "apartment 2 > size 48m² on first floor with balcony\n\n1 double bedroom, 1 combined lounge/bedroom with sofa bed, small kitchen fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), shower/WC (hair dryer, towels),\n\nSat-TV, W-LAN.\n\nBread delivery service.",
-							"name": "Apartment, shower, toilet, balcony",
-							"@type": "Offer"
-						},
-						{
-							"priceSpecification": [
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "24.00",
-									"minPrice": "18.00",
-									"description": "Pax 2",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "24.00",
-									"minPrice": "18.00",
-									"description": "Pax 3",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "24.00",
-									"minPrice": "18.00",
-									"description": "Pax 4",
-									"@type": "PriceSpecification"
-								}
-							],
-							"itemOffered": {
-								"occupancy": {
-									"minValue": "2",
-									"maxValue": "4",
-									"@type": "QuantitativeValue"
-								},
-								"numberOfRooms": "2.0",
-								"name": "Apartment, separate toilet and shower/bathtub, 1 bed room",
-								"@type": [
-									"Apartment",
-									"Product"
-								]
-							},
-							"availability": "http://schema.org/InStock",
-							"description": "apartment 3 > size 45m² Basement apartment with exit to the garden\n\n1 double bedroom, 1 combined lounge/bedroom with bay window, kitchenette fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), bathroom (hair dryer, towels) and separate WC,\n\nSat-TV, W-LAN.\n\nBread delivery service.",
-							"name": "Apartment, separate toilet and shower/bathtub, 1 bed room",
-							"@type": "Offer"
-						},
-						{
-							"priceSpecification": [
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 1",
-									"@type": "PriceSpecification"
-								},
-								{
-									"priceCurrency": "EUR",
-									"maxPrice": "26.00",
-									"minPrice": "20.00",
-									"description": "Pax 2",
-									"@type": "PriceSpecification"
-								}
-							],
-							"itemOffered": {
-								"occupancy": {
-									"minValue": "1",
-									"maxValue": "2",
-									"@type": "QuantitativeValue"
-								},
-								"bed": {
-									"numberOfBeds": "0",
-									"@type": "BedDetails"
-								},
-								"name": "Double room, shower, toilet",
-								"@type": [
-									"HotelRoom",
-									"Product"
-								]
-							},
-							"availability": "http://schema.org/InStock",
-							"description": "Doubleroom on first floor with balcony\n\nwith shower, WC, without breakfast",
-							"name": "Double room, shower, toilet",
-							"@type": "Offer"
-						}
-					],
-					"currenciesAccepted": "EUR",
-					"paymentAccepted": [
-						"MasterCard",
-						"VISA"
-					],
-					"geo": {
-						"longitude": "11.8612217903137",
-						"latitude": "47.1838683840838",
-						"@type": "GeoCoordinates"
-					},
-					"image": [
-						{
-							"caption": "Wohnung 1",
-							"url": "http://resc.deskline.net/images/ZIL/1/bf474973-c5e9-4262-8e34-857b7461522c/99/image.jpg",
-							"@type": "ImageObject"
-						},
-						{
-							"caption": "Wohnung 2",
-							"url": "http://resc.deskline.net/images/ZIL/1/baca7138-14d0-49c2-8f83-61822537fab8/99/image.jpg",
-							"@type": "ImageObject"
-						},
-						{
-							"caption": "Doppelzimmer",
-							"url": "http://resc.deskline.net/images/ZIL/1/782a27e5-1c2c-46bb-8ffd-fb491f490041/99/image.jpg",
-							"@type": "ImageObject"
-						},
-						{
-							"caption": "Wohnung 3",
-							"url": "http://resc.deskline.net/images/ZIL/1/e7c9879c-26ae-4383-9797-05583cd418b1/99/image.jpg",
-							"@type": "ImageObject"
-						},
-						{
-							"caption": "Haus Mauracher Sommer",
-							"url": "http://resc.deskline.net/images/ZIL/1/26da1ee9-a6d6-4621-a003-8904c41cbb70/99/image.jpg",
-							"@type": "ImageObject"
-						},
-						{
-							"caption": "Haus Mauracher Winter",
-							"url": "http://resc.deskline.net/images/ZIL/1/b29ef4d0-f803-4e14-84a3-dc672c9e21ab/99/image.jpg",
-							"@type": "ImageObject"
-						}
-					],
-					"description": [
-						"Included in price: Electricity, water, heating, Sat-TV, bed linen/towels, microwave, hairdryer.\nTo be paid for additionally: A final cleaning charge of between 25.- and 30.- Euro depending on which apartment, dogs: 3.- Euro per day. Details of childrens discounts available on request.",
-						"Check in: 14.00hr / Check out: 10.00hr.\nUse the B169 until the exit for Horbergbahn/Burgstall. Turn left before the Horberg lifts, and drive through Mülbach until you arrive in Burgstall. Our house can be found on the left.",
-						"Pleasant house with a family atmosphere, quiet position approx. 1km outside of Mayrhofen. Cross country ski trail, ski bus stop and cycle and walking paths are all right outside the front door. Approx. 800 metres to the Horberg lifts, sun bathing and play area for children."
-					],
-					"name": "Haus Mauracher",
-					"address": {
-						"url": "http://www.ferienwohnungen-mauracher.at",
-						"email": "fewo.mauracher@aon.at",
-						"faxNumber": "(0043) 5285 63956",
-						"telephone": "(0043) 5285 63956",
-						"addressCountry": "AT",
-						"postalCode": "6290",
-						"addressLocality": "Mayrhofen",
-						"streetAddress": "Burgstall 346",
-						"name": "Ferienwohnungen Mauracher",
-						"@type": "PostalAddress"
-					},
-					"url": [
-						"http://maps.mayrhofen.at/?foreignResource=A4823322-5713-474A-9FDE-2AF787EED9AA"
-					],
+					"@context": "http://schema.org",
 					"@type": [
 						"Hotel"
 					],
-					"@context": "http://schema.org"
+					"url": [
+						"http://www.gasthofposthippach.at",
+						"http://maps.mayrhofen.at/?foreignResource=B34AA276-05CD-4193-A6F6-348C40BC063F"
+					],
+					"address": {
+						"@type": "PostalAddress",
+						"name": "Hundsbichler Riedl KG",
+						"streetAddress": "Hippach-Dorf 18",
+						"addressLocality": "Hippach",
+						"postalCode": "6283",
+						"addressCountry": "AT",
+						"telephone": "0043 5282 3652",
+						"faxNumber": "0043 5282 36527",
+						"email": "h.hundsbichler@aon.at",
+						"url": "http://www.gasthofposthippach.at"
+					},
+					"name": "Gasthof Post",
+					"description": [
+						"Check in 12.00 - Check out 10.00",
+						"Our hotel is situated in a central position in Hippach. swimming pool, tennis court, minigolf, apres ski and discos in the near.",
+						"children reduction on request"
+					],
+					"image": [
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/3f9f5797-cdbd-451d-8efd-1143e6404f3e/99/image.jpg",
+							"caption": "Gasthof Post Hippach - Sommer"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/b9f4dadc-a442-4833-bf91-654a09d56890/99/image.jpg",
+							"caption": "Gasthof Post Hippach - Winter"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/437bd237-1b63-4484-a84b-610bceeaab40/99/image.jpg",
+							"caption": "Ahornbahn © Frank Bauer"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/031f127e-6b2c-4d0e-992e-1e1f19c01219/99/image.jpg",
+							"caption": "Hochgebirgs-Naturpark Zillertaler Alpen © Norbert "
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/6b0975cc-562c-44e5-ae0a-1f58e04a8b00/99/image.jpg",
+							"caption": "Panorama © Laurin Moser"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/34150712-2849-4407-b62c-371540c276be/99/image.jpg",
+							"caption": "Pistenspaß © Laurin Moser"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/00466d7b-53d0-415e-8658-a32e9f3ebe83/99/image.jpg",
+							"caption": "Wandern am Stausee © Norbert Freudenthaler"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/03316706-7e2c-4dfb-81f5-3f19d052cbf1/99/image.jpg",
+							"caption": "Wandern im Naturpark © Norbert Freudenthaler"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/06ede821-dfea-42cf-a408-eb0c0b55066e/99/image.jpg",
+							"caption": "Wandern im Stilluptal © Bernd Ritschel"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/724dee83-f3bb-449e-8048-e86e4efb9ae7/99/image.jpg",
+							"caption": "Gipfel © Paul Sürth"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/8c005706-a751-48a4-bba0-0f126b8b8ad8/99/image.jpg",
+							"caption": "Winterwandern © Laurin Moser"
+						},
+						{
+							"@type": "ImageObject",
+							"url": "http://resc.deskline.net/images/ZIL/1/acba64b7-d081-4a55-b262-2730e3675d9e/99/image.jpg",
+							"caption": "Winter am Berg © Laurin Moser"
+						}
+					],
+					"geo": {
+						"@type": "GeoCoordinates",
+						"latitude": "47.2044893200395",
+						"longitude": "11.8652665615082"
+					},
+					"currenciesAccepted": "EUR",
+					"makesOffer": [
+						{
+							"@type": "Offer",
+							"name": "Double room, shower, toilet",
+							"description": "Comfortable rooms with safe and television.",
+							"availability": "http://schema.org/InStock",
+							"itemOffered": {
+								"@type": [
+									"HotelRoom",
+									"Product"
+								],
+								"name": "double room with shower, WC",
+								"bed": {
+									"@type": "BedDetails",
+									"numberOfBeds": "1"
+								},
+								"occupancy": {
+									"@type": "QuantitativeValue",
+									"maxValue": "2",
+									"minValue": "2"
+								}
+							}
+						}
+					]
 				},
-				"language": "en",
-				"annotationId": "593fe250b449e00bf0d81a1a",
-				"name": "Haus Mauracher",
-				"type": "Hotel",
-				"__v": 0
+				"website": "MayrhofenAt",
+				"_id": "5a0dff6f1aa073312cc51e07"
 			}
 		}
 	},

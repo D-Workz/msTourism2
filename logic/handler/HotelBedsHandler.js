@@ -29,8 +29,15 @@ class HotelBedsHandler{
 				
 				for(var propertyName in roomDistribution){
 					roomDistributionText += roomDistribution[propertyName] + " bed"+(roomDistribution[propertyName] > 1 ? "s" : "")+" in "+propertyName+", ";
+				}
+				let bedVerb = "are";
+				let bedString = "beds";
+				
+				if(nrOfBeds===1){
+					bedVerb="is";
+					bedString="bed";
 				}			
-					app.tell("Alright. There are "+nrOfBeds+" beds in total in "+hotelName +": "+roomDistributionText.substring(0,roomDistributionText.length-2)); 	    
+					app.tell("Alright. There "+bedVerb+" "+nrOfBeds+" "+bedString+" in total in "+data.annotation.name +": "+roomDistributionText.substring(0,roomDistributionText.length-2)); 	    
 			}else{
 				app.tell("I'm terrible sorry, but I could not find the desired information");
 			}			
