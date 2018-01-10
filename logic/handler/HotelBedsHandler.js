@@ -9,7 +9,7 @@ class HotelBedsHandler{
 	doFulfill(app,db){
 				
 		app.db().load("selectedHotel", (err, data) => {
-			var hotelName = app.inputs.selectedHotelName;
+			var hotelName = data.annotation.name;
 			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {}
 			var nrOfBeds = 0;

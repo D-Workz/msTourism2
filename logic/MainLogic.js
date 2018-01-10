@@ -97,7 +97,13 @@ class Logic {
                 setHotelNameKnown(app, Annotations);
                 handlers.hotelImagesHandler.doFulfill(app, Annotations);
             },
-
+            'HotelAddressWithContext': function () {
+            	handlers.hotelAddressHandler.doFulfill(app,Annotations);
+            },            
+            'HotelContactWithContext': function () {
+            	handlers.hotelContactHandler.doFulfill(app,Annotations);
+            },            
+            
             'HotelNameKnownState': {
                 'HotelDescriptionWithContext': function () {
                     intendHotelDescriptionWithContext(app);
