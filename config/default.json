@@ -5,10 +5,7 @@
   "DBUrl": "mongodb://localhost:27017/tourism2",
   "port": 3000,
   "apikey": {
-    "MayrhofenAt": "HycivrHG-",
-    "MapsMayrhofen": "ryJfFtrYZ",
-    "MapsSeefeld": "rk8gFtSKW",
-    "SeefeldAt": "r1Rpt-rpx"
+    "MapsSeefeld": "rk8gFtSKW"
   },
   "languages": {
     "English": "en"
