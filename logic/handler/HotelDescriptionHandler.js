@@ -14,7 +14,7 @@ class HotelDescriptionHandler{
 			descriptionArr.forEach((descEntry) => {
 				descriptionText += descEntry+". ";
 			})
-    	    app.tell("Alright here comes the description: "+descriptionText);
+    	    app.ask("Alright here comes the description: "+descriptionText);
     	});
 		
 	}		
