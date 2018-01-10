@@ -289,14 +289,14 @@ class SemantifyExtension {
 
     successfullySavingAnnotation(found, id) {
         this.count++;
-        //console.log("----------------------\n" +
-        //    "successfully updated: " + this.website);
+        console.log("----------------------\n" +
+            "successfully updated: " + this.website);
         if (found) {
-        //    console.log("annotation updated: " + id);
+            console.log("annotation updated: " + id);
         } else {
-         //   console.log("new annotation added _id: " + id);
+            console.log("new annotation added _id: " + id);
         }
-//        console.log("Annotations parsed: " + this.count + " of " + this.totalCount);
+        console.log("Annotations parsed: " + this.count + " of " + this.totalCount);
         if (this.count === this.totalCount) {
             this.callbackStartExtension.startNextWebsite();
         }
