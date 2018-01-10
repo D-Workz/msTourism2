@@ -10,8 +10,11 @@ mongoose.Promise = bluebird;
 
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/Annotation');
+require('../model/GeospatialProjection');
+
 
 const Annotations = mongoose.model('Annotation');
+const GeospatialProjections = mongoose.model('GeospatialProjection');
 
 //handler-factory
 const HandlerContainer = require('./HandlerContainer');
@@ -232,4 +235,3 @@ function intendListHotels(app) {
 }
 
 module.exports = Logic;
-

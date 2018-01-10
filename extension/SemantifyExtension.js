@@ -10,7 +10,10 @@ const requestFrequency = config.get("requestFrequencyMilliseconds");
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 mongoose.Promise = require('bluebird');
 require('../model/Annotation');
+require('../model/GeospatialProjection');
+
 const Annotations = mongoose.model('Annotation');
+const GeospatialProjections = mongoose.model('GeospatialProjection');
 
 
 class SemantifyExtension {
@@ -105,6 +108,9 @@ class SemantifyExtension {
                             }, 750);
                         } else {
                             that.updateAnnotationCollection(body, id, language);
+                            //hooked in
+                            that.updateGeospatialCollection(body, id);
+                            
                             that.startNextAnnotation(annotations, index, size, requestFrequency);
                         }
                     });
@@ -167,13 +173,40 @@ class SemantifyExtension {
                     if (!annotation) {
                         that.createNewAnnotationType(annotationAsJson, id, language);
                     } else {
-                        that.updateExistingAnnotationType(annotationAsJson, annotation);
+                        that.updateExistingAnnotationType(annotationAsJson, annotation); 
                     }
                 })
         }
 
     };
 
+
+//======geospatial========    
+    updateGeospatialCollection(annotation, id) {
+        let annotationAsJson;
+        let that = this;
+        try {
+            annotationAsJson = JSON.parse(annotation);
+        } catch (err) {
+            console.error("Couldnt process Annotation: " + err)
+        }
+        if (annotationAsJson) {
+        	GeospatialProjections
+                .findOne({annotationId: id})
+                .then(function (annotation) {
+                    if (!annotation) {
+                        that.createNewAnnotationTypeGeospatial(annotationAsJson, id);
+                    } else {
+                        that.updateExistingAnnotationTypeGeoSpatial(annotationAsJson, annotation); 
+                    }
+                })
+        }
+
+    };
+//====================
+    
+    
+    
     updateExistingAnnotationType(annotationDetailObject, existingAnnotation) {
         let that = this;
         existingAnnotation.type = annotationDetailObject["@type"];
@@ -182,7 +215,7 @@ class SemantifyExtension {
         existingAnnotation.save(function (err, anno) {
             if (err) {
                 console.error(err);
-            } else {
+            } else {                
                 that.successfullySavingAnnotation(true, anno._id);
             }
         });
@@ -200,28 +233,91 @@ class SemantifyExtension {
         newAnnotationsType.save(function (err, anno) {
             if (err) {
                 console.error(err);
-            } else {
+            } else {            	                
                 that.successfullySavingAnnotation(false, anno._id);
             }
         });
     }
 
+    //=======================update geospatial entries=======================================================
+    updateExistingAnnotationTypeGeospatial(annotationDetailObject, existingAnnotation) { 
+    	let that = this;    	
+	    if(annotationDetailObject.geo){	        
+	        existingAnnotation = that.convertGeoToProjection(annotationDetailObject, existingAnnotation);
+	        existingAnnotation.save(function (err, anno) {
+	            if (err) {
+	                console.error(err);
+	            } else {
+	                that.successfullySavingAnnotationGeospatial(true, anno._id);
+	            }
+	        });	        
+	    }	    
+    }    
+
+    createNewAnnotationTypeGeospatial(annotationDetailObject, id) {
+    	let that = this;    	
+	    if(annotationDetailObject.geo){	            	
+	    	let newGeospatialProjections = new GeospatialProjections();
+        
+	    	newGeospatialProjections.annotationID = id;
+	    	newGeospatialProjections=that.convertGeoToProjection(annotationDetailObject, newGeospatialProjections);
+
+	    	newGeospatialProjections.save(function (err, anno) {
+	            if (err) {
+	                console.error(err);
+	            } else {
+	                that.successfullySavingAnnotationGeospatial(false, anno._id);
+	            }
+	        });
+	    }
+    } 
+
+    convertGeoToProjection(originalAnnotation, existingAnnotation){
+        var helper = originalAnnotation.geo;
+        var longitudeToSet = 0;
+        var latitudeToSet = 0;
+
+		if(helper.longitude && helper.latitude && helper.longitude<=180 && helper.latitude<=90){
+		  longitudeToSet=helper.longitude;
+		  latitudeToSet=helper.latitude;
+		}
+		existingAnnotation.geoInfo={type:'Point', coordinates : [Number(longitudeToSet),Number(latitudeToSet)]};
+		return existingAnnotation;
+    }
+    
+//=======================================================================0    
 
     successfullySavingAnnotation(found, id) {
         this.count++;
-        console.log("----------------------\n" +
-            "successfully updated: " + this.website);
+        //console.log("----------------------\n" +
+        //    "successfully updated: " + this.website);
         if (found) {
-            console.log("annotation updated: " + id);
+        //    console.log("annotation updated: " + id);
         } else {
-            console.log("new annotation added _id: " + id);
+         //   console.log("new annotation added _id: " + id);
         }
-        console.log("Annotations parsed: " + this.count + " of " + this.totalCount);
+//        console.log("Annotations parsed: " + this.count + " of " + this.totalCount);
         if (this.count === this.totalCount) {
             this.callbackStartExtension.startNextWebsite();
         }
     }
 
+    
+    successfullySavingAnnotationGeospatial(found, id) {
+        this.count++;
+        console.log("----------------------\n" +
+            "successfully updated: " + this.website);
+        if (found) {
+            console.log("Geospatial annotation updated: " + id);
+        } else {
+            console.log("new geospatial annotation added _id: " + id);
+        }
+        console.log("Annotations parsed: " + this.count + " of " + this.totalCount);
+        if (this.count === this.totalCount) {
+            this.callbackStartExtension.startNextWebsite();
+        }
+    }    
+    
 
 }
 
