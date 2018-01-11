@@ -13,54 +13,53 @@ class HotelImagesHandler {
         app.db().load("selectedHotel", (err, data) => {
 
             let image = data.annotation.image;
-
-          //steffets
-            //   let carousel = new Carousel();
-
-           // for(var counter = 0 ; counter < 3 ; counter ++){
-           //
-           //     let imageObject = image[counter] ;
-           //     if (imageObject) {
-           //         let url = imageObject.url
-           //         if(url && url != ""){
-           //             let optionItem = new OptionItem();
-           //
-           //             optionItem.setTitle('Image '+ (counter+1));
-           //             optionItem.setDescription('desc');
-           //             optionItem.setImage(url, "accesability text");
-           //
-           //             carousel.addItem(optionItem);
-           //
-           //             console.log("Image url: "+url);
-           //         }
-           //     } else {
-           //        // app.ask("I'm terrible sorry, but I could not find the desired information");
-           //     }
-           //
-           //  }
-
-
             let carousel = new Carousel();
 
-            carousel.addItem(
-                (new OptionItem())
-                    .setTitle('Show a BasicCard')
-                    .setDescription('BasicCard')
-                    .setImage('http://via.placeholder.com/650x350?text=Carousel+item+1', 'accessibilityText')
-                    .setKey('Carouselitem1key')
-            );
-            carousel.addItem(
-                (new OptionItem())
-                    .setTitle('Show a List')
-                    .setDescription('Description2')
-                    .setImage('http://via.placeholder.com/650x350?text=Carousel+item+2', 'accessibilityText')
-                    .setKey('Carouselitem2key')
-            );
+            if(image.isArray()){
+
+                for(var counter = 0 ; counter < 3 ; counter ++) {
+
+                    let imageObject = image[counter];
+                    if (imageObject) {
+                        let url = imageObject.url
+                        if (url && url != "") {
+                            let optionItem = new OptionItem();
+
+                            optionItem.setTitle('Image ' + (counter + 1));
+                            optionItem.setDescription('desc');
+                            optionItem.setImage(url, "accesability text");
+
+                            carousel.addItem(optionItem);
+
+                            console.log("Image url: " + url);
+                        }
+                    } else {
+                        // app.ask("I'm terrible sorry, but I could not find the desired information");
+                    }
+                }
+            }else if(image){
+                carousel.addItem(
+                    (new OptionItem())
+                        .setTitle(image.title)
+                        .setDescription(image.description)
+                        .setImage(image.url, image.accessibilityText)
+                        .setKey('Carouselitem1key')
+                );
+
+            }
+
+
+
+
+
+
 
             app.googleAction().showCarousel(carousel);
-            app.googleAction().showSuggestionChips(['List', 'Carousel', 'Basic card']);
 
-            app.ask('Choose from list', 'Choose from list');
+            //not needed i think
+           // app.googleAction().showSuggestionChips(['List', 'Carousel', 'Basic card']);
+
+            app.ask('What else would you like to know ?');
 
 
 
