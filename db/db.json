@@ -16,21 +16,25 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2017-11-02T16:29:07.129Z",
-				"lastUsedAt": "2018-01-10T16:19:01.711Z",
-				"sessionsCount": 107
+				"lastUsedAt": "2018-01-11T20:01:27.460Z",
+				"sessionsCount": 142
 			}
 		},
 		"data": {
 			"selectedHotel": {
 				"__v": 0,
-				"type": "Hotel",
+				"type": "Hotel, Restaurant, BedAndBreakfast, CivicStructure, SportsActivityLocation",
 				"name": "Gasthof Post",
 				"annotationId": "594bc7229f1f536c6f7d4bec",
 				"language": "en",
 				"annotation": {
 					"@context": "http://schema.org",
 					"@type": [
-						"Hotel"
+						"Hotel",
+						"Restaurant",
+						"BedAndBreakfast",
+						"CivicStructure",
+						"SportsActivityLocation"
 					],
 					"url": [
 						"http://www.gasthofposthippach.at",
@@ -145,10 +149,38 @@
 								}
 							}
 						}
-					]
+					],
+					"amenityFeature": [
+						{
+							"identifier": "beds",
+							"value": 16,
+							"name": "Bettenanzahl (nur Hotellerie)",
+							"@type": "LocationFeatureSpecification"
+						},
+						{
+							"identifier": "rooms",
+							"value": 0,
+							"name": "Number of rooms",
+							"@type": "LocationFeatureSpecification"
+						}
+					],
+					"hasMap": "https://maps.mayrhofen.at/en#resourceDetail,1560734",
+					"email": "h.hundsbichler@aon.at",
+					"telephone": "+43 5282 3652",
+					"contactPoint": {
+						"telephone": "+43 5282 3652",
+						"url": "http://www.gasthofposthippach.at",
+						"email": "h.hundsbichler@aon.at",
+						"contactType": "customer support",
+						"@type": "ContactPoint"
+					},
+					"identifier": "1560734"
 				},
-				"website": "MayrhofenAt",
-				"_id": "5a0dff6f1aa073312cc51e07"
+				"website": [
+					"MayrhofenAt",
+					"MapsMayrhofen"
+				],
+				"_id": "5a56609f298a8f6731dc8746"
 			}
 		}
 	},
