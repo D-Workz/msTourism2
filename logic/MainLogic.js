@@ -109,7 +109,9 @@ class Logic {
             'HotelNearbyWithContext': function () {
             	handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
             },             
-            
+            'GenericThingDescription': function () {
+            	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
+            },               
             'HotelNameKnownState': {
                 'HotelDescriptionWithContext': function () {
                     intendHotelDescriptionWithContext(app);

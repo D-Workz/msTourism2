@@ -25,16 +25,16 @@ class HotelNearbyHandler{
 						         }
 						      }
 						   }
-						).then(function(data){
+						).then((data)=>{
 							
 							//build annotationIds
 							let annotationIds = [];
 							for(let i=0; i<data.length; i++){
 								annotationIds.push({annotationId : data[i].annotationID});
 							}
-							db.find({$or: annotationIds}).then(function(annotationEntryData){
+							db.find({$or: annotationIds}).then((annotationEntryData)=>{
 								let duplicateAnnotations = [];
-								annotationEntryData.forEach(function(annotationEntry){
+								annotationEntryData.forEach((annotationEntry)=>{
 									let toAdd = that.findDuplicateAnnotation(annotationEntry, annotationEntryData);
 									let duplicateEntry = [];
 									duplicateEntry.push(annotationEntry);
@@ -45,7 +45,7 @@ class HotelNearbyHandler{
 								})
 								
 								let mergedContent = [];
-								duplicateAnnotations.forEach(function(duplicatedEntry){
+								duplicateAnnotations.forEach((duplicatedEntry)=>{
 									if(duplicatedEntry.length==2){
 										mergedContent.push(annotationMerge.mergeAnnotationTypes(duplicatedEntry[0],duplicatedEntry[1]));
 									}
@@ -78,7 +78,7 @@ class HotelNearbyHandler{
 	
 	formatThingsNearby(things, hotelName){
 		let returnString = "";
-		things.slice(0,TOP_N).forEach(function(entry){
+		things.slice(0,TOP_N).forEach((entry)=>{
 			returnString+=entry.type+" '"+entry.name+"', ";
 		})
 		if(returnString===""){
