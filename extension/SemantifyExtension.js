@@ -15,7 +15,12 @@ require('../model/GeospatialProjection');
 const Annotations = mongoose.model('Annotation');
 const GeospatialProjections = mongoose.model('GeospatialProjection');
 
-
+/**
+ * the worker class of the extension
+ * 1. a list of all annotations of an apiKey is requestd
+ * 2. each annotation in the list is requested
+ * 3. the annotation is saved in the mongoDB
+ */
 class SemantifyExtension {
     constructor(apikey, startExtension) {
         this.apikey = apikey["apikey"];
@@ -29,6 +34,9 @@ class SemantifyExtension {
         this.requestRetryCount = 0;
     }
 
+    /**
+     * requests the list of all annotations from an apiKey
+     */
     requestAnnotationsFromSemantify() {
         let that = this;
         request({
@@ -56,6 +64,11 @@ class SemantifyExtension {
         });
     }
 
+    /**
+     * checks if the annotation is in the desired language ( defined in config/default.json
+     * @param annotationCID the CID contains a language tag at the end, which is used to identify the language of an annotation
+     * @returns {*}
+     */
     checkIfAnnotationDesired(annotationCID) {
         let annotationLanguage = null;
         let desiredLanguages = config.get("languages");
@@ -68,6 +81,13 @@ class SemantifyExtension {
         return annotationLanguage;
     }
 
+    /**
+     * request method used to request the annotations from semantify
+     * @param annotations the list of all annotations
+     * @param size the number of annotatuons
+     * @param index the current index of the requested annotation
+     * @param requestError used if there was an error with the last request
+     */
     doRequest(annotations, size, index, requestError) {
         let that = this;
         let annotationCID = annotations[index].CID;
@@ -130,6 +150,14 @@ class SemantifyExtension {
         }
     }
 
+    /**
+     * called when one annotation is finished to start/request/check the next anotation
+     * same parameters as doRequest() --> calls doRequest()
+     * @param annotations
+     * @param index
+     * @param size
+     * @param startTime
+     */
     startNextAnnotation(annotations, index, size, startTime) {
         let that = this;
         index++;
@@ -140,6 +168,11 @@ class SemantifyExtension {
         }
     }
 
+    /**
+     * parses the result of the request of the list of all annotations of an apiKey into json
+     * requests the annotations calls doRequest()
+     * @param allAnnotationsOfAPIKEY
+     */
     requestAnnotationDetailsFromSemantify(allAnnotationsOfAPIKEY) {
         let jsonAnnotations;
         try {
@@ -158,6 +191,12 @@ class SemantifyExtension {
     }
 
 
+    /**
+     * updateAnnotationCollection is used to update the annotation inside the mondoDB
+     * @param annotation the annotation
+     * @param id the id of the annotation is checked if exists already if so updated if not create new document
+     * @param language of the annotation
+     */
     updateAnnotationCollection(annotation, id, language) {
         let annotationAsJson;
         let that = this;
@@ -171,9 +210,9 @@ class SemantifyExtension {
                 .findOne({annotationId: id})
                 .then(function (annotation) {
                     if (!annotation) {
-                        that.createNewAnnotationType(annotationAsJson, id, language);
+                        that.createNewAnnotation(annotationAsJson, id, language);
                     } else {
-                        that.updateExistingAnnotationType(annotationAsJson, annotation); 
+                        that.updateExistingAnnotation(annotationAsJson, annotation);
                     }
                 })
         }
@@ -181,7 +220,11 @@ class SemantifyExtension {
     };
 
 
-//======geospatial========    
+    /**
+     * Updates a GeoSpatialCollection inside the mingoDB
+     * @param annotation the annotation used to retreive the geoSpatial information
+     * @param id the annotationID used to check if exists inside GeoSPatialProjection
+     */
     updateGeospatialCollection(annotation, id) {
         let annotationAsJson;
         let that = this;
@@ -197,17 +240,21 @@ class SemantifyExtension {
                     if (!annotation) {
                         that.createNewAnnotationTypeGeospatial(annotationAsJson, id);
                     } else {
-                        that.updateExistingAnnotationTypeGeoSpatial(annotationAsJson, annotation); 
+                        that.updateExistingAnnotationTypeGeospatial(annotationAsJson, annotation);
                     }
                 })
         }
 
     };
 //====================
-    
-    
-    
-    updateExistingAnnotationType(annotationDetailObject, existingAnnotation) {
+
+
+    /**
+     * updates the annotation of an annotation model
+     * @param annotationDetailObject
+     * @param existingAnnotation
+     */
+    updateExistingAnnotation(annotationDetailObject, existingAnnotation) {
         let that = this;
         existingAnnotation.type = annotationDetailObject["@type"];
         existingAnnotation.name = annotationDetailObject.name;
@@ -221,7 +268,13 @@ class SemantifyExtension {
         });
     }
 
-    createNewAnnotationType(annotationDetailObject, id, language) {
+    /**
+     * Creates a new Anootation document inside the mondoDB
+     * @param annotationDetailObject the annotation
+     * @param id id of the annotation
+     * @param language of the annotation
+     */
+    createNewAnnotation(annotationDetailObject, id, language) {
         let that = this;
         let newAnnotationsType = new Annotations();
         newAnnotationsType.type = annotationDetailObject["@type"];
@@ -239,7 +292,11 @@ class SemantifyExtension {
         });
     }
 
-    //=======================update geospatial entries=======================================================
+    /**
+     * Update an existing geoSpatial inside MongoDB
+     * @param annotationDetailObject
+     * @param existingAnnotation
+     */
     updateExistingAnnotationTypeGeospatial(annotationDetailObject, existingAnnotation) { 
     	let that = this;    	
 	    if(annotationDetailObject.geo){	        
@@ -252,8 +309,13 @@ class SemantifyExtension {
 	            }
 	        });	        
 	    }	    
-    }    
+    }
 
+    /**
+     * Creates a new GeoSpatialProjection document inside mongoDB
+     * @param annotationDetailObject
+     * @param id
+     */
     createNewAnnotationTypeGeospatial(annotationDetailObject, id) {
     	let that = this;    	
 	    if(annotationDetailObject.geo){	            	
@@ -270,8 +332,14 @@ class SemantifyExtension {
 	            }
 	        });
 	    }
-    } 
+    }
 
+    /**
+     * Converts the semantic geo information into point coordinates
+     * @param originalAnnotation
+     * @param existingAnnotation
+     * @returns {*}
+     */
     convertGeoToProjection(originalAnnotation, existingAnnotation){
         var helper = originalAnnotation.geo;
         var longitudeToSet = 0;
@@ -284,9 +352,13 @@ class SemantifyExtension {
 		existingAnnotation.geoInfo={type:'Point', coordinates : [Number(longitudeToSet),Number(latitudeToSet)]};
 		return existingAnnotation;
     }
-    
-//=======================================================================0    
 
+
+    /**
+     * Called as a success Method when annotation is successfully saved
+     * @param found
+     * @param id
+     */
     successfullySavingAnnotation(found, id) {
         this.count++;
         console.log("----------------------\n" +
@@ -302,7 +374,11 @@ class SemantifyExtension {
         }
     }
 
-    
+    /**
+     * called as a success method when geoSpatialProjection is successfully saved
+     * @param found
+     * @param id
+     */
     successfullySavingAnnotationGeospatial(found, id) {
         this.count++;
         console.log("----------------------\n" +
