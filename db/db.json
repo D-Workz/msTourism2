@@ -5,356 +5,237 @@
 			"data": {},
 			"metaData": {
 				"createdAt": "2018-01-13T21:24:13.246Z",
-				"lastUsedAt": "2018-01-13T22:00:04.151Z",
-				"sessionsCount": 21
+				"lastUsedAt": "2018-01-13T23:19:17.288Z",
+				"sessionsCount": 23
 			}
 		},
 		"data": {
 			"selectedHotel": {
 				"__v": 0,
-				"type": "Hotel, BarOrPub",
-				"name": "Hotel Brücke",
-				"annotationId": "593fe250b449e00bf0d81a51",
+				"type": "Hotel",
+				"name": "Haus Mauracher",
+				"annotationId": "593fe250b449e00bf0d81a1a",
 				"language": "en",
 				"annotation": {
 					"@context": "http://schema.org",
 					"@type": [
-						"Hotel",
-						"BarOrPub"
+						"Hotel"
 					],
 					"url": [
-						"http://www.gasthof-bruecke.com",
-						"http://maps.mayrhofen.at/?foreignResource=E3DC63D7-C08F-4A6D-97FA-0C3A7EF1CB20"
+						"http://maps.mayrhofen.at/?foreignResource=A4823322-5713-474A-9FDE-2AF787EED9AA"
 					],
 					"address": {
 						"@type": "PostalAddress",
-						"name": "Brücke, Gasthof",
-						"streetAddress": "Ahornstraße 850",
+						"name": "Ferienwohnungen Mauracher",
+						"streetAddress": "Burgstall 346",
 						"addressLocality": "Mayrhofen",
 						"postalCode": "6290",
 						"addressCountry": "AT",
-						"telephone": "+43 5285 62232",
-						"faxNumber": "+43 5285 63745",
-						"email": "hotel.brueckenwirt@aon.at",
-						"url": "http://www.gasthof-bruecke.com"
+						"telephone": "(0043) 5285 63956",
+						"faxNumber": "(0043) 5285 63956",
+						"email": "fewo.mauracher@aon.at",
+						"url": "http://www.ferienwohnungen-mauracher.at"
 					},
-					"name": "Hotel Brücke",
+					"name": "Haus Mauracher",
 					"description": [
-						"Welcome to the Hotel Gasthof Brücke in Mayrhofen - the house with tradition. Your holiday hotel - for the whole family all year round.\n\nLook forward to a great time in a cozy atmosphere with many amenities and comfort. Enjoy the homeliness of our comfort rooms and the pleasant ambience of the various hotel premises.",
-						"The Zillertal is accessible via the A12 Inntalautobahn. Our hotel is located near the town center of Mayrhofen in the Zillertal. You can reach our hotel via the main street or the ring road.\nOur hotel is located near the town center of Mayrhofen in the Zillertal. You can reach our hotel on the main street or the ring road. The mountain railway to the Ahorn mountain is located directly behind the house, the Penkenbahn is within a 2 min walk!",
-						"Check in: 14.00hr/Check out: 10.00hr"
+						"Included in price: Electricity, water, heating, Sat-TV, bed linen/towels, microwave, hairdryer.\nTo be paid for additionally: A final cleaning charge of between 25.- and 30.- Euro depending on which apartment, dogs: 3.- Euro per day. Details of childrens discounts available on request.",
+						"Check in: 14.00hr / Check out: 10.00hr.\nUse the B169 until the exit for Horbergbahn/Burgstall. Turn left before the Horberg lifts, and drive through Mülbach until you arrive in Burgstall. Our house can be found on the left.",
+						"Pleasant house with a family atmosphere, quiet position approx. 1km outside of Mayrhofen. Cross country ski trail, ski bus stop and cycle and walking paths are all right outside the front door. Approx. 800 metres to the Horberg lifts, sun bathing and play area for children."
 					],
-					"aggregateRating": {
-						"@type": "AggregateRating",
-						"ratingValue": "4.2",
-						"reviewCount": "203"
-					},
 					"image": [
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/f395beb0-fa4a-4d46-b15d-050da7a26682/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Sommer "
+							"url": "http://resc.deskline.net/images/ZIL/1/bf474973-c5e9-4262-8e34-857b7461522c/99/image.jpg",
+							"caption": "Wohnung 1"
 						},
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/f260ec36-f363-4e74-8e8f-0c45016707f0/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Sommer1 "
+							"url": "http://resc.deskline.net/images/ZIL/1/baca7138-14d0-49c2-8f83-61822537fab8/99/image.jpg",
+							"caption": "Wohnung 2"
 						},
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/b1aef55a-d926-4541-987a-4a7490cf2333/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Sommer2"
+							"url": "http://resc.deskline.net/images/ZIL/1/782a27e5-1c2c-46bb-8ffd-fb491f490041/99/image.jpg",
+							"caption": "Doppelzimmer"
 						},
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/196a76f8-c2a6-4ff9-b6a7-d5c9d4b8d7c6/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Sommer3"
+							"url": "http://resc.deskline.net/images/ZIL/1/e7c9879c-26ae-4383-9797-05583cd418b1/99/image.jpg",
+							"caption": "Wohnung 3"
 						},
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/56167df1-e70b-456c-a117-2d1cab991b3a/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Winter"
+							"url": "http://resc.deskline.net/images/ZIL/1/26da1ee9-a6d6-4621-a003-8904c41cbb70/99/image.jpg",
+							"caption": "Haus Mauracher Sommer"
 						},
 						{
 							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/32767c38-6d5c-4e8f-8331-fa582f58d145/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke - Familie Schneeberger"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/cba007fd-206e-414a-a47b-879fe7eb956d/99/image.jpg",
-							"caption": "Familienfoto_Stehend"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/5d46cb4e-9421-4cf7-8919-454e65cd7ba7/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube "
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/d55cf6e4-a670-4753-9ec8-1a587dff1239/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube 1"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/89d83a32-ef4a-4ee0-9f9b-75bdeb0165a8/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube 2"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/fc94514b-c80a-4285-8f1e-5c4cac8187c2/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube 3"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/464d28e4-6d69-4eb1-9b89-9d7d54cf3509/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube Tisch "
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/8ab749c7-4c81-43ca-8053-366fd36ec5c0/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Stube Tisch 1"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/6ec5efcf-5b81-4608-9df8-2fb4dceb646c/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Liegewiese"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/4c00b636-dad6-4c9c-89a5-1b9f3e315d33/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Spielplatz"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/e824b477-f188-447d-8dc0-13edbf338717/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Restaurant"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/7e178fbf-c818-4eb5-89cf-90ba9141313d/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Terrasse "
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/178187b1-5fa9-4096-99f7-d59148fb02a7/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Sauna"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/67505fc3-6784-460b-a164-f7ca0e227ab6/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Wellnessbereich"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/69380796-5bd6-448b-b5fe-96b01d40334b/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Wellness"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/6e7a2766-b7e3-4d2f-9fe3-8dd7c12de9be/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Eingang"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/edd4c89d-e33f-4e69-8b49-d823a88a2131/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Gastgarten"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/a7794c49-379e-4315-ab44-f4284ac0265f/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Gartenhütte"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/81736d66-8505-47de-84e0-2a350f78307c/99/image.jpg",
-							"caption": "Hotel Gasthof Brücke Mayrhofen - Wellness1"
-						},
-						{
-							"@type": "ImageObject",
-							"url": "http://resc.deskline.net/images/ZIL/1/6a6f48c7-9f36-4001-b2af-10de487cc21e/99/image.jpg",
-							"caption": "Familienfoto_Weihnachtskarte"
+							"url": "http://resc.deskline.net/images/ZIL/1/b29ef4d0-f803-4e14-84a3-dc672c9e21ab/99/image.jpg",
+							"caption": "Haus Mauracher Winter"
 						}
 					],
 					"geo": {
 						"@type": "GeoCoordinates",
-						"latitude": "47.1616564694362",
-						"longitude": "11.8603312969208"
+						"latitude": "47.1838683840838",
+						"longitude": "11.8612217903137"
 					},
+					"paymentAccepted": [
+						"MasterCard",
+						"VISA"
+					],
 					"currenciesAccepted": "EUR",
 					"makesOffer": [
 						{
 							"@type": "Offer",
-							"name": "Single room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views",
+							"name": "Apartment, shower, toilet, balcony",
+							"description": "apartment1 > size 45m² on first floor with balcony\n\n1 double bedroom, 1 combined lounge/bedroom with sofa bed, small kitchen fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), shower/WC (hair dryer, towels),\n\nSat-TV, W-LAN.\n\nBread delivery service.",
 							"availability": "http://schema.org/InStock",
 							"itemOffered": {
 								"@type": [
-									"HotelRoom",
+									"Apartment",
 									"Product"
 								],
-								"name": "Single room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "1",
-									"minValue": "1"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Single room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "single room with shower or bath tube, WC",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "1",
-									"minValue": "1"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Double room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views \nOur double rooms are equipped partly with combined shower and some with bath / shower.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "double room with shower or bath tube, WC",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "2",
-									"minValue": "1"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Double room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views \nOur double rooms are equipped partly with combined shower and some with bath / shower.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Double room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "2",
-									"minValue": "1"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Triple room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Triple room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "3",
-									"minValue": "2"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Triple room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "triple room with shower or bath tube, WC",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "3",
-									"minValue": "2"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "4-bed room, shower or bath, toilet",
-							"description": "rustic, traditionally furnished rooms, shower or bath / WC, telephone, hairdryer, safe, flat-screen TV with cable TV and Live Panorama, balcony with beautiful mountain views\n\nBoth four-bed rooms have 2 separate bedrooms.\n\n1 room has 2 double beds, 2 rooms with a double bed and 2 single beds.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "4-bed room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
+								"name": "ap/comb.living-bedr./1 bedroom/shower,wc, 45m²",
+								"numberOfRooms": "1.0",
 								"occupancy": {
 									"@type": "QuantitativeValue",
 									"maxValue": "4",
 									"minValue": "2"
 								}
-							}
+							},
+							"priceSpecification": [
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 2",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 3",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 4",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								}
+							]
 						},
 						{
 							"@type": "Offer",
-							"name": "Single room, shower or bath, toilet",
-							"description": "Fantastically beautiful accommodation units with a balcony and stunning views of the surrounding Zillertal mountains.\nThe air-conditioned rooms at Hotel Gasthof Brücke feature telephone, safe, flat screen TV with cable TV and live panoramic image with a seating area, a work desk and a luxurious bathroom with hairdryer and separate WC\n\nOur deluxe rooms are newly renovated and furnished.",
+							"name": "Apartment, shower, toilet, balcony",
+							"description": "apartment 2 > size 48m² on first floor with balcony\n\n1 double bedroom, 1 combined lounge/bedroom with sofa bed, small kitchen fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), shower/WC (hair dryer, towels),\n\nSat-TV, W-LAN.\n\nBread delivery service.",
+							"availability": "http://schema.org/InStock",
+							"itemOffered": {
+								"@type": [
+									"Apartment",
+									"Product"
+								],
+								"name": "5m²ap/comb.living-bedr./1 bedr./shower,",
+								"numberOfRooms": "1.0",
+								"occupancy": {
+									"@type": "QuantitativeValue",
+									"maxValue": "5",
+									"minValue": "2"
+								}
+							},
+							"priceSpecification": [
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 2",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 3",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 4",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 5",
+									"minPrice": "22.00",
+									"maxPrice": "26.00",
+									"priceCurrency": "EUR"
+								}
+							]
+						},
+						{
+							"@type": "Offer",
+							"name": "Apartment, separate toilet and shower/bathtub, 1 bed room",
+							"description": "apartment 3 > size 45m² Basement apartment with exit to the garden\n\n1 double bedroom, 1 combined lounge/bedroom with bay window, kitchenette fully fitted (stove, fridge, dish washer, microwave, coffee maker, tea towels, etc.), bathroom (hair dryer, towels) and separate WC,\n\nSat-TV, W-LAN.\n\nBread delivery service.",
+							"availability": "http://schema.org/InStock",
+							"itemOffered": {
+								"@type": [
+									"Apartment",
+									"Product"
+								],
+								"name": "Apartment, separate toilet and shower/bathtub, 1 bed room",
+								"numberOfRooms": "2.0",
+								"occupancy": {
+									"@type": "QuantitativeValue",
+									"maxValue": "4",
+									"minValue": "2"
+								}
+							},
+							"priceSpecification": [
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 2",
+									"minPrice": "18.00",
+									"maxPrice": "24.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 3",
+									"minPrice": "18.00",
+									"maxPrice": "24.00",
+									"priceCurrency": "EUR"
+								},
+								{
+									"@type": "PriceSpecification",
+									"description": "Pax 4",
+									"minPrice": "18.00",
+									"maxPrice": "24.00",
+									"priceCurrency": "EUR"
+								}
+							]
+						},
+						{
+							"@type": "Offer",
+							"name": "Double room, shower, toilet",
+							"description": "Doubleroom on first floor with balcony\n\nwith shower, WC, without breakfast",
 							"availability": "http://schema.org/InStock",
 							"itemOffered": {
 								"@type": [
 									"HotelRoom",
 									"Product"
 								],
-								"name": "Single room, shower or bath, toilet",
+								"name": "Double room, shower, toilet",
 								"bed": {
 									"@type": "BedDetails",
-									"numberOfBeds": "1"
+									"numberOfBeds": "0"
 								},
 								"occupancy": {
 									"@type": "QuantitativeValue",
-									"maxValue": "1",
+									"maxValue": "2",
 									"minValue": "1"
 								}
 							},
@@ -362,162 +243,25 @@
 								{
 									"@type": "PriceSpecification",
 									"description": "Pax 1",
-									"minPrice": "86.00",
-									"maxPrice": "9999.00",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
 									"priceCurrency": "EUR"
-								}
-							]
-						},
-						{
-							"@type": "Offer",
-							"name": "Double room, shower or bath, toilet",
-							"description": "Fantastically beautiful accommodation units with a balcony and stunning views of the surrounding Zillertal mountains.\nThe air-conditioned rooms at Hotel Gasthof Brücke feature telephone, safe, flat screen TV with cable TV and live panoramic image with a seating area, a work desk and a luxurious bathroom with hairdryer and separate WC\n\nOur deluxe rooms are newly renovated and furnished.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Sommerpauschale inkl. Z-Card, DZ Deluxe HP",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
 								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "2",
-									"minValue": "2"
-								}
-							},
-							"priceSpecification": [
 								{
 									"@type": "PriceSpecification",
 									"description": "Pax 2",
-									"minPrice": "530.50",
-									"maxPrice": "530.50",
+									"minPrice": "20.00",
+									"maxPrice": "26.00",
 									"priceCurrency": "EUR"
 								}
 							]
-						},
-						{
-							"@type": "Offer",
-							"name": "Double room, shower or bath, toilet",
-							"description": "Fantastically beautiful accommodation units with a balcony and stunning views of the surrounding Zillertal mountains.\nThe air-conditioned rooms at Hotel Gasthof Brücke feature telephone, safe, flat screen TV with cable TV and live panoramic image with a seating area, a work desk and a luxurious bathroom with hairdryer and separate WC\n\nOur deluxe rooms are newly renovated and furnished.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Double room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "2",
-									"minValue": "2"
-								}
-							},
-							"priceSpecification": [
-								{
-									"@type": "PriceSpecification",
-									"description": "Pax 2",
-									"minPrice": "71.00",
-									"maxPrice": "119.00",
-									"priceCurrency": "EUR"
-								}
-							]
-						},
-						{
-							"@type": "Offer",
-							"name": "Triple room, shower or bath, toilet",
-							"description": "Fantastically beautiful accommodation units with a balcony and stunning views of the surrounding Zillertal mountains.\nThe air-conditioned rooms at Hotel Gasthof Brücke feature telephone, safe, flat screen TV with cable TV and live panoramic image with a seating area, a work desk and a luxurious bathroom with hairdryer and separate WC\n\nOur deluxe rooms are newly renovated and furnished.",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Triple room, shower or bath, toilet",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "1"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "3",
-									"minValue": "2"
-								}
-							},
-							"priceSpecification": [
-								{
-									"@type": "PriceSpecification",
-									"description": "Pax 2",
-									"minPrice": "71.00",
-									"maxPrice": "119.00",
-									"priceCurrency": "EUR"
-								},
-								{
-									"@type": "PriceSpecification",
-									"description": "Pax 3",
-									"minPrice": "72.00",
-									"maxPrice": "119.00",
-									"priceCurrency": "EUR"
-								}
-							]
-						},
-						{
-							"@type": "Offer",
-							"name": "Double room",
-							"description": "Our new build Superior rooms combine a modern touch with the typical tyroliean cosiness",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Double room",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "0"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "2",
-									"minValue": "2"
-								}
-							}
-						},
-						{
-							"@type": "Offer",
-							"name": "Triple room",
-							"description": "Our new build Superior rooms combine a modern touch with the typical tyroliean cosiness",
-							"availability": "http://schema.org/InStock",
-							"itemOffered": {
-								"@type": [
-									"HotelRoom",
-									"Product"
-								],
-								"name": "Triple room",
-								"bed": {
-									"@type": "BedDetails",
-									"numberOfBeds": "0"
-								},
-								"occupancy": {
-									"@type": "QuantitativeValue",
-									"maxValue": "3",
-									"minValue": "2"
-								}
-							}
 						}
 					],
-					"priceRange": "EUR 59.0 - 9999.0",
+					"priceRange": "EUR 18.0 - 26.0",
 					"amenityFeature": [
 						{
 							"identifier": "beds",
-							"value": 140,
+							"value": 11,
 							"name": "Bettenanzahl (nur Hotellerie)",
 							"@type": "LocationFeatureSpecification"
 						},
@@ -528,28 +272,14 @@
 							"@type": "LocationFeatureSpecification"
 						}
 					],
-					"starRating": {
-						"bestRating": 5,
-						"ratingValue": "3",
-						"@type": "Rating"
-					},
-					"hasMap": "https://maps.mayrhofen.at/en#resourceDetail,1558805",
-					"email": "hotel.brueckenwirt@aon.at",
-					"telephone": "+43 5285 62232",
-					"contactPoint": {
-						"telephone": "+43 5285 62232",
-						"url": "http://www.gasthof-bruecke.com",
-						"email": "hotel.brueckenwirt@aon.at",
-						"contactType": "customer support",
-						"@type": "ContactPoint"
-					},
-					"identifier": "1558805"
+					"hasMap": "https://maps.mayrhofen.at/en#resourceDetail,1560342",
+					"identifier": "1560342"
 				},
 				"website": [
 					"MayrhofenAt",
 					"MapsMayrhofen"
 				],
-				"_id": "5a55d4a12323bc7344cd99e3"
+				"_id": "5a55d4a02323bc7344cd99e1"
 			}
 		}
 	},

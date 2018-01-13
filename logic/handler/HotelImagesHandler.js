@@ -28,7 +28,7 @@ class HotelImagesHandler {
                             app.googleAction().showImageCard("title","test",url);
 
 
-                            app.ask('What else would you like to know ?');
+
 
 
                             console.log("Image url: " + url);
@@ -40,6 +40,7 @@ class HotelImagesHandler {
                         // app.ask("I'm terrible sorry, but I could not find the desired information");
                     }
                 }
+                app.ask('What else would you like to know ?');
                 // app.googleAction().showSuggestionChips(['2','1']);
                 // app.googleAction().showCarousel(carousel);
                 // app.ask('What else would you like to know ?');
