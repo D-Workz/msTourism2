@@ -39,8 +39,8 @@ class Logic {
             },
 
             'ListHotels': function () {
-                // handlers.allHotelsHandler.doFulfill(app, Annotations);
-                intendListHotels(app);
+                handlers.allHotelsHandler.doFulfill(app, Annotations);
+                // intendListHotels(app);
             },
 
 
