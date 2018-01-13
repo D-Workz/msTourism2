@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const config = require('config');
+const helperMethodsStatic = require('./../HelperMethods');
+
 const TOP_N = 5;
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
+
 require('../../model/Annotation');
 const Annotations = mongoose.model('Annotation');
 
@@ -58,15 +61,12 @@ class HotelNearbyHandler{
 									}
 								})
 								
-								app.ask(that.formatThingsNearby(mergedContent,hotelEntry.name));							
+								app.ask(that.formatThingsNearby(mergedContent,hotelEntry));							
 							})
 						})					
 			}else{
 				app.ask("I'm terrible sorry. Hotel '"+hotelEntry.name+"' has invalid or no coordinates set.");
-			}
-				
-			
-		
+			}					
 		});		
 	}
 	
@@ -80,10 +80,20 @@ class HotelNearbyHandler{
 		return null;
 	}
 	
-	formatThingsNearby(things, hotelName){
+	buildMapsMapper(thingWithGeo){
+		return "https://www.google.com/maps/search/?api=1&query="+thingWithGeo.annotation.geo.latitude+","+thingWithGeo.annotation.geo.longitude;
+	}
+	
+	formatThingsNearby(things, hotel){
 		let returnString = "";
+		let hotelName = hotel.annotation.name;
+		let hotelLongitude = hotel.annotation.geo.longitude;
+		let hotelLatitude = hotel.annotation.geo.latitude;
+		let that = this;
 		things.slice(0,TOP_N).forEach((entry)=>{
-			returnString+=entry.type+" '"+entry.name+"', ";
+			let entryLongitude = hotel.annotation.geo.longitude;
+			let entryLatitude = entry.annotation.geo.latitude;
+			returnString+=entry.type+" '"+entry.name+"' ("+helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(2)+" km), ";
 		})
 		if(returnString===""){
 			return "Sorry, I couldn't find anything nearby of '"+hotelName+"'";
