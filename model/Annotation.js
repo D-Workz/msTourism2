@@ -34,7 +34,8 @@ AnnotationSchema.statics.mfindOne = function (query) {
                 resultObject.annotation = resultAnnotation;
                 return resultObject;
             } else {
-                if (results != 0) return [results[0]._doc];
+                if (results != 0)
+                    return results[0]._doc;
                 else return results;
             }
         })

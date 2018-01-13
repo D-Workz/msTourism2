@@ -1,9 +1,8 @@
-
 const mongoose = require('mongoose');
 const config = require('config');
 const TOP_N = 5;
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
-require('../model/Annotation');
+require('../../model/Annotation');
 const Annotations = mongoose.model('Annotation');
 
 class HotelNearbyHandler{
