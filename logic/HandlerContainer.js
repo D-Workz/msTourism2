@@ -10,8 +10,10 @@ const HotelRatingHandler = require('./handler/HotelRatingHandler');
 const HotelAddressHandler = require('./handler/HotelAddressHandler');
 const HotelContactHandler = require('./handler/HotelContactHandler');
 const HotelImagesHander = require('./handler/HotelImagesHandler');
+const HotelDistanceCityCenterHandler = require('./handler/HotelDistanceCityCenterHandler');
 const HotelNearbyHandler = require('./handler/HotelNearbyHandler');
 const GenericThingDescriptionHandler = require('./handler/GenericThingDescriptionHandler');
+const HotelShowCardHandler = require('./handler/HotelShowCardHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -27,9 +29,11 @@ class HandlerContainer{
 		this.hotelContactHandler = new HotelContactHandler();		
 
 		this.hotelImagesHandler = new HotelImagesHander();
+		this.hotelDistanceCityCenterHandler = new HotelDistanceCityCenterHandler();
+		this.hotelShowCardHandler = new HotelShowCardHandler();
 		this.hotelNearbyHandler = new HotelNearbyHandler();
 		this.genericThingDescriptionHandler = new GenericThingDescriptionHandler();
-	}	
+	}
 	
 }
 

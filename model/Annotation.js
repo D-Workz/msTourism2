@@ -19,48 +19,64 @@ let AnnotationSchema = new mongoose.Schema({
  * @returns {Promise} one resultObject
  */
 AnnotationSchema.statics.mfindOne = function (query) {
+    let that = this;
     return this
         .find(query)
         .then(function (results) {
             if (results.length > 1) {
                 if (results.length > 2) {
-                    console.warn("Found more than 2 Objects with the same name and type. Choosing first two ignoring the rest. CHECK!");
+                    console.warn("Found more than 2 Objects with the query. Choosing first two ignoring the rest. CHECK YOUR QUERY!");
                 }
-                let resultAnnotation = results[0]._doc.annotation;
-                let additionalAnnotation = results[1]._doc.annotation;
+                let resultAnnotation = that.mergeAnnotations(results[0]._doc.annotation,results[1]._doc.annotation);
                 let resultObject = results[0]._doc;
-                if (validateEqualityForMerge(resultAnnotation, additionalAnnotation)) {
-                    for (let additionalAnnotationKey in additionalAnnotation) {
-                        let found = false;
-                        let amenityFeature = false;
-                        let annotationType = false;
-                        if (additionalAnnotationKey === "amenityFeature") amenityFeature = true;
-                        if (additionalAnnotationKey === "@type") annotationType = true;
-                        for (let resultAnnotationKey in resultAnnotation) {
-                            if (additionalAnnotationKey === resultAnnotationKey) {
-                                found = true;
-                                if (amenityFeature) resultAnnotation[additionalAnnotationKey] = mergeAmenityFeatures(resultAnnotation[resultAnnotationKey], additionalAnnotation[additionalAnnotationKey]);
-                                if (annotationType) resultAnnotation[additionalAnnotationKey] = mergeAnnotationTypes(resultAnnotation[resultAnnotationKey], additionalAnnotation[additionalAnnotationKey]);
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            resultAnnotation[additionalAnnotationKey] = additionalAnnotation[additionalAnnotationKey];
-                        }
-                    }
-                    let mergedWebsites = [resultObject.website, results[1]._doc.website];
-                    resultObject.website = mergedWebsites;
-                    resultObject.type = stringyfyTypeArray(resultAnnotation["@type"]);
-                    resultObject.annotation = resultAnnotation;
-                }else{
-                    console.log("Couldnt be shown that equal. Using only first annotation.");
-                }
-                return [resultObject];
+                resultObject.website = [resultObject.website, results[1]._doc.website];
+                resultObject.type = stringyfyTypeArray(resultAnnotation["@type"]);
+                resultObject.annotation = resultAnnotation;
+                return resultObject;
             } else {
-                if (results != 0) return [results[0]._doc];
+                if (results != 0)
+                    return results[0]._doc;
                 else return results;
             }
         })
+
+};
+
+/**
+ * Merges two annotations:
+ * takes the first layer of both annotations and creates a returnObject with the combined properties
+ * Furthermore merges Types and amenityFeatures together
+ * @param annotation1
+ * @param annotation2
+ * @returns the resultObject
+ */
+AnnotationSchema.statics.mergeAnnotations = function (annotation1, annotation2) {
+
+    let resultAnnotation = annotation1;
+    let additionalAnnotation = annotation2;
+    if (validateEqualityForMerge(resultAnnotation, additionalAnnotation)) {
+        for (let additionalAnnotationKey in additionalAnnotation) {
+            let found = false;
+            let amenityFeature = false;
+            let annotationType = false;
+            if (additionalAnnotationKey === "amenityFeature") amenityFeature = true;
+            if (additionalAnnotationKey === "@type") annotationType = true;
+            for (let resultAnnotationKey in resultAnnotation) {
+                if (additionalAnnotationKey === resultAnnotationKey) {
+                    found = true;
+                    if (amenityFeature) resultAnnotation[additionalAnnotationKey] = mergeAmenityFeatures(resultAnnotation[resultAnnotationKey], additionalAnnotation[additionalAnnotationKey]);
+                    if (annotationType) resultAnnotation[additionalAnnotationKey] = mergeAnnotationTypes(resultAnnotation[resultAnnotationKey], additionalAnnotation[additionalAnnotationKey]);
+                    break;
+                }
+            }
+            if (!found) {
+                resultAnnotation[additionalAnnotationKey] = additionalAnnotation[additionalAnnotationKey];
+            }
+        }
+    } else {
+        console.log("Couldnt be shown that equal. Using only first annotation.");
+    }
+    return resultAnnotation;
 };
 
 /**
@@ -78,17 +94,17 @@ function validateEqualityForMerge(annotation1, annotation2) {
     for (let addressPartOfA1 in addressOfAnnotation1) {
         for (let addressPartOfA2 in addressOfAnnotation2) {
             if (addressPartOfA1 === addressPartOfA2) {
-                if(addressPartOfA1 === "streetAddress" || addressPartOfA1 === "postalCode" || addressPartOfA1 === "addressRegion" || addressPartOfA1 === "addressLocality"){
-                    if (addressOfAnnotation1[addressPartOfA1] === addressOfAnnotation2[addressPartOfA1]){
+                if (addressPartOfA1 === "streetAddress" || addressPartOfA1 === "postalCode" || addressPartOfA1 === "addressRegion" || addressPartOfA1 === "addressLocality") {
+                    if (addressOfAnnotation1[addressPartOfA1] === addressOfAnnotation2[addressPartOfA1]) {
                         equal = true;
                         break;
                     }
-                }else{
+                } else {
                     break;
                 }
             }
         }
-        if(equal) break;
+        if (equal) break;
     }
     return equal;
 }

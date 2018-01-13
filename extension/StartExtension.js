@@ -14,6 +14,9 @@ let startParameters =
 
 let allApikeys = config.get("apikey");
 
+/**
+ * StartExtension is the class which starts the extraction process of annotations from semantify.it
+ */
 class StartExtension {
     constructor(startParameters) {
         this.allApiKeys = [];
@@ -21,6 +24,11 @@ class StartExtension {
         this.startParameters = startParameters;
     }
 
+    /**
+     * start function for the process, requests all annotations from the defined apiKey
+     * config/default.json
+     * @param allApikeys
+     */
     start(allApikeys) {
         if (this.startParameters === "all") {
             for (let apikey in allApikeys) {
@@ -42,6 +50,9 @@ class StartExtension {
         }
     }
 
+    /**
+     * starts a new website
+     */
     startNewWebsite() {
         let that = this;
         this.timeouthandle = setTimeout(function () {
@@ -54,6 +65,9 @@ class StartExtension {
         extension.requestAnnotationsFromSemantify();
     }
 
+    /**
+     * called when one website is finished to start the next website
+     */
     startNextWebsite() {
         clearTimeout(this.timeouthandle);
         if (this.allApiKeys.length === 0) {

@@ -1,7 +1,7 @@
 {
   "requestPathListAnnotations": "/api/annotation/list/",
   "requestPathDetailsOfAnnotation": "/api/annotation/cid/",
-  "host": "https://semantify.it",
+  "host": "http://localhost:8081",
   "DBUrl": "mongodb://localhost:27017/tourism2",
   "port": 3000,
   "apikey": {

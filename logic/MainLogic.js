@@ -40,19 +40,17 @@ class Logic {
 
             'ListHotels': function () {
                 handlers.allHotelsHandler.doFulfill(app, Annotations);
-                //intendListHotels(app);
+                // intendListHotels(app);
             },
 
 
             'HotelSelectionWithContext': function () {
-                console.log("Selected hotel: '"+app.inputs.selectedHotelName+"'");
                 handlers.hotelSelectionHandler.doFulfill(app,Annotations);
             },
 
 
             'HotelDescriptionWithContext': function () {
             	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
-                //intendHotelDescriptionWithContext(app);
             },
 
             'HotelDescriptionWithoutContext': function () {
@@ -105,13 +103,23 @@ class Logic {
             },            
             'HotelContactWithContext': function () {
             	handlers.hotelContactHandler.doFulfill(app,Annotations);
-            },                     
+            },
+
+            'HotelDistanceCityCenterWithContext':function () {
+                handlers.hotelDistanceCityCenterHandler.doFulfill(app,Annotations);
+            },
+
+            'HotelShowCardWithContext': function () {
+                handlers.hotelShowCardHandler.doFulfill(app,Annotations);
+            },
+
+
             'HotelNearbyWithContext': function () {
             	handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
-            },             
+            },
             'GenericThingDescription': function () {
             	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
-            },               
+            },
             'HotelNameKnownState': {
                 'HotelDescriptionWithContext': function () {
                     intendHotelDescriptionWithContext(app);
@@ -134,15 +142,27 @@ class Logic {
 }
 
 function setHotelNameKnown(app,db) {
-    var hotelName = app.inputs.selectedHotelName;
+    var hotelName = app.inputs.hotelName;
+    if(!hotelName){
+        hotelName = app.inputs.selectedHotelName;
+    }
+    if(!hotelName && hotelName!=''){
+    db.mfind({type:/Hotel/, "annotation.name": new RegExp(hotelName,"i")}).then((data) => {
 
-    db.find({type: "Hotel", "annotation.name": hotelName}).limit(1).then((data) => {
-        data.forEach((entry) => {
-            app.db().save("selectedHotel", entry, (err) => {
-                console.log("Attribute 'selectedHotel' set with content of '" + hotelName + "'");
+        if(Array.isArray(data)) {
+            data.forEach((entry) => {
+                app.db().save("selectedHotel", data, (err) => {
+                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+                });
             });
-        })
+
+        }else{
+            app.db().save("selectedHotel", data, (err) => {
+                console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+            });
+        }
     });
+    }
 }
 
     function intendHotelStarsWithoutContext(app) {
@@ -197,46 +217,10 @@ function findAndaskDescriptionForHotelName(app, hotelName) {
 }
 
 function intendListHotels(app) {
-    Annotations
-        .findOne({type: "Hotel"})
-        .then(function (hotelObject) {
-            let maxBoundry = 0;
-            let responseMsg = "";
-            let foundAnnotations = [];
-            let addressLocality;
-            for (let k = 0; k < hotelObject.annotations.length; k++) {
-                let annotationAddressLocality;
-                try {
-                    annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
-                } catch (err) {
-                    console.warn("Cant get address Locality");
-                }
-                if (annotationAddressLocality) {
-                    if (app.inputs["villages"] !== "") {
-                        addressLocality = app.inputs["villages"];
-                    } else if (app.inputs.villages !== "") {
-                        addressLocality = app.inputs.villages;
-                    } else {
-                        app.ask('Name a place.');
-                        return;
-                    }
-                    if (annotationAddressLocality === addressLocality) {
-                        foundAnnotations.push(hotelObject.annotations[k].annotation);
-                    }
-                }
-            }
-            if (foundAnnotations.length <= app.inputs.number) {
-                maxBoundry = foundAnnotations.length;
-            } else {
-                maxBoundry = app.inputs.number;
-            }
-
-            for (let i = 0; i < maxBoundry; i++) {
-                responseMsg += foundAnnotations[i].name + ", "
-            }
-
-            app.ask('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
-        });
+    let query = {type:/Hotel/, name:"Möslalm"}
+    Annotations.mfindOne(query).then(function (result) {
+        console.log(result);
+    })
 }
 
 module.exports = Logic;
