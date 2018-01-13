@@ -45,14 +45,12 @@ class Logic {
 
 
             'HotelSelectionWithContext': function () {
-                console.log("Selected hotel: '"+app.inputs.selectedHotelName+"'");
                 handlers.hotelSelectionHandler.doFulfill(app,Annotations);
             },
 
 
             'HotelDescriptionWithContext': function () {
             	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
-                //intendHotelDescriptionWithContext(app);
             },
 
             'HotelDescriptionWithoutContext': function () {
@@ -105,13 +103,23 @@ class Logic {
             },            
             'HotelContactWithContext': function () {
             	handlers.hotelContactHandler.doFulfill(app,Annotations);
-            },                     
+            },
+
+            'HotelDistanceCityCenterWithContext':function () {
+                handlers.hotelDistanceCityCenterHandler.doFulfill(app,Annotations);
+            },
+
+            'HotelShowCardWithContext': function () {
+                handlers.hotelShowCardHandler.doFulfill(app,Annotations);
+            },
+
+
             'HotelNearbyWithContext': function () {
             	handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
-            },             
+            },
             'GenericThingDescription': function () {
             	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
-            },               
+            },
             'HotelNameKnownState': {
                 'HotelDescriptionWithContext': function () {
                     intendHotelDescriptionWithContext(app);
@@ -134,15 +142,27 @@ class Logic {
 }
 
 function setHotelNameKnown(app,db) {
-    var hotelName = app.inputs.selectedHotelName;
+    var hotelName = app.inputs.hotelName;
+    if(!hotelName){
+        hotelName = app.inputs.selectedHotelName;
+    }
+    if(!hotelName && hotelName!=''){
+    db.mfind({type:/Hotel/, "annotation.name": new RegExp(hotelName,"i")}).then((data) => {
 
-    db.find({type: "Hotel", "annotation.name": hotelName}).limit(1).then((data) => {
-        data.forEach((entry) => {
-            app.db().save("selectedHotel", entry, (err) => {
-                console.log("Attribute 'selectedHotel' set with content of '" + hotelName + "'");
+        if(Array.isArray(data)) {
+            data.forEach((entry) => {
+                app.db().save("selectedHotel", data, (err) => {
+                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+                });
             });
-        })
+
+        }else{
+            app.db().save("selectedHotel", data, (err) => {
+                console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+            });
+        }
     });
+    }
 }
 
     function intendHotelStarsWithoutContext(app) {
