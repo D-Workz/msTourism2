@@ -1,6 +1,6 @@
 //const GoogleAction = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction;
-const Carousel =   require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.Carousel;
-const OptionItem = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.OptionItem;
+//const Carousel =   require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.Carousel;
+//const OptionItem = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.OptionItem;
 
 class HotelImagesHandler {
 
@@ -14,24 +14,16 @@ class HotelImagesHandler {
         app.db().load("selectedHotel", (err, data) => {
 
             let image = data.annotation.image;
-            let carousel = new Carousel();
 
             if(Array.isArray(image)){
 
-                for(var counter = 0 ; counter < 2 && counter < image.size ; counter ++) {
+                for(var counter = 0 ; counter < 2 && counter < image.length ; counter ++) {
 
                     let imageObject = image[counter];
                     if (imageObject) {
-                        let url = imageObject.url
+                        let url = imageObject.url;
                         if (url && url != "") {
-                            // let optionItem = new OptionItem();
-                            // if(image.caption){optionItem.setTitle(image.caption);}
-                            // if(image.description){ optionItem.setDescription(image.description);}
-                            //
-                            // optionItem.setImage(url, "accesability text");
-                            // optionItem.setKey(String.valueOf(counter));
-                            //
-                            // carousel.addItem(optionItem);
+
 
                             app.googleAction().showImageCard("title","test",url);
 
@@ -53,20 +45,10 @@ class HotelImagesHandler {
                 // app.ask('What else would you like to know ?');
             }else if(image){
                 app.googleAction().showImageCard("title","",image.url);
+                app.ask('What else would you like to know ?');
 
-                // carousel.addItem(
-                //     (new OptionItem())
-                //         .setTitle(image.caption)
-                //         .setDescription(image.description)
-                //         .setImage(image.url, image.accessibilityText)
-                //         .setKey('Carouselitem1key')
-                // );
 
             }
-
-
-            // app.googleAction().showSuggestionChips(['2','1']);
-            // app.googleAction().showCarousel(carousel);
 
 
        });

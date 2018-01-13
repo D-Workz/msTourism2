@@ -11,7 +11,7 @@ class HotelContactHandler{
 		app.db().load("selectedHotel", (err, data) => {
 			let contactInfo = data.annotation.address;
 			let contactString = "Telephone: "+contactInfo.telephone+", Fax: "+contactInfo.faxNumber+", E-Mail: "+contactInfo.email;
-    	    app.tell("'"+data.annotation.name+"' can be contacted by "+contactString);
+    	    app.ask("'"+data.annotation.name+"' can be contacted by "+contactString);
     	});
 		
 	}		
