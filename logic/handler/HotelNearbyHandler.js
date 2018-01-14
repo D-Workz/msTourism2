@@ -17,7 +17,9 @@ class HotelNearbyHandler{
 	doFulfill(app,db, geospatialDb){
 		let that=this;
 		var hotelName = app.inputs.selectedHotelName;
-
+		let thing = app.inputs.thing;
+		let queryRestriction = null;
+		
 		app.db().load("selectedHotel", (err, hotelEntry) => {
 
             var helper = hotelEntry.annotation.geo;
@@ -39,7 +41,11 @@ class HotelNearbyHandler{
 							for(let i=0; i<data.length; i++){
 								annotationIds.push({annotationId : data[i].annotationID});
 							}
-							db.find({$or: annotationIds}).then((annotationEntryData)=>{
+							queryRestriction = {$or: annotationIds};
+							if(thing!==""){
+								queryRestriction.type = new RegExp(thing,"i");
+							}
+							db.find(queryRestriction).then((annotationEntryData)=>{
 								let duplicateAnnotations = [];
 								annotationEntryData.forEach((annotationEntry)=>{
 									let toAdd = that.findDuplicateAnnotation(annotationEntry, annotationEntryData);
@@ -60,8 +66,10 @@ class HotelNearbyHandler{
 										mergedContent.push(duplicatedEntry[0]);
 									}
 								})
+								//sort things
+								let sortedThings = that.sortThingsWithDistance(mergedContent, hotelEntry);
 								
-								app.ask(that.formatThingsNearby(mergedContent,hotelEntry));							
+								app.ask(that.formatThingsNearby(sortedThings,hotelEntry));							
 							})
 						})					
 			}else{
@@ -84,21 +92,49 @@ class HotelNearbyHandler{
 		return "https://www.google.com/maps/search/?api=1&query="+thingWithGeo.annotation.geo.latitude+","+thingWithGeo.annotation.geo.longitude;
 	}
 	
-	formatThingsNearby(things, hotel){
+	formatThingsNearby(thingsSorted, hotel, thingType){
 		let returnString = "";
 		let hotelName = hotel.annotation.name;
-		let hotelLongitude = hotel.annotation.geo.longitude;
-		let hotelLatitude = hotel.annotation.geo.latitude;
+
 		let that = this;
-		things.slice(0,TOP_N).forEach((entry)=>{
-			let entryLongitude = hotel.annotation.geo.longitude;
-			let entryLatitude = entry.annotation.geo.latitude;
-			returnString+=entry.type+" '"+entry.name+"' ("+helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(2)+" km), ";
+		thingsSorted.slice(0,TOP_N).forEach((entry)=>{
+			let entryType = "";
+
+			if(thingType===""){
+				entryType = entry.type+" ";
+			}
+			
+			returnString+=entryType+"'"+entry.val.name+"' ("+entry.dist+" km), ";
 		})
 		if(returnString===""){
 			return "Sorry, I couldn't find anything nearby of '"+hotelName+"'";
 		}
-		return "I found the following things near '"+hotelName+"': "+returnString.substr(0, returnString.length-2);
+		return "This is what I found near '"+hotelName+"': "+returnString.substr(0, returnString.length-2);
+	}
+	
+	sortThingsWithDistance(thingsToSort, hotel){
+		let arr=[];
+		let that = this;
+		let hotelLongitude = hotel.annotation.geo.longitude;
+		let hotelLatitude = hotel.annotation.geo.latitude;
+		
+		thingsToSort.forEach((entry)=>{
+			let entryLongitude = hotel.annotation.geo.longitude;
+			let entryLatitude = entry.annotation.geo.latitude;
+			
+			arr.push({val:entry, dist:helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3)});			
+		})
+		
+		arr.sort((a,b)=>{
+			if(a.dist<b.dist){
+				return -1;
+			}else if(a.dist>b.dist){
+				return 1;
+			}
+			return 0;
+		});
+		
+		return arr;
 	}
 	
 }
