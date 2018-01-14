@@ -15,7 +15,8 @@ const HotelNearbyHandler = require('./handler/HotelNearbyHandler');
 const GenericThingDescriptionHandler = require('./handler/GenericThingDescriptionHandler');
 const HotelShowCardHandler = require('./handler/HotelShowCardHandler');
 const HotelFilterHandler = require('./handler/HotelFilterHandler');
-
+const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterListHandler');
+const InitialChooseCityHandler = require('./handler/InitialChooseCityHandler');
 
 
 class HandlerContainer{
@@ -38,6 +39,8 @@ class HandlerContainer{
 		this.genericThingDescriptionHandler = new GenericThingDescriptionHandler();
 		
 		this.hotelFilterHandler = new HotelFilterHandler();
+		this.hotelSelectionAfterListHandler = new HotelSelectionAfterListHandler();
+		this.initialChooseCityHandler = new InitialChooseCityHandler();
 	}
 	
 }
