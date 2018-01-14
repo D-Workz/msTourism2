@@ -27,20 +27,20 @@ class Logic {
     static getHandlers() {
         return {
             'LAUNCH': function () {
-                app.toIntent('HelloWorldIntent');
+                app.toIntent('Default Welcome Intent');
             },
 
-            'HelloWorldIntent': function () {
-                app.ask('Hello World Intent!');
-            },
 
             'Default Welcome Intent': function () {
-                app.ask('Default Welcome Intent!');
+                app.ask('Hej there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? Say the word manual for help about the navigation in this app.');
             },
 
             'ListHotels': function () {
                 handlers.allHotelsHandler.doFulfill(app, Annotations);
-                // intendListHotels(app);
+            },
+
+            'HotelSelectionAfterList': function () {
+                handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
             },
 
 
@@ -54,9 +54,7 @@ class Logic {
             },
 
             'HotelDescriptionWithoutContext': function () {
-                setHotelNameKnown(app, Annotations);
-                handlers.hotelDescriptionHandler.doFulfill(app, Annotations);
-
+                setHotelNameKnown(app, Annotations,handlers.hotelDescriptionHandler.doFulfill() );
             },
 
             'HotelRoomsWithContext': function () {
@@ -64,8 +62,7 @@ class Logic {
             },
 
             'HotelRoomsWithoutContext': function () {
-                setHotelNameKnown(app, Annotations);
-                handlers.hotelRoomsHandler.doFulfill(app, Annotations);
+                setHotelNameKnown(app, Annotations,handlers.hotelRoomsHandler.doFulfill());
             },
 
             'HotelBedsWithContext': function () {
@@ -73,8 +70,7 @@ class Logic {
             },
 
             'HotelBedsWithoutContext': function () {
-                setHotelNameKnown(app, Annotations);
-                handlers.hotelBedsHandler.doFulfill(app, Annotations);
+                setHotelNameKnown(app, Annotations,handlers.hotelBedsHandler.doFulfill());
             },
 
             'HotelStarsWithContext': function () {
@@ -82,8 +78,7 @@ class Logic {
             },
 
             'HotelStarsWithoutContext': function () {
-                setHotelNameKnown(app, Annotations);
-                handlers.hotelRatingHandler.doFulfill(app, Annotations);
+                setHotelNameKnown(app, Annotations,handlers.hotelRatingHandler.doFulfill());
             },
 
             'HotelPriceWithContext': function () {
@@ -95,9 +90,9 @@ class Logic {
             },
 
             'HotelSendImagesWithoutContext': function () {
-                setHotelNameKnown(app, Annotations);
-                handlers.hotelImagesHandler.doFulfill(app, Annotations);
+                setHotelNameKnown(app, Annotations,handlers.hotelImagesHandler.doFulfill);
             },
+
             'HotelAddressWithContext': function () {
             	handlers.hotelAddressHandler.doFulfill(app,Annotations);
             },            
@@ -119,20 +114,6 @@ class Logic {
             },
             'GenericThingDescription': function () {
             	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
-            },
-            'HotelNameKnownState': {
-                'HotelDescriptionWithContext': function () {
-                    intendHotelDescriptionWithContext(app);
-                },
-                'HotelRoomsWithContext': function () {
-                    intendHotelRoomsWithContext(app);
-                },
-                'HotelBedsWithContext': function () {
-                    intendHotelBedsWithContext(app);
-                },
-                'HotelStarsWithContext': function () {
-                    intendHotelStarsWithContext(app);
-                },
 
             }
 
@@ -141,86 +122,24 @@ class Logic {
 
 }
 
-function setHotelNameKnown(app,db) {
-    var hotelName = app.inputs.hotelName;
-    if(!hotelName){
-        hotelName = app.inputs.selectedHotelName;
-    }
-    if(!hotelName && hotelName!=''){
-    db.mfind({type:/Hotel/, "annotation.name": new RegExp(hotelName,"i")}).then((data) => {
+function setHotelNameKnown(app,db,functionToCall) {
+    let hotelName = app.inputs.hotelName;
 
-        if(Array.isArray(data)) {
-            data.forEach((entry) => {
-                app.db().save("selectedHotel", data, (err) => {
-                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-                });
-            });
+    if(hotelName && hotelName!=''){
+    db.mfindOne({type:/Hotel/, "annotation.name": new RegExp(hotelName,"i")}).then((data) => {
 
-        }else{
+        if (data) {
             app.db().save("selectedHotel", data, (err) => {
                 console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+                functionToCall(app, db);
             });
+        }else{
+            console.log('Problem with setting Hotel Name');
         }
     });
     }
 }
 
-    function intendHotelStarsWithoutContext(app) {
-    app.followUpState('HotelNameKnownState').ask("Done hotel stars without context!");
-}
 
-    function intendHotelStarsWithContext(app) {
-    app.ask("Done hotel stars with context!");
-}
-
-
-function intendHotelBedsWithoutContext(app) {
-    app.followUpState('HotelNameKnownState').ask("Done hotel beds without context!");
-}
-
-function intendHotelBedsWithContext(app) {
-    app.ask("Done hotel beds with context!");
-}
-
-function intendHotelRoomsWithoutContext(app) {
-    app.followUpState('HotelNameKnownState').ask("Done hotel rooms without context!");
-}
-
-function intendHotelRoomsWithContext(app) {
-    //  var villages = app.inputs["hotelName"];
-    app.ask("Done hotel rooms with context! + ");
-}
-
-function intendHotelDescriptionWithoutContext(app) {
-    let hotelName = app.inputs['hotelName']
-    app.setSessionAttribute('hotelName', hotelName);
-    findAndaskDescriptionForHotelName(app, hotelName);
-}
-
-function intendHotelDescriptionWithContext(app) {
-    let hotelName = app.getSessionAttribute("hotelName");
-    findAndaskDescriptionForHotelName(app, hotelName);
-}
-
-function findAndaskDescriptionForHotelName(app, hotelName) {
-    MapsMayrhofen.findOne({type: "Hotel"})
-        .then(function (hotelObject) {
-            for (let i = 0; i < hotelObject.annotations.length; i++) {
-                let name = hotelObject.annotations[i].annotation.name;
-
-                if (hotelName === name) {
-                    let desc = hotelObject.annotations[i].annotation.description;
-                    app.followUpState('HotelNameKnownState').ask(hotelName + ":      " + desc);
-                }
-            }
-        })
-}
-
-function intendListHotels(app) {
-    let query = {type:/Hotel/, name:"Möslalm"}
-    Annotations.mfindOne(query).then(function (result) {
-        console.log(result);
-    })
-}
 
 module.exports = Logic;

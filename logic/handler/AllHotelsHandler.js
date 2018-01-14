@@ -24,8 +24,12 @@ class AllHotelsHandler{
 			if(data.length===0){
 				app.ask("I didn't find any Hotel in "+place);
 			}else{
-				allHotels = allHotels.substring(0,allHotels.length-2);
-				app.ask("I found the following Hotels for you: "+allHotels);
+				app.db().save('listHotels',data, (err) => {
+					console.log('ListHotels is saved to db');
+                    allHotels = allHotels.substring(0,allHotels.length-2);
+                    app.ask("I found the following Hotels for you: "+allHotels + ". About which of these do you want to know more ?");
+                });
+
 			}			
 		});
 	}		

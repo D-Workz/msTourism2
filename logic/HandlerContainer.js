@@ -14,6 +14,7 @@ const HotelDistanceCityCenterHandler = require('./handler/HotelDistanceCityCente
 const HotelNearbyHandler = require('./handler/HotelNearbyHandler');
 const GenericThingDescriptionHandler = require('./handler/GenericThingDescriptionHandler');
 const HotelShowCardHandler = require('./handler/HotelShowCardHandler');
+const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterListHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -33,6 +34,7 @@ class HandlerContainer{
 		this.hotelShowCardHandler = new HotelShowCardHandler();
 		this.hotelNearbyHandler = new HotelNearbyHandler();
 		this.genericThingDescriptionHandler = new GenericThingDescriptionHandler();
+		this.hotelSelectionAfterListHandler = new HotelSelectionAfterListHandler();
 	}
 	
 }
