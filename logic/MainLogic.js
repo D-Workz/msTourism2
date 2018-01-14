@@ -107,9 +107,10 @@ class Logic {
             },
             'GenericThingDescription': function () {
             	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
-
+            },
+            'HotelFilterWithoutContext': function () {
+            	handlers.hotelFilterHandler.doFulfill(app,Annotations);
             }
-
         };
     }
 
