@@ -30,7 +30,10 @@ class HotelDistanceCityCenterHandler {
             if(latHotel && longHotel) {
                 distance = distanceCalc(latHotel, longHotel, latCityCenter, longCityCenter);
                 console.log("Distance: "+distance.toFixed(2));
-                app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                if(distance <100){
+                    app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                }
+                app.ask("Distance to city center could not be calculated");
             }else{
                 app.ask("No geo coordinates given for this Hotel.");
             }
