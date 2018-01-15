@@ -17,17 +17,20 @@ class HotelImagesHandler {
 
             if(Array.isArray(image)){
 
-                for(var counter = 0 ; counter < 2 && counter < image.length ; counter ++) {
+                for(var counter = 0 ; counter < 1 ; counter ++) {
 
                     let imageObject = image[counter];
                     if (imageObject) {
                         let url = imageObject.url;
                         if (url && url != "") {
+                            let title = image.caption;
+                            if(!title){
+                                title  = data.annotation.name;
+                            }
 
 
-                            app.googleAction().showImageCard("title","test",url);
-
-
+                            app.googleAction().showImageCard(title,title,url);
+                            app.ask('What else would you like to know ?');
 
 
 
@@ -40,10 +43,12 @@ class HotelImagesHandler {
                         // app.ask("I'm terrible sorry, but I could not find the desired information");
                     }
                 }
-                app.ask('What else would you like to know ?');
+
+
                 // app.googleAction().showSuggestionChips(['2','1']);
                 // app.googleAction().showCarousel(carousel);
                 // app.ask('What else would you like to know ?');
+
             }else if(image){
                 app.googleAction().showImageCard("title","",image.url);
                 app.ask('What else would you like to know ?');

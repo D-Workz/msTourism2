@@ -25,10 +25,10 @@ class HotelRoomsHandler{
 				for(var propertyName in roomDistribution){
 					roomDistributionText += roomDistribution[propertyName] + " room"+(roomDistribution[propertyName] > 1 ? "s" : "")+" of type "+propertyName+", ";
 				}				
-	    	    app.ask(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available: "+roomDistributionText.substring(0,roomDistributionText.length-2)); 	    
+	    	    app.ask(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available"); 	   //: "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			}
 			else{
-				app.ask("This is strange. I couldn't find any rooms in '"+data.annotation.name+"'");
+				app.ask("I'm sorry, I couldn't find anything about rooms in "+data.annotation.name);
 			}
     	});		
 	}		

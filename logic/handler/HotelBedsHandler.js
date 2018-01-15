@@ -37,7 +37,7 @@ class HotelBedsHandler{
 					bedVerb="is";
 					bedString="bed";
 				}
-					app.ask("Alright. There are "+nrOfBeds+" beds in total in "+hotelName +": "+roomDistributionText.substring(0,roomDistributionText.length-2));
+					app.ask("Alright. There are "+nrOfBeds+" beds in total in "+hotelName ); //+": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			}else{
 				app.ask("I'm terrible sorry, but I could not find the desired information");
 			}			
