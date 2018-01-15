@@ -28,6 +28,10 @@ class Logic {
                 findRestaurant(app, city);
             },
 
+            'ShowDetails': function () {
+                showDetails(app);
+            },
+
             'END': function () {
                 endMessage(app);
             }
@@ -59,10 +63,37 @@ function findRestaurant(app, city) {
         }, function (err, restaurants) {
             let amount = restaurants.length;
             let bestResult = restaurants[0];
+            app.setSessionAttribute("latestResult", bestResult);
             let speech = "I have found " + amount + " restaurants in " + toTitleCase(city) + "." + " One of them is " + toTitleCase(bestResult.name) + ".";
             app.ask(speech, reprompt);
         });
     }
+}
+
+function showDetails(app) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let title = toTitleCase(latestResult.name);
+    let content = "";
+    if (latestResult.sdoAnnotation.address.streetAddress && latestResult.sdoAnnotation.address.postalCode && latestResult.sdoAnnotation.address.addressLocality) {
+        content = content + "Address: " + latestResult.sdoAnnotation.address.streetAddress + ", " + latestResult.sdoAnnotation.address.postalCode + " " + latestResult.sdoAnnotation.address.addressLocality + "\n";
+    }
+    if (latestResult.sdoAnnotation.address.telephone) {
+        content = content + "Telephone: " + latestResult.sdoAnnotation.address.telephone + "\n";
+    }
+    if (latestResult.sdoAnnotation.address.email) {
+        content = content + "Mail: " + latestResult.sdoAnnotation.address.email + "\n";
+    }
+    if (latestResult.sdoAnnotation.address.url) {
+        content = content + "Website: " + latestResult.sdoAnnotation.address.url + "\n";
+    }
+    if (latestResult.sdoAnnotation.description) {
+        content = content + "Description:\n" + latestResult.sdoAnnotation.description + "\n";
+    }
+
+    app.alexaSkill().showSimpleCard(title, content);
+
+    let speech = "Done. Open the Amazon Alexa App to view details.";
+    app.ask(speech, reprompt);
 }
 
 function endMessage(app) {
