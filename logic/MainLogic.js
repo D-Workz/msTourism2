@@ -8,7 +8,7 @@ mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 require('../model/FoodEstablishment');
 
 const FoodEstablishments = mongoose.model('FoodEstablishment');
-const reprompt = "I can find restaurants for you.";
+const reprompt = "I can find food establishments for you.";
 
 class Logic {
     constructor() {
@@ -24,8 +24,8 @@ class Logic {
                 welcomeMessage(app);
             },
 
-            'FindRestaurant': function (city) {
-                findRestaurant(app, city);
+            'FindFoodEstablishment': function (city, foodEstablishment) {
+                findFoodEstablishment(app, city, foodEstablishment);
             },
 
             'ShowDetails': function () {
@@ -45,7 +45,7 @@ function welcomeMessage(app) {
     app.ask(speech, reprompt);
 }
 
-function findRestaurant(app, city) {
+function findFoodEstablishment(app, city, foodEstablishment) {
     // dialog STARTED or IN PROGRESS
     if (app.alexaSkill().isDialogStarted() || app.alexaSkill().isDialogInProgress()) {
         // let alexa handle conversation
@@ -54,17 +54,25 @@ function findRestaurant(app, city) {
     // dialog completed and all slots filled
     if (app.alexaSkill().isDialogCompleted()) {
         console.log("city: " + city);
+        console.log("foodEstablishment: " + foodEstablishment);
+
         // TODO: sort by rating descending
         FoodEstablishments.find({
-            "sdoTypes": "Restaurant",
+            "sdoTypes": parseFoodEstablishment(foodEstablishment),
             "sdoAnnotation.address.addressLocality": new RegExp(city, 'i'),
             "language": "en",
             "rating": {$gt: 0}
-        }, function (err, restaurants) {
-            let amount = restaurants.length;
-            let bestResult = restaurants[0];
-            app.setSessionAttribute("latestResult", bestResult);
-            let speech = "I have found " + amount + " restaurants in " + toTitleCase(city) + "." + " One of them is " + toTitleCase(bestResult.name) + ".";
+        }, function (err, results) {
+            let speech = "I'm sorry. I couldn't find a " + foodEstablishment + " in " + toTitleCase(city) + ".";
+            let amount = results.length;
+
+            if (amount > 0) {
+                let bestResult = results[0];
+                app.setSessionAttribute("latestResult", bestResult);
+                speech = "I have found " + amount + " results for " + foodEstablishment + " in " + toTitleCase(city) + "." + " One of them is " + toTitleCase(bestResult.name) + ".";
+            } else {
+                app.setSessionAttribute("latestResult", null);
+            }
             app.ask(speech, reprompt);
         });
     }
@@ -72,27 +80,30 @@ function findRestaurant(app, city) {
 
 function showDetails(app) {
     let latestResult = app.getSessionAttribute("latestResult");
-    let title = toTitleCase(latestResult.name);
-    let content = "";
-    if (latestResult.sdoAnnotation.address.streetAddress && latestResult.sdoAnnotation.address.postalCode && latestResult.sdoAnnotation.address.addressLocality) {
-        content = content + "Address: " + latestResult.sdoAnnotation.address.streetAddress + ", " + latestResult.sdoAnnotation.address.postalCode + " " + latestResult.sdoAnnotation.address.addressLocality + "\n";
-    }
-    if (latestResult.sdoAnnotation.address.telephone) {
-        content = content + "Telephone: " + latestResult.sdoAnnotation.address.telephone + "\n";
-    }
-    if (latestResult.sdoAnnotation.address.email) {
-        content = content + "Mail: " + latestResult.sdoAnnotation.address.email + "\n";
-    }
-    if (latestResult.sdoAnnotation.address.url) {
-        content = content + "Website: " + latestResult.sdoAnnotation.address.url + "\n";
-    }
-    if (latestResult.sdoAnnotation.description) {
-        content = content + "Description:\n" + latestResult.sdoAnnotation.description + "\n";
-    }
+    let speech = "First ask me to find a food establishment for you.";
 
-    app.alexaSkill().showSimpleCard(title, content);
+    if (latestResult) {
+        let title = toTitleCase(latestResult.name);
+        let content = "";
 
-    let speech = "Done. Open the Amazon Alexa App to view details.";
+        if (latestResult.sdoAnnotation.address.streetAddress && latestResult.sdoAnnotation.address.postalCode && latestResult.sdoAnnotation.address.addressLocality) {
+            content = content + "Address: " + latestResult.sdoAnnotation.address.streetAddress + ", " + latestResult.sdoAnnotation.address.postalCode + " " + latestResult.sdoAnnotation.address.addressLocality + "\n";
+        }
+        if (latestResult.sdoAnnotation.address.telephone) {
+            content = content + "Telephone: " + latestResult.sdoAnnotation.address.telephone + "\n";
+        }
+        if (latestResult.sdoAnnotation.address.email) {
+            content = content + "Mail: " + latestResult.sdoAnnotation.address.email + "\n";
+        }
+        if (latestResult.sdoAnnotation.address.url) {
+            content = content + "Website: " + latestResult.sdoAnnotation.address.url + "\n";
+        }
+        if (latestResult.sdoAnnotation.description) {
+            content = content + "Description:\n" + latestResult.sdoAnnotation.description + "\n";
+        }
+        app.alexaSkill().showSimpleCard(title, content);
+        speech = "Done. Open the Amazon Alexa App to view details.";
+    }
     app.ask(speech, reprompt);
 }
 
@@ -104,6 +115,26 @@ function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
+}
+
+// Jovo currently does not support Entity Resolution (https://developer.amazon.com/de/docs/custom-skills/define-synonyms-and-ids-for-slot-type-values-entity-resolution.html)
+function parseFoodEstablishment(foodEstablishment) {
+    switch (foodEstablishment) {
+        case "winery":
+            return "Winery";
+        case "restaurant":
+            return "Restaurant";
+        case "bakery":
+            return "Bakery";
+        case "ice cream shop":
+            return "IceCremeShop";
+        case "fast food restaurant":
+            return "FastFoodRestaurant";
+        case "cafe" || "coffee shop":
+            return "CafeOrCoffeeShop";
+        case "bar" || "pub":
+            return "BarOrPub";
+    }
 }
 
 module.exports = Logic;
