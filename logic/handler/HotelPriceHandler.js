@@ -13,6 +13,7 @@ class HotelPriceHandler{
 			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {};
 			let totalMinPrice = 10000000;
+			let totalMaxPrice = 0;
 
 			if(rooms){
 				rooms.forEach((roomEntry) => {
@@ -43,14 +44,16 @@ class HotelPriceHandler{
 					roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 				}
 
-	    	    app.ask("Rooms in the "+hotelName +"start from "+totalMinPrice + "EUR."); //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
-				let responseString = "";
-				if(roomDistributionText===""){
-					responseString="Sorry, I couldn't find any price specification for '"+data.annotation.name+"'."
-				}else{
-					responseString="Ok, there are the prices of "+data.annotation.name + ": "+roomDistributionText.substring(0,roomDistributionText.length-2);
-				}
-	    	    app.ask(responseString);
+                app.ask("Rooms in the "+hotelName +" range between "+totalMinPrice + " and " +totalMaxPrice + "EUR.");
+                //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
+
+                // let responseString = "";
+                // if(roomDistributionText===""){
+					// responseString="Sorry, I couldn't find any price specification for '"+data.annotation.name+"'."
+                // }else{
+					// responseString="Ok, there are the prices of "+data.annotation.name + ": "+roomDistributionText.substring(0,roomDistributionText.length-2);
+                // }
+	    	    // app.ask(responseString);
 			}else{
 				app.ask("I'm sorry, I couldn't find any information about the desired property.");
 			}

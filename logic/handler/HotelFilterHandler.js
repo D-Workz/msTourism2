@@ -10,10 +10,10 @@ class HotelFilterHandler{
 	doFulfill(app,db){
 		
 		let numVal = app.inputs.numVal;
-		let that = this;
 		let filterType = app.inputs.filter;
-
+		
         app.db().load("city", (err, city) => {
+
             app.db().load("type", (err, type) => {
             	if(type){
             		if(type.toLowerCase()==="hotel"){
@@ -45,6 +45,7 @@ class HotelFilterHandler{
                     if(data.length>0){
 
                         let sorted = that.prepareAndSortHotelsPricing(data);
+                        console.log("Save ListHotels with length: " + data.length);
 
                         app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
                             outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), "EUR", data.length));
@@ -58,7 +59,7 @@ class HotelFilterHandler{
                     if(data.length>0){
 
                         let sorted=that.prepareAndSortHotels(data);
-
+                        console.log("Save ListHotels with length: " + data.length);
                         app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
                             outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN),'', data.length));
                         })
