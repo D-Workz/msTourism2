@@ -73,7 +73,7 @@ class SemantifyExtension {
         let annotationLanguage = null;
         let desiredLanguages = config.get("languages");
         for (let language in desiredLanguages) {
-            if (annotationCID.indexOf("-"+desiredLanguages[language]) !== -1) {
+            if (annotationCID.indexOf("-" + desiredLanguages[language]) !== -1) {
                 annotationLanguage = desiredLanguages[language];
                 break;
             }
@@ -127,10 +127,13 @@ class SemantifyExtension {
                                 }
                             }, 750);
                         } else {
-                            that.updateAnnotationCollection(body, id, language);
-                            //hooked in
-                            that.updateGeospatialCollection(body, id);
-                            
+                            let annotation = that.parseJson(body);
+                            if (annotation) {
+                                that.updateAnnotationCollection(annotation, id, language);
+                                that.updateGeospatialCollection(annotation, id);
+                            } else {
+                                console.log("annotation with id:" + id + "has invalid annotation. Not parsable as an object.");
+                            }
                             that.startNextAnnotation(annotations, index, size, requestFrequency);
                         }
                     });
@@ -148,6 +151,22 @@ class SemantifyExtension {
             console.log("------------------- \n No CID found cant to request. Start next annotation.");
             that.startNextAnnotation(annotations, index, size, 0);
         }
+    }
+
+    /**
+     * Parses an annotation string into a js object. If it cant be parsed as valid object returns undefined.
+     * @param annotation
+     * @returns object if success or undefined if fail
+     */
+    parseJson(annotation) {
+        let annotationAsJson;
+        try {
+            annotationAsJson = JSON.parse(annotation);
+        } catch (err) {
+            console.error("Couldnt process Annotation: " + err)
+        }
+        if (!annotationAsJson["@type"]) annotationAsJson = undefined;
+        return annotationAsJson;
     }
 
     /**
@@ -197,14 +216,8 @@ class SemantifyExtension {
      * @param id the id of the annotation is checked if exists already if so updated if not create new document
      * @param language of the annotation
      */
-    updateAnnotationCollection(annotation, id, language) {
-        let annotationAsJson;
-        let that = this;
-        try {
-            annotationAsJson = JSON.parse(annotation);
-        } catch (err) {
-            console.error("Couldnt process Annotation: " + err)
-        }
+    updateAnnotationCollection(annotationAsJson, id, language) {
+        let that = this
         if (annotationAsJson) {
             Annotations
                 .findOne({annotationId: id})
@@ -225,27 +238,48 @@ class SemantifyExtension {
      * @param annotation the annotation used to retreive the geoSpatial information
      * @param id the annotationID used to check if exists inside GeoSPatialProjection
      */
-    updateGeospatialCollection(annotation, id) {
-        let annotationAsJson;
+    updateGeospatialCollection(annotationAsJson, id) {
         let that = this;
-        try {
-            annotationAsJson = JSON.parse(annotation);
-        } catch (err) {
-            console.error("Couldnt process Annotation: " + err)
-        }
         if (annotationAsJson) {
-        	GeospatialProjections
+            let skiResort = false;
+            if (annotationAsJson["@type"]) {
+                let typeCount
+                if(Array.isArray(annotationAsJson["@type"])){
+                    typeCount = annotationAsJson["@type"].length;
+                    if (typeCount === 1) {
+                        if (annotationAsJson['@type'][0] === "SkiResort") {
+                            skiResort = true;
+                        }
+                    }
+                }
+                else{
+                    if (annotationAsJson['@type']=== "SkiResort") {
+                        skiResort = true;
+                    }
+                }
+
+            } else {
+                // console.log(annotationAsJson)
+            }
+            if (skiResort) {
+                console.log(skiResort);
+                if(annotationAsJson.potentialAction && annotationAsJson.potentialAction.fromLocation)
+                annotationAsJson = annotationAsJson.potentialAction.fromLocation.geo;
+            }
+            GeospatialProjections
                 .findOne({annotationId: id})
-                .then(function (annotation) {
-                    if (!annotation) {
-                        that.createNewAnnotationTypeGeospatial(annotationAsJson, id);
+                .then(function (geospatial) {
+                    if (!geospatial) {
+                        that.createNewAnnotationTypeGeospatial(annotationAsJson.geo, id);
                     } else {
-                        that.updateExistingAnnotationTypeGeospatial(annotationAsJson, annotation);
+                        that.updateExistingAnnotationTypeGeospatial(annotationAsJson.geo, geospatial);
                     }
                 })
+
         }
 
     };
+
 //====================
 
 
@@ -262,7 +296,7 @@ class SemantifyExtension {
         existingAnnotation.save(function (err, anno) {
             if (err) {
                 console.error(err);
-            } else {                
+            } else {
                 that.successfullySavingAnnotation(true, anno._id);
             }
         });
@@ -286,7 +320,7 @@ class SemantifyExtension {
         newAnnotationsType.save(function (err, anno) {
             if (err) {
                 console.error(err);
-            } else {            	                
+            } else {
                 that.successfullySavingAnnotation(false, anno._id);
             }
         });
@@ -294,63 +328,63 @@ class SemantifyExtension {
 
     /**
      * Update an existing geoSpatial inside MongoDB
-     * @param annotationDetailObject
-     * @param existingAnnotation
+     * @param annotationDetailObjectGeo
+     * @param existingGeoSpatial
      */
-    updateExistingAnnotationTypeGeospatial(annotationDetailObject, existingAnnotation) { 
-    	let that = this;    	
-	    if(annotationDetailObject.geo){	        
-	        existingAnnotation = that.convertGeoToProjection(annotationDetailObject, existingAnnotation);
-	        existingAnnotation.save(function (err, anno) {
-	            if (err) {
-	                console.error(err);
-	            } else {
-	                that.successfullySavingAnnotationGeospatial(true, anno._id);
-	            }
-	        });	        
-	    }	    
+    updateExistingAnnotationTypeGeospatial(annotationDetailObjectGeo, existingGeoSpatial) {
+        let that = this;
+        if (annotationDetailObjectGeo) {
+            existingGeoSpatial = that.convertGeoToProjection(annotationDetailObjectGeo, existingGeoSpatial);
+            existingGeoSpatial.save(function (err, anno) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    that.successfullySavingAnnotationGeospatial(true, anno._id);
+                }
+            });
+        }
     }
 
     /**
      * Creates a new GeoSpatialProjection document inside mongoDB
-     * @param annotationDetailObject
+     * @param annotationDetailObjectGeo
      * @param id
      */
-    createNewAnnotationTypeGeospatial(annotationDetailObject, id) {
-    	let that = this;    	
-	    if(annotationDetailObject.geo){	            	
-	    	let newGeospatialProjections = new GeospatialProjections();
-        
-	    	newGeospatialProjections.annotationID = id;
-	    	newGeospatialProjections=that.convertGeoToProjection(annotationDetailObject, newGeospatialProjections);
+    createNewAnnotationTypeGeospatial(annotationDetailObjectGeo, id) {
+        let that = this;
+        if (annotationDetailObjectGeo) {
+            let newGeospatialProjections = new GeospatialProjections();
 
-	    	newGeospatialProjections.save(function (err, anno) {
-	            if (err) {
-	                console.error(err);
-	            } else {
-	                that.successfullySavingAnnotationGeospatial(false, anno._id);
-	            }
-	        });
-	    }
+            newGeospatialProjections.annotationID = id;
+            newGeospatialProjections = that.convertGeoToProjection(annotationDetailObjectGeo, newGeospatialProjections);
+
+            newGeospatialProjections.save(function (err, anno) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    that.successfullySavingAnnotationGeospatial(false, anno._id);
+                }
+            });
+        }
     }
 
     /**
      * Converts the semantic geo information into point coordinates
-     * @param originalAnnotation
-     * @param existingAnnotation
+     * @param originalAnnotationGeo
+     * @param existingAnnotationGeo
      * @returns {*}
      */
-    convertGeoToProjection(originalAnnotation, existingAnnotation){
-        var helper = originalAnnotation.geo;
+    convertGeoToProjection(originalAnnotationGeo, existingAnnotationGeo) {
+        var helper = originalAnnotationGeo;
         var longitudeToSet = 0;
         var latitudeToSet = 0;
 
-		if(helper.longitude && helper.latitude && helper.longitude<=180 && helper.latitude<=90){
-		  longitudeToSet=helper.longitude;
-		  latitudeToSet=helper.latitude;
-		}
-		existingAnnotation.geoInfo={type:'Point', coordinates : [Number(longitudeToSet),Number(latitudeToSet)]};
-		return existingAnnotation;
+        if (helper.longitude && helper.latitude && helper.longitude <= 180 && helper.latitude <= 90) {
+            longitudeToSet = helper.longitude;
+            latitudeToSet = helper.latitude;
+        }
+        existingAnnotationGeo.geoInfo = {type: 'Point', coordinates: [Number(longitudeToSet), Number(latitudeToSet)]};
+        return existingAnnotationGeo;
     }
 
 
@@ -392,8 +426,8 @@ class SemantifyExtension {
         if (this.count === this.totalCount) {
             this.callbackStartExtension.startNextWebsite();
         }
-    }    
-    
+    }
+
 
 }
 

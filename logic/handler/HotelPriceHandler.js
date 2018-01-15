@@ -9,16 +9,16 @@ class HotelPriceHandler{
 	doFulfill(app,db){
 				
 		app.db().load("selectedHotel", (err, data) => {
-			var hotelName = app.inputs.selectedHotelName;
-			var rooms = data.annotation.makesOffer;
-			var roomDistribution = {}
+			let hotelName = app.inputs.selectedHotelName;
+			let rooms = data.annotation.makesOffer;
+			let roomDistribution = {}
 			rooms.forEach((roomEntry) => {
 				if(roomEntry.priceSpecification){
 					if(!roomDistribution[roomEntry.itemOffered.name]){
 						roomDistribution[roomEntry.itemOffered.name]="";
 					}
-					var minPrice = 100000000;
-					var maxPrice = -1000000;
+					let minPrice = 100000000;
+					let maxPrice = -1000000;
 
 					//if price-property exists
 					roomEntry.priceSpecification.forEach((priceEntry) => {
@@ -33,9 +33,9 @@ class HotelPriceHandler{
 				}
 			})
 			
-			var roomDistributionText = "";
+			let roomDistributionText = "";
 			
-			for(var propertyName in roomDistribution){
+			for(let propertyName in roomDistribution){
 				roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 			}
 			

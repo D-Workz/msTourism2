@@ -7,17 +7,18 @@ class AllHotelsHandler{
 	}
 	
 	doFulfill(app, db){
-		var nrHotels = app.inputs.number;
-		var place = app.inputs.villages;
-
-		if(nrHotels== null || nrHotels == 0){
+		let nrHotels = app.inputs.number;
+		let place = app.inputs.villages;
+		let filter = app.inputs.filter;
+		
+		if(nrHotels== null || nrHotels === 0){
 			nrHotels = 5;
 		}
 		
-		db.find({type:"Hotel"}).limit(nrHotels).then((data) => {
-			var allHotels = "";
+		db.find({type:/Hotel/}).limit(nrHotels).then((data) => {
+			let allHotels = "";
 			data.forEach((entry) => {
-				var hotelName = entry.annotation.name;			
+				let hotelName = entry.annotation.name;			
 				allHotels += "'"+hotelName+"', ";
 			})
 
