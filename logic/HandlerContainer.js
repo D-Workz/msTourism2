@@ -18,7 +18,8 @@ const HotelFilterHandler = require('./handler/HotelFilterHandler');
 const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterListHandler');
 const InitialChooseCityHandler = require('./handler/InitialChooseCityHandler');
 const HelperHandler = require('./handler/HelperHandler');
-
+const ChangeCityHandler = require('./handler/ChangeCityHandler');
+const ChangeThingHandler = require('./handler/ChangeThingHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -43,7 +44,10 @@ class HandlerContainer{
 		this.hotelSelectionAfterListHandler = new HotelSelectionAfterListHandler();
 		this.initialChooseCityHandler = new InitialChooseCityHandler();
 		
-		this.helperHandler = new HelperHandler();		
+		this.helperHandler = new HelperHandler();
+		
+		this.changeCityHandler = new ChangeCityHandler();
+		this.changeThingHandler = new ChangeThingHandler();
 	}	
 }
 
