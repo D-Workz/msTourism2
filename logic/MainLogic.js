@@ -5,16 +5,10 @@ const config = require('config');
 const app = require('jovo-framework').Jovo;
 const mongoose = require('mongoose');
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
-require('../model/MapsMayrhofen');
-require('../model/MapsSeefeld');
-require('../model/MayrhofenAt');
-require('../model/SeefeldAt');
+require('../model/FoodEstablishment');
 
-const MapsMayrhofen = mongoose.model('MapsMayrhofen');
-const MapsSeefeld = mongoose.model('MapsSeefeld');
-const SeefeldAt = mongoose.model('SeefeldAt');
-const MayrhofenAt = mongoose.model('MayrhofenAt');
-
+const FoodEstablishments = mongoose.model('FoodEstablishment');
+const reprompt = "I can find restaurants for you.";
 
 class Logic {
     constructor() {
@@ -23,120 +17,62 @@ class Logic {
     static getHandlers() {
         return {
             'LAUNCH': function () {
-                app.toIntent('HelloWorldIntent');
+                app.toIntent('Welcome');
             },
 
-            'HelloWorldIntent': function () {
-                app.tell('Hello hhhhhhhhhsds World!');
+            'Welcome': function () {
+                welcomeMessage(app);
             },
 
-            'ListHotels': function () {
-                intendListHotels(app);
+            'FindRestaurant': function (city) {
+                findRestaurant(app, city);
             },
-            'HotelDescriptionWithContext': function () {
-                intendHotelDescriptionWithContext(app);
-            },
-            'HotelDescriptionWithoutContext': function () {
-                intendHotelDescriptionWithoutContext(app);
-            },
-            'HotelRoomsWithContext': function () {
-                intendHotelRoomsWithContext(app);
-            },
-            'HotelRoomsWithoutContext': function () {
-                intendHotelRoomsWithoutContext(app);
-            },
-            'HotelBedsWithContext': function () {
-                intendHotelBedsWithContext(app);
-            },
-            'HotelBedsWithoutContext': function () {
-                intendHotelBedsWithoutContext(app);
-            },
-            'HotelStarsWithContext': function () {
-                intendHotelStarsWithContext(app);
-            },
-            'HotelStarsWithoutContext': function () {
-                intendHotelStarsWithoutContext(app);
+
+            'END': function () {
+                endMessage(app);
             }
         };
     }
 
 }
 
-function intendHotelStarsWithoutContext(app){
-    app.tell("Done hotel stars without context!" );
+function welcomeMessage(app) {
+    let speech = "Welcome to food finder, how can I help you?";
+    app.ask(speech, reprompt);
 }
 
-function intendHotelStarsWithContext(app){
-    app.tell("Done hotel stars with context!" );
-}
-
-
-function intendHotelBedsWithoutContext(app){
-    app.tell("Done hotel beds without context!" );
-}
-
-function intendHotelBedsWithContext(app){
-    app.tell("Done hotel beds with context!" );
-}
-
-function intendHotelRoomsWithoutContext(app){
-    app.tell("Done hotel rooms without context!" );
-}
-
-function intendHotelRoomsWithContext(app){
-  //  var villages = app.inputs["hotelName"];
-    app.tell("Done hotel rooms with context! + "  );
-}
-
-function intendHotelDescriptionWithoutContext(app){
-    app.tell("Done hotel desc without context!" );
-}
-
-function intendHotelDescriptionWithContext(app) {
-
-    app.tell("Done hotel desc with context!" );
-}
-
-function intendListHotels(app) {
-    MapsMayrhofen
-        .findOne({type: "Hotel"})
-        .then(function (hotelObject) {
-            let maxBoundry = 0;
-            let responseMsg = "";
-            let foundAnnotations = [];
-            let addressLocality;
-            for (let k = 0; k < hotelObject.annotations.length; k++) {
-                let annotationAddressLocality;
-                try {
-                    annotationAddressLocality = hotelObject.annotations[k].annotation.address.addressLocality;
-                } catch (err) {
-                    console.warn("Cant get address Locality");
-                }
-                if (annotationAddressLocality) {
-                    if (app.inputs["villages"] !== "") {
-                        addressLocality = app.inputs["villages"];
-                    } else if (app.inputs.villages !== "") {
-                        addressLocality = app.inputs.villages;
-                    } else {
-                        app.tell('Name a place.');
-                        return;
-                    }
-                    if (annotationAddressLocality === addressLocality) {
-                        foundAnnotations.push(hotelObject.annotations[k].annotation);
-                    }
-                }
-            }
-            if (foundAnnotations.length <= app.inputs.number) {
-                maxBoundry = foundAnnotations.length;
-            } else {
-                maxBoundry = app.inputs.number;
-            }
-            for (let i = 0; i < maxBoundry; i++) {
-                responseMsg += foundAnnotations[i].name + ", "
-            }
-
-            app.tell('We found: ' + hotelObject.count + " Hotels in our Database. There are in " + addressLocality + " there are" + foundAnnotations.length + " in total. And the top: " + maxBoundry + " Hotelnames are: " + responseMsg);
+function findRestaurant(app, city) {
+    // dialog STARTED or IN PROGRESS
+    if (app.alexaSkill().isDialogStarted() || app.alexaSkill().isDialogInProgress()) {
+        // let alexa handle conversation
+        app.alexaSkill().dialogDelegate();
+    }
+    // dialog completed and all slots filled
+    if (app.alexaSkill().isDialogCompleted()) {
+        console.log("city: " + city);
+        // TODO: sort by rating descending
+        FoodEstablishments.find({
+            "sdoTypes": "Restaurant",
+            "sdoAnnotation.address.addressLocality": new RegExp(city, 'i'),
+            "language": "en",
+            "rating": {$gt: 0}
+        }, function (err, restaurants) {
+            let amount = restaurants.length;
+            let bestResult = restaurants[0];
+            let speech = "I have found " + amount + " restaurants in " + toTitleCase(city) + "." + " One of them is " + toTitleCase(bestResult.name) + ".";
+            app.ask(speech, reprompt);
         });
+    }
+}
+
+function endMessage(app) {
+    app.tell("Thanks for using food finder!")
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 module.exports = Logic;

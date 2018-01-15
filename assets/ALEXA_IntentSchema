@@ -1,12 +1,70 @@
 {
-  "intents": [
+  "languageModel": {
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": [
+          "Thanks"
+        ]
+      },
+      {
+        "name": "FindRestaurant",
+        "samples": [
+          "Find a restaurant in {city}",
+          "Find restaurant in {city}"
+        ],
+        "slots": [
+          {
+            "name": "city",
+            "type": "AMAZON.AT_CITY",
+            "samples": [
+              "I'd like to go to {city}",
+              "In {city}",
+              "{city}"
+            ]
+          }
+        ]
+      }
+    ],
+    "invocationName": "food finder"
+  },
+  "prompts": [
     {
-      "name": "HelloWorldIntent",
-      "samples": [
-        "say hello",
-        "say hi"
-      ],
-      "slots": []
+      "id": "Elicit.Intent-FindRestaurant.IntentSlot-city",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Where should I look for restaurants?"
+        }
+      ]
     }
-  ]
+  ],
+  "dialog": {
+    "intents": [
+      {
+        "name": "FindRestaurant",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "city",
+            "type": "AMAZON.AT_CITY",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-FindRestaurant.IntentSlot-city"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
