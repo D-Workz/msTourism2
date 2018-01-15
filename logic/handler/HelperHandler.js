@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class HelperHandler{
@@ -9,7 +10,14 @@ class HelperHandler{
 	doFulfill(app,db){				
 		app.db().load("selectedHotel", (err, selectedHotel) => {
 			app.db().load("city", (err, city) => {
-				app.ask("We are talking about "+selectedHotel.annotation.name+" ("+selectedHotel.annotation["@type"]+") in "+city);
+				let retString = "";
+				if(city && selectedHotel){
+					retString = "Actually we are talking about "+selectedHotel.annotation.name+" ("+selectedHotel.annotation["@type"]+") in "+city+
+						". But";
+				}
+				app.ask(retString + (retString === "" ? "Y" : " y")+"ou can "+StringConstants.AVAILABLE_CHANGER+". Available things are "+
+						StringConstants.AVAILABLE_THINGS+". You can "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
+						StringConstants.AVAILABLE_FILTER);
 			});
     	});		
 	}		
