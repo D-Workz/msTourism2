@@ -26,7 +26,7 @@ class InitialChooseCityHandler {
         this.hotelFilterHandler = new HotelFilterHandler();
 
             this.hotelFilterHandler.searchAndFilter(app, db, numVal, city, "rating", "Hotel", (resultString) => {
-            app.ask(resultString);
+            app.ask(resultString );
         });
     }
 }
