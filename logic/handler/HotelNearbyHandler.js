@@ -77,7 +77,7 @@ class HotelNearbyHandler{
 							})
 						})					
 			}else{
-				app.ask("I'm terrible sorry. Hotel '"+hotelEntry.name+"' has invalid or no coordinates set.");
+				app.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.");
 			}					
 		});		
 	}

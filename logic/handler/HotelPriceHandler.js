@@ -13,42 +13,47 @@ class HotelPriceHandler{
 			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {};
 			let totalMinPrice = 10000000;
-			rooms.forEach((roomEntry) => {
-				if(roomEntry.priceSpecification){
-					if(!roomDistribution[roomEntry.itemOffered.name]){
-						roomDistribution[roomEntry.itemOffered.name]="";
+			
+			if(rooms){
+				rooms.forEach((roomEntry) => {
+					if(roomEntry.priceSpecification){
+						if(!roomDistribution[roomEntry.itemOffered.name]){
+							roomDistribution[roomEntry.itemOffered.name]="";
+						}
+						var minPrice = 100000000;
+						var maxPrice = -1000000;
+	
+						//if price-property exists
+						roomEntry.priceSpecification.forEach((priceEntry) => {
+							if(priceEntry.minPrice<minPrice){
+								minPrice = priceEntry.minPrice;
+								totalMinPrice = priceEntry.minPrice;
+							}
+							if(priceEntry.maxPrice>maxPrice){
+								maxPrice = priceEntry.maxPrice;
+							}
+						})
+						roomDistribution[roomEntry.itemOffered.name]="between "+minPrice+" EUR and "+maxPrice+" EUR";
 					}
-					var minPrice = 100000000;
-					var maxPrice = -1000000;
-
-					//if price-property exists
-					roomEntry.priceSpecification.forEach((priceEntry) => {
-						if(priceEntry.minPrice<minPrice){
-							minPrice = priceEntry.minPrice;
-							totalMinPrice = priceEntry.minPrice;
-						}
-						if(priceEntry.maxPrice>maxPrice){
-							maxPrice = priceEntry.maxPrice;
-						}
-					})
-					roomDistribution[roomEntry.itemOffered.name]="between "+minPrice+" EUR and "+maxPrice+" EUR";
+				})
+				
+				var roomDistributionText = "";
+				
+				for(var propertyName in roomDistribution){
+					roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 				}
-			})
-			
-			var roomDistributionText = "";
-			
-			for(var propertyName in roomDistribution){
-				roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
-			}
-			
-    	    app.ask("Rooms in the "+hotelName +"start from "+totalMinPrice + "EUR."); //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
-			let responseString = "";
-			if(roomDistributionText===""){
-				responseString="Sorry, I couldn't find any price specification for '"+data.annotation.name+"'."
+				
+	    	    app.ask("Rooms in the "+hotelName +"start from "+totalMinPrice + "EUR."); //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
+				let responseString = "";
+				if(roomDistributionText===""){
+					responseString="Sorry, I couldn't find any price specification for '"+data.annotation.name+"'."
+				}else{
+					responseString="Ok, there are the prices of "+data.annotation.name + ": "+roomDistributionText.substring(0,roomDistributionText.length-2);
+				}
+	    	    app.ask(responseString);
 			}else{
-				responseString="Ok, there are the prices of "+data.annotation.name + ": "+roomDistributionText.substring(0,roomDistributionText.length-2);
+				app.ask("I'm sorry, I couldn't find any information about the desired property.");
 			}
-    	    app.ask(responseString);
     	});
 		
 	}		
