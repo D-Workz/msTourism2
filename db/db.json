@@ -1,16 +1,17 @@
 [
 	{
 		"userId": "DIALOGFLOW-DEBUGGING-USER-ID",
-		"data": {
-			"selectedHotel": []
-		},
 		"userData": {
 			"data": {},
 			"metaData": {
-				"createdAt": "2018-01-14T00:07:26.581Z",
-				"lastUsedAt": "2018-01-14T00:14:53.404Z",
-				"sessionsCount": 1
+				"createdAt": "2018-01-15T19:14:57.647Z",
+				"lastUsedAt": "2018-01-15T19:19:28.579Z",
+				"sessionsCount": 6
 			}
+		},
+		"data": {
+			"city": "Mayrhofen",
+			"type": "Hotel"
 		}
 	}
 ]
