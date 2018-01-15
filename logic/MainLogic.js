@@ -125,6 +125,12 @@ class Logic {
             },
             'HelperStatusIntent': function () {
             	handlers.helperHandler.doFulfill(app,Annotations);
+            },
+            'ChangeCityIntent': function () {
+            	handlers.changeCityHandler.doFulfill(app,Annotations);
+            },
+            'ChangeThingIntent': function () {
+            	handlers.changeThingHandler.doFulfill(app,Annotations);
             }
         };
     }

@@ -36,6 +36,7 @@ class HotelNearbyHandler{
 						   }
 						).then((data)=>{
 							
+							if(data.length>0){
 							//build annotationIds
 							let annotationIds = [];
 							for(let i=0; i<data.length; i++){
@@ -75,7 +76,11 @@ class HotelNearbyHandler{
 								
 															
 							})
-						})					
+						}else{
+							app.ask("I'm sorry, I couldn't find anything nearby");
+						}
+							
+					})					
 			}else{
 				app.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.");
 			}					

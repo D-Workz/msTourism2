@@ -1,5 +1,5 @@
 db.getCollection('annotations').find({type:/Hotel/i}).forEach(function(obj){
-   if(obj.annotation.makesOffer || (obj.annotation.aggregateRating && (obj.annotation.aggregateRating.ratingVal || obj.annotation.aggregateRating.reviewCount))){
+   if(obj.annotation.makesOffer || (obj.annotation.aggregateRating && (obj.annotation.aggregateRating.ratingValue || obj.annotation.aggregateRating.reviewCount))){
        if(obj.annotation.makesOffer){
           obj.annotation.makesOffer.forEach(function(makesOfferEntry){
              if(makesOfferEntry.priceSpecification){
