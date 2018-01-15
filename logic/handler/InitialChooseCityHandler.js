@@ -16,6 +16,11 @@ class InitalChooseCityHandler {
         }
                 app.db().save("city", city, (err) => {
                     console.log("Attribute 'city' set with content of '" + city + "'");
+
+
+
+
+
                     app.ask("What do you want to know? I can give you a description, a rating, information about rooms, prices, the address, contact infos and how far away it is from the city center.");
                 });
     }

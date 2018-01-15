@@ -58,24 +58,33 @@ class Logic {
             	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
             },
 
+            // 'HotelDescriptionWithoutContext': function () {
+            //     setHotelNameKnown(app, Annotations,handlers.hotelDescriptionHandler.doFulfill() );
+            // },
 
             'HotelRoomsWithContext': function () {
                 handlers.hotelRoomsHandler.doFulfill(app, Annotations);
             },
 
-
+            // 'HotelRoomsWithoutContext': function () {
+            //     setHotelNameKnown(app, Annotations,handlers.hotelRoomsHandler.doFulfill());
+            // },
 
             'HotelBedsWithContext': function () {
                 handlers.hotelBedsHandler.doFulfill(app, Annotations);
             },
 
-
+            // 'HotelBedsWithoutContext': function () {
+            //     setHotelNameKnown(app, Annotations,handlers.hotelBedsHandler.doFulfill());
+            // },
 
             'HotelStarsWithContext': function () {
                 handlers.hotelRatingHandler.doFulfill(app, Annotations);
             },
 
-
+            // 'HotelStarsWithoutContext': function () {
+            //     setHotelNameKnown(app, Annotations,handlers.hotelRatingHandler.doFulfill());
+            // },
 
             'HotelPriceWithContext': function () {
                 handlers.hotelPriceHandler.doFulfill(app, Annotations);
@@ -85,6 +94,9 @@ class Logic {
                 handlers.hotelImagesHandler.doFulfill(app, Annotations);
             },
 
+            // 'HotelSendImagesWithoutContext': function () {
+            //     setHotelNameKnown(app, Annotations,handlers.hotelImagesHandler.doFulfill);
+            // },
 
             'HotelAddressWithContext': function () {
             	handlers.hotelAddressHandler.doFulfill(app,Annotations);

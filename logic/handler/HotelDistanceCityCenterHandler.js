@@ -15,12 +15,13 @@ class HotelDistanceCityCenterHandler {
 
             let latCityCenter = 0;
             let longCityCenter = 0;
+            let isFromMayrhofen = (website == 'MayrhofenAt') || (website == 'MapsMayrhofenAt');
+            let isFromSeefeld = (website =='SeefeldAt')||(website = 'MapsSeefeldAt');
 
-            if(Array.isArray(website) &&
-                (arrayContains('MayrhofenAt',website) || arrayContains('MapsMayrhofenAt',website))){
-            longCityCenter = 11.866667;
+            if( isFromMayrhofen || Array.isArray(website) &&  (arrayContains('MayrhofenAt',website) || arrayContains('MapsMayrhofenAt',website))){
+                longCityCenter = 11.866667;
             latCityCenter = 47.166667;
-            }else if(Array.isArray(website) && (arrayContains('SeefeldAt',website) || arrayContains('MapsSeefeld', website))){
+            }else if(isFromSeefeld || Array.isArray(website) && (arrayContains('SeefeldAt',website) || arrayContains('MapsSeefeld', website))){
                 longCityCenter = 11.189167;
                 latCityCenter = 47.329444;
             }
@@ -32,8 +33,9 @@ class HotelDistanceCityCenterHandler {
                 console.log("Distance: "+distance.toFixed(2));
                 if(distance <100){
                     app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                }else {
+                    app.ask("Distance to city center could not be calculated");
                 }
-                app.ask("Distance to city center could not be calculated");
             }else{
                 app.ask("No geo coordinates given for this Hotel.");
             }

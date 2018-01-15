@@ -9,9 +9,10 @@ class HotelPriceHandler{
 	doFulfill(app,db){
 				
 		app.db().load("selectedHotel", (err, data) => {
-			var hotelName = app.inputs.selectedHotelName;
+			var hotelName = data.annotation.name;
 			var rooms = data.annotation.makesOffer;
-			var roomDistribution = {}
+			var roomDistribution = {};
+			let totalMinPrice = 10000000;
 			rooms.forEach((roomEntry) => {
 				if(roomEntry.priceSpecification){
 					if(!roomDistribution[roomEntry.itemOffered.name]){
@@ -24,6 +25,7 @@ class HotelPriceHandler{
 					roomEntry.priceSpecification.forEach((priceEntry) => {
 						if(priceEntry.minPrice<minPrice){
 							minPrice = priceEntry.minPrice;
+							totalMinPrice = priceEntry.minPrice;
 						}
 						if(priceEntry.maxPrice>maxPrice){
 							maxPrice = priceEntry.maxPrice;
@@ -39,7 +41,7 @@ class HotelPriceHandler{
 				roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 			}
 			
-    	    app.ask("Ok, there are the prices of "+hotelName + ": "+roomDistributionText.substring(0,roomDistributionText.length-2));
+    	    app.ask("Rooms in the "+hotelName +"start from "+totalMinPrice + "EUR."); //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			let responseString = "";
 			if(roomDistributionText===""){
 				responseString="Sorry, I couldn't find any price specification for '"+data.annotation.name+"'."
