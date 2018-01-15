@@ -33,7 +33,7 @@ class Logic {
 
 
             'Default Welcome Intent': function () {
-                app.ask('Hej there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? Say first or second to choose one of them');
+                app.ask('Hey there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? SelectSay first or second to choose one of them');
             },
 
             'InitialChooseCityIntent': function () {
@@ -56,6 +56,11 @@ class Logic {
 
             'HotelDescriptionWithContext': function () {
             	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+            },
+
+
+            'ChooseTypeIntent': function () {
+            	handlers.typeSelectionHandler.doFulfill(app,Annotations);
             },
 
             // 'HotelDescriptionWithoutContext': function () {
