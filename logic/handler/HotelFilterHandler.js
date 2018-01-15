@@ -12,21 +12,29 @@ class HotelFilterHandler{
 		let numVal = app.inputs.numVal;
 		let that = this;
 		let filterType = app.inputs.filter;
-		let thingType  = 'Hotel';
-
 
         app.db().load("city", (err, city) => {
-
-        	searchAndFilter(app, db,numVal,city, filterType,thingType, (resultString) =>{
-			app.ask(resultString);
-        });
+            app.db().load("type", (err, type) => {
+            	if(type){
+            		if(type.toLowerCase()==="hotel"){
+			        	that.searchAndFilter(app, db,numVal,city, filterType,type, (resultString) =>{
+			        		app.ask(resultString);	        	
+			        	});
+            		}else{
+            			app.ask(StringConstants.FILTERING_NOT_ALLOWED);
+            		}
+            	}else{
+            		app.ask(StringContsants.NO_TYPE_DEFINED);
+            	}
+            });
         });
 		
 
 	}
 
 	searchAndFilter(app, db, numVal ,city, filterType, thingType, outputFunction){
-let that = this;
+			let that = this;
+			
             if(filterType==="price"){
                 db.find({type:new RegExp(thingType,"i"), website: new RegExp(city,"i"), "annotation.makesOffer":
                     {"$elemMatch":{
