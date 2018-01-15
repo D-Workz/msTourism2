@@ -11,44 +11,57 @@ class HotelFilterHandler{
 		let numVal = app.inputs.numVal;
 		let that = this;
 		let filterType = app.inputs.filter;
-		
+		let thingType  = 'Hotel';
+
+
         app.db().load("city", (err, city) => {
-    		if(filterType==="price"){	        
-    			db.find({type:/hotel/i, website: new RegExp(city,"i"), "annotation.makesOffer":
-    			{"$elemMatch":{
-    				$and : [{
-    					"priceSpecification.minPrice":{$lte:numVal}}, {
-    					"priceSpecification.minPrice":{$ne:0.00}}
-    					]}}}).then((data)=>{
-    						if(data.length>0){
 
-    							let sorted = that.prepareAndSortHotelsPricing(data);
-    							
-    				            app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
-    								app.ask(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), "EUR", data.length));
-    				            })							
-    						}else{
-    							app.ask("I couldn't find any hotels according to that price specification.");
-    						}
-    					})										
-    		}else if(filterType==="rating"){
-    			db.find({type:/hotel/i, website: new RegExp(city,"i"), "annotation.aggregateRating.ratingValue" : {$gte : numVal}}).then((data)=>{
-    				if(data.length>0){		
-    					
-    					let sorted=that.prepareAndSortHotels(data);
+        	searchAndFilter(app, db,numVal,city, filterType,thingType, (resultString) =>{
+			app.ask(resultString);
+        });
+        });
+		
 
-    		            app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {					
-    						app.ask(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN),'', data.length));					
-    		            })
-    				}
-    				else{
-    					app.ask("I'm sorry, I couldn't find any match.");
-    				}
-    			})			
-    		}else{
-    			app.ask("I'm sorry, I couldn't recognize this kind of filter.");
-    		}        	
-        });						
+	}
+
+	searchAndFilter(app, db, numVal ,city, filterType, thingType, outputFunction){
+let that = this;
+            if(filterType==="price"){
+                db.find({type:new RegExp(thingType,"i"), website: new RegExp(city,"i"), "annotation.makesOffer":
+                    {"$elemMatch":{
+                        $and : [{
+                            "priceSpecification.minPrice":{$lte:numVal}}, {
+                            "priceSpecification.minPrice":{$ne:0.00}}
+                        ]}}}).then((data)=>{
+                    if(data.length>0){
+
+                        let sorted = that.prepareAndSortHotelsPricing(data);
+
+                        app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
+                            outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), "EUR", data.length));
+                        })
+                    }else{
+                        outputFunction("I couldn't find any hotels according to that price specification.");
+                    }
+                })
+            }else if(filterType==="rating"){
+                db.find({type:new RegExp(thingType,"i"), website: new RegExp(city,"i"), "annotation.aggregateRating.ratingValue" : {$gte : numVal}}).then((data)=>{
+                    if(data.length>0){
+
+                        let sorted=that.prepareAndSortHotels(data);
+
+                        app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
+                            outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN),'', data.length));
+                        })
+                    }
+                    else{
+                        outputFunction("I'm sorry, I couldn't find any match.");
+                    }
+                })
+            }else{
+                outputFunction("I'm sorry, I couldn't recognize this kind of filter.");
+            }
+
 	}
 
 	extractFrom(sortedAndFormatted){
