@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class HotelRoomsHandler{
@@ -28,7 +29,7 @@ class HotelRoomsHandler{
 	    	    app.ask(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available"); 	   //: "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			}
 			else{
-				app.ask("I'm sorry, I couldn't find anything about rooms in "+data.annotation.name);
+				app.ask(StringConstants.INFO_NOT_FOUND_CONTEXT + data.annotation.name);
 			}
     	});		
 	}		

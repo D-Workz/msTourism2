@@ -1,4 +1,5 @@
 const NR_OF_HOTELS_TO_RETURN = 5;
+const StringConstants = require("./../../config/Constants");
 
 class HotelFilterHandler{
 	

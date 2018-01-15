@@ -1,3 +1,5 @@
+const StringConstants = require("./../../config/Constants");
+
 class HotelSelectionAfterListHandler {
 
     constructor() {

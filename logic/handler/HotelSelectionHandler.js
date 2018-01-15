@@ -1,4 +1,5 @@
-const INFO_POSSIBILITIES_STRING = "What do you want to know? I can give you a description, information about rooms and prices, the location, contact infos and the average rating.";
+const StringConstants = require("./../../config/Constants");
+
 
 class HotelSelectionHandler {
 
@@ -21,7 +22,7 @@ class HotelSelectionHandler {
 			                data.forEach((entry) => {
 			                    app.db().save("selectedHotel", data, (err) => {
 			                        console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                        app.ask(INFO_POSSIBILITIES_STRING);
+			                        app.ask(StringConstants.INFO_POSSIBILITIES);
 			                    });
 			                });
 		            	}else{
@@ -31,7 +32,7 @@ class HotelSelectionHandler {
 		            	if(data){
 			                app.db().save("selectedHotel", data, (err) => {
 			                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                    app.ask(INFO_POSSIBILITIES_STRING);
+			                    app.ask(StringConstants.INFO_POSSIBILITIES);
 			                });
 		            	}
 		            	else{
@@ -40,12 +41,12 @@ class HotelSelectionHandler {
 		            }
 	        });
 	    }else{
-	    	app.ask("I'm sorry. I couldn't understand the hotel name.");
+	    	app.ask(StringConstants.INFO_NOT_UNDERSTAND);
 	    }
     }    
         
     doInformAboutNoMatch(app, hotelName){
-    	app.ask("I'm sorry. I couldn't find any Hotel with name '"+hotelName+"'");
+    	app.ask( StringConstants.INFO_NOT_FOUND_CONTEXT+hotelName+"'");
     }
     
 }
