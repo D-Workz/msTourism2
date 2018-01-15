@@ -69,16 +69,27 @@ class HotelNearbyHandler{
 								//sort things
 								let sortedThings = that.sortThingsWithDistance(mergedContent, hotelEntry);
 								
-								app.ask(that.formatThingsNearby(sortedThings,hotelEntry));							
+    				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,TOP_N), (err) => {    				            	
+    				            	app.ask(that.formatThingsNearby(sortedThings,hotelEntry));
+    				            })
+								
+															
 							})
 						})					
 			}else{
-				app.ask("I'm terrible sorry. Hotel '"+hotelEntry.name+"' has invalid or no coordinates set.");
+				app.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.");
 			}					
 		});		
 	}
-	
-	
+
+	extractFrom(sortedAndFormatted){
+		let arr = [];
+		sortedAndFormatted.forEach((entry)=>{
+			arr.push(entry.val);
+		})
+		return arr;
+	}
+		
 	findDuplicateAnnotation(obj, list){
 		list.forEach(function(entry){
 			if(entry.name.toLowerCase() === obj.name.toLowerCase() && entry.type.toLowerCase() === entry.type.toLowerCase()){
