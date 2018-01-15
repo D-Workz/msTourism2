@@ -1,2 +1,2 @@
-db.getCollection('annotations').find({"annotation.makesOffer":{"$elemMatch":{"priceSpecification.maxPrice":{$gt:"4000.00"}}}})
+db.getCollection('annotations').find({"annotation.makesOffer":{"$elemMatch":{"priceSpecification.maxPrice":{$gt:0.00}}}})
 
