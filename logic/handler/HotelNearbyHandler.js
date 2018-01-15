@@ -7,6 +7,7 @@ mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 
 require('../../model/Annotation');
 const Annotations = mongoose.model('Annotation');
+const StringConstants = require("./../../config/Constants");
 
 class HotelNearbyHandler{
 	
@@ -77,7 +78,7 @@ class HotelNearbyHandler{
 															
 							})
 						}else{
-							app.ask("I'm sorry, I couldn't find anything nearby");
+							app.ask(StringConstants.INFO_NOT_FOUND + "nearby");
 						}
 							
 					})					

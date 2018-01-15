@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 class InitialChooseCityHandler {
 
@@ -17,7 +18,7 @@ class InitialChooseCityHandler {
         }
         app.db().save("city", city, (err) => {
             console.log("Attribute 'city' set with content of '" + city + "'");
-            app.ask("I can tell you about all sort of things in "+ city + ", like Hotels, Restaurants, Bars and Pubs, Museums or Touristic Attractions.");
+            app.ask( StringConstants.INFO_TELL_YOU_ABOUT_CONTEXT + StringConstants.AVAILABLE_THINGS +".");
         });
 
     }

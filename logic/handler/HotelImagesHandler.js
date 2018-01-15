@@ -1,6 +1,7 @@
 //const GoogleAction = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction;
 //const Carousel =   require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.Carousel;
 //const OptionItem = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.OptionItem;
+const StringConstants = require("./../../config/Constants");
 
 class HotelImagesHandler {
 
