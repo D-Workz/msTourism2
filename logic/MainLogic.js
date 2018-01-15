@@ -134,7 +134,7 @@ class Logic {
             'ChangeCityIntent': function () {
             	handlers.changeCityHandler.doFulfill(app,Annotations);
             },
-            'ChangeThingIntent': function () {
+            'ChangeTypeIntent': function () {
             	handlers.changeThingHandler.doFulfill(app,Annotations);
             }
         };
