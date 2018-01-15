@@ -8,7 +8,8 @@ class HotelShowCardHandler {
 
     doFulfill(app, db) {
 
-
+    	let that = this;
+    	
         app.db().load("selectedHotel", (err, data) => {
 
           //  let cardBuilder = app.googleAction().getCardBuilder();
@@ -16,18 +17,34 @@ class HotelShowCardHandler {
            // app.googleAction().showBasicCard(basicCard);
 
 
+        	let dataUrl = that.handleObjOrArray(data.annotation.url, "https://semantify.it/");
+        	let dataName = (data.annotation.name ? data.annotation.name : "[missing name]");        	
+        	let dataDescription=that.handleObjOrArray(data.annotation.description, "No description available");
 
-            let textString = data.annotation.image[0].caption + "\n Description: \n" + data.annotation.description[0] + "\n + ";
+        	let imageInfo = that.getImageInfo(data.annotation.image);
+        	
+        	let imgCaption = imageInfo.caption;        	
+        	let imgUrl = imageInfo.url;
 
-
+            let textString = imgCaption + "\n Description: \n" + dataDescription + "\n + ";
+            
+/*
+            console.log("----------")
+            console.log("url: "+dataUrl)
+            console.log("name:"+dataName)
+            console.log("description: "+dataDescription)
+            console.log("imgCaption: "+imgCaption)
+            console.log("imgUrl: "+imgUrl)
+            console.log("----------")
+*/            
                 let basicCard =   new BasicCard()
-                .setTitle(data.annotation.name)
+                .setTitle(dataName)
                 // Image is required if there is no formatted text
-                .setImage(data.annotation.image[0].url,
+                .setImage(imgUrl,
                     'accessibilityText')
                 // Formatted text is required if there is no image
                 .setFormattedText(textString)
-                .addButton('Learn more', data.annotation.url);
+                .addButton('Learn more', dataUrl);
 
             app.googleAction().showBasicCard(basicCard);
             app.ask('What else would you like to know ?');
@@ -35,5 +52,33 @@ class HotelShowCardHandler {
 
         });
     }
+    
+    getImageInfo(images){
+    	if(images){
+    		if(Array.isArray(images)){
+    			if(images.length>0){
+    				return {url:(images[0].url ? images[0].url : "https://semantify.it/images/logo_text.png"), caption:(images[0].caption ? images[0].caption : "No caption available")};
+    			}
+    		}else{
+				return {url:(images.url ? images.url : "https://semantify.it/images/logo_text.png"), caption:(images.caption ? images.caption : "No caption available")};    			
+    		}    		
+    	}    	
+    	return {url:"https://semantify.it/images/logo_text.png", caption:"Showing the default image :-)"};
+    }
+    
+    handleObjOrArray(objOrArr,defaultVal){
+    	if(Array.isArray(objOrArr)){
+    		if(objOrArr.length>0){
+    			return objOrArr[0];
+    		}
+    		return defaultVal;
+    	}else{
+    		if(objOrArr){
+    			return objOrArr;
+    		}
+    		return defaultVal;
+    	}
+    }
+    
 }
 module.exports = HotelShowCardHandler;
