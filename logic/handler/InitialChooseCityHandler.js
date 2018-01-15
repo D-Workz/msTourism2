@@ -11,7 +11,7 @@ class InitialChooseCityHandler {
         let ordinal = app.inputs.ordinal;
 
         let city;
-        if (ordinal && ordinal == 1) {
+        if (ordinal && ordinal === 1) {
             city = 'Seefeld';
         } else {
             city = 'Mayrhofen';

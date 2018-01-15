@@ -10,15 +10,17 @@ class HotelFilterHandler{
 	doFulfill(app,db){
 		
 		let numVal = app.inputs.numVal;
-		let that = this;
 		let filterType = app.inputs.filter;
-		let thingType  = 'Hotel';
 
+
+
+		app.db().load("type",(err,type) => {
 
         app.db().load("city", (err, city) => {
 
-        	searchAndFilter(app, db,numVal,city, filterType,thingType, (resultString) =>{
+        	searchAndFilter(app, db,numVal,city, filterType,type, (resultString) =>{
 			app.ask(resultString);
+        });
         });
         });
 		
@@ -37,6 +39,7 @@ let that = this;
                     if(data.length>0){
 
                         let sorted = that.prepareAndSortHotelsPricing(data);
+                        console.log("Save ListHotels with length: " + data.length);
 
                         app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
                             outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), "EUR", data.length));
@@ -50,7 +53,7 @@ let that = this;
                     if(data.length>0){
 
                         let sorted=that.prepareAndSortHotels(data);
-
+                        console.log("Save ListHotels with length: " + data.length);
                         app.db().save("listHotels", that.extractFrom(sorted).slice(0,NR_OF_HOTELS_TO_RETURN), (err) => {
                             outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN),'', data.length));
                         })

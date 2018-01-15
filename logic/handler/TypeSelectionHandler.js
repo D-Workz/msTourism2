@@ -37,18 +37,22 @@ class TypeSelectionHandler{
                 }else{
                 	type = things;
                 }
+
                 app.db().save("type", type, (err) => {
                     console.log("Attribute 'type' set with content of '" + type + "'");
-                    // app.ask("What do you want to know? I can give you a description, a rating, information about rooms, prices, the address, contact infos and how far away it is from the city center.");
-                });
 
-                let numVal = 1;
+                    let numVal = 1;
 
-                this.hotelFilterHandler = new HotelFilterHandler();
+                    this.hotelFilterHandler = new HotelFilterHandler();
 
-                this.hotelFilterHandler.searchAndFilter(app, db, numVal, city, "rating", type, (resultString) => {
-                    app.ask(resultString );
-                });
+                    this.hotelFilterHandler.searchAndFilter(app, db, numVal, city, "rating", type, (resultString) => {
+                        console.log("Hotel search result: "+ resultString);
+                        app.ask(resultString );
+                    });
+
+                     });
+
+
             })
 
 
