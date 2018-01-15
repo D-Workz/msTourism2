@@ -122,6 +122,9 @@ class Logic {
             },
             'HotelFilterWithoutContext': function () {
             	handlers.hotelFilterHandler.doFulfill(app,Annotations);
+            },
+            'HelperStatusIntent': function () {
+            	handlers.helperHandler.doFulfill(app,Annotations);
             }
         };
     }
