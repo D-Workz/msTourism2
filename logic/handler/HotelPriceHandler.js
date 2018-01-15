@@ -13,7 +13,7 @@ class HotelPriceHandler{
 			var rooms = data.annotation.makesOffer;
 			var roomDistribution = {};
 			let totalMinPrice = 10000000;
-			
+
 			if(rooms){
 				rooms.forEach((roomEntry) => {
 					if(roomEntry.priceSpecification){
@@ -22,7 +22,7 @@ class HotelPriceHandler{
 						}
 						var minPrice = 100000000;
 						var maxPrice = -1000000;
-	
+
 						//if price-property exists
 						roomEntry.priceSpecification.forEach((priceEntry) => {
 							if(priceEntry.minPrice<minPrice){
@@ -36,13 +36,13 @@ class HotelPriceHandler{
 						roomDistribution[roomEntry.itemOffered.name]="between "+minPrice+" EUR and "+maxPrice+" EUR";
 					}
 				})
-				
+
 				var roomDistributionText = "";
-				
+
 				for(var propertyName in roomDistribution){
 					roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 				}
-				
+
 	    	    app.ask("Rooms in the "+hotelName +"start from "+totalMinPrice + "EUR."); //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 				let responseString = "";
 				if(roomDistributionText===""){
