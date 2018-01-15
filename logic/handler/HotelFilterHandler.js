@@ -10,24 +10,30 @@ class HotelFilterHandler {
 	doFulfill(app,db){
 		
 		let numVal = app.inputs.numVal;
+		if(!numVal || numVal ===0  ) {numVal = 1}
 		let filterType = app.inputs.filter;
-
+		//if(filterType){}
+        let that = this;
 
 
 		app.db().load("type",(err,type) => {
 
-        app.db().load("city", (err, city) => {
-                if(type){
-                    if(type.toLowerCase()==="hotel"){
-                        searchAndFilter(app, db,numVal,city, filterType,type, (resultString) =>{
+            app.db().load("city", (err, city) => {
+                if (type) {
+                    if (type.toLowerCase() === "hotel") {
+                        that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
                             app.ask(resultString);
                         });
-                    }else{
-                        app.ask(StringConstants.FILTERING_NOT_ALLOWED);
+                    } else {
+                        that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
+                            app.ask(resultString);
+                    });
                     }
-                }else{
+                } else {
                     app.ask(StringContsants.NO_TYPE_DEFINED);
                 }
+            });
+        });
 
 
 
