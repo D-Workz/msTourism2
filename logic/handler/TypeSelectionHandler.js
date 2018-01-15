@@ -25,18 +25,38 @@ class TypeSelectionHandler{
                             type = "Hotel";
                             break;
                         case 2:
-                            type = "Restaurant";
+                            type = "Store";
                             break;
                         case 3:
-                            type = "BarOrPub";
+                            type = "Restaurant";
+                            break;
+                        case 4:
+                            type = 'TouristAttraction';
+                            break;
+                        case 5:
+                            type = 'SkiResort';
+                            break;
+                        case 6:
+                            type = 'BarOrPub';
+                            break;
+                        case 7 :
+                            type='BankOrCreditUnion' ;
+                            break;
+                        case 8:
+                            type = 'Museum';
+                            break;
+                        case 9:
+                            type = 'TrainStation';
                             break;
 						default:
 							type = "Hotel";
 							break;
+
                     }
                 }else{
                 	type = things;
                 }
+
 
                 app.db().save("type", type, (err) => {
                     console.log("Attribute 'type' set with content of '" + type + "'");

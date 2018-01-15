@@ -7,7 +7,7 @@ class ChangeThingHandler{
 	}
 	
 	doFulfill(app,db){				
-		app.ask("About which thing do you want to talk? Available are "+StringConstants.AVAILABLE_THINGS);
+		app.ask(StringConstants.INFO_TELL_YOU_ABOUT_CONTEXT + StringConstants.AVAILABLE_TYPE +".");
 	}		
 }
 

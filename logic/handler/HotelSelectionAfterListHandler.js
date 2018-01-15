@@ -8,6 +8,7 @@ class HotelSelectionAfterListHandler {
 
     doFulfill(app, db) {
 
+
         let ordinal = app.inputs.ordinal - 1;
 
         app.db().load("listHotels", (err, data) => {
