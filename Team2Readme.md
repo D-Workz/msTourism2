@@ -38,6 +38,14 @@ Rating key:
 #### C. Backend Service for Alexa App
 1. Activate Backend Service for the alexa app. Open for any intention requests from the Amazon Alexa Web Service. The selection of which Food Establishment to show depends on the rating of the annotations.
 
+#### D. Example Usage
+1. Say "Alexa, talk to food finder" in order to start a session
+2. Say "Find a restaurant" to trigger FindRestaurant Intent
+    + The dialog is delegated to Alexa to ask for all mandatory intent slots because of used dialog directive
+    + Alexa asks where to look for restaurants
+    + Answer with "In Hippach"
+3. Alexa will respond with the answer: "I have found 20 restaurants in Hippach. One of them is Almhof Roswitha."
+
 ## scripts
 
 **npm run loadData** - Starts the process of loading data from the semantify backend to our backend to fill our database with mayrhofen.at data.
