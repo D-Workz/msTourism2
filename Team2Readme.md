@@ -40,14 +40,13 @@ Rating key:
 
 #### D. Example Usage
 1. Say "Alexa, talk to food finder" in order to start a session
-2. Say "Find a restaurant" to trigger FindRestaurant Intent
+2. Say "Find a restaurant" to trigger FindFoodEstablishment Intent
     + The dialog is delegated to Alexa to ask for all mandatory intent slots because of used dialog directive
     + Alexa asks where to look for restaurants
     + Answer with "In Hippach"
 3. Alexa will respond with the answer: "I have found 20 restaurants in Hippach. One of them is Almhof Roswitha."
+4. Ask Alexa to "Show details". A card containing details of result will be send to Amazon Alexa companion app.
 
 ## scripts
 
 **npm run loadData** - Starts the process of loading data from the semantify backend to our backend to fill our database with mayrhofen.at data.
-
-

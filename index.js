@@ -11,22 +11,17 @@ const config = require('config');
 const handlers = require("./logic/MainLogic").getHandlers();
 
 // Listen for post requests
-webhook.listen(config.get("port"), function() {
-    console.log('Local development server listening on port.'+  config.get("port"));
+webhook.listen(config.get("port"), function () {
+    console.log('Local development server listening on port ' + config.get("port"));
 });
 
-webhook.post('/webhook', function(req, res) {
+webhook.post('/webhook', function (req, res) {
     app.handleRequest(req, res, handlers);
     app.execute();
 });
 
-
-
-webhook.get('/hans', function(req, res) {
+webhook.get('/testngrok', function (req, res) {
     app.handleRequest(req, res, handlers);
-    res.json({hans:"hans00c"});
+    res.json({ngrok: "OK"});
     app.execute();
 });
-
-
-
