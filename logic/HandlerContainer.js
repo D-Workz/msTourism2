@@ -21,7 +21,7 @@ const HelperHandler = require('./handler/HelperHandler');
 const TypeSelectionHandler = require('./handler/TypeSelectionHandler');
 
 const ChangeCityHandler = require('./handler/ChangeCityHandler');
-const ChangeThingHandler = require('./handler/ChangeThingHandler');
+const ChangeThingHandler = require('./handler/ChangeTypeHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -49,7 +49,7 @@ class HandlerContainer{
 		this.helperHandler = new HelperHandler();
 
 		this.changeCityHandler = new ChangeCityHandler();
-		this.changeThingHandler = new ChangeThingHandler();
+		this.changeTypeHandler = new ChangeThingHandler();
 		this.typeSelectionHandler = new TypeSelectionHandler();
 
 		this.helperHandler = new HelperHandler();

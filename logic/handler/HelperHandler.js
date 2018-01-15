@@ -16,7 +16,7 @@ class HelperHandler{
 						". But";
 				}
 				app.ask(retString + (retString === "" ? "Y" : " y")+"ou can "+StringConstants.AVAILABLE_CHANGER+". Available things are "+
-						StringConstants.AVAILABLE_THINGS+". You can "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
+						StringConstants.AVAILABLE_TYPE+". You can "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
 						StringConstants.AVAILABLE_FILTER);
 			});
     	});		
