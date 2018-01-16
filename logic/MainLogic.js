@@ -121,7 +121,7 @@ function findFoodEstablishment(app, city, foodEstablishment) {
         console.log("city: " + city);
         console.log("foodEstablishment: " + foodEstablishment);
 
-        // TODO: sort by rating descending,
+        // TODO: sort by rating descending
         FoodEstablishments.find({
             "sdoTypes": parseFoodEstablishment(foodEstablishment),
             "sdoAnnotation.address.addressLocality": new RegExp(city, 'i'),

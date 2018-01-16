@@ -24,6 +24,8 @@ Query: db.foodestablishments.distinct("sdoAnnotation.address.addressLocality")
 
 ### Alexa Skill
 
+#### Sort results by rating desc - OPEN
+
 #### Enable nearby searches based on location - OPEN
 To get permissions:
 https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_specific/indexAlexaDeviceAddress.js
