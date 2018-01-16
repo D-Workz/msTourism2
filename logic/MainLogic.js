@@ -135,7 +135,7 @@ function findFoodEstablishment(app, city, foodEstablishment) {
                 let bestResult = results[0];
                 if (amount > 1) {
                     let results_cids = [];
-                    for (var i = 0; i < amount; i++) {
+                    for (let i = 0; i < amount; i++) {
                         results_cids.push(results[i].CID)
                     }
                     app.setSessionAttribute("results_cids", results_cids);
