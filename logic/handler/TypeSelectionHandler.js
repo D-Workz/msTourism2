@@ -19,6 +19,7 @@ class TypeSelectionHandler{
 
             app.db().load('city',(err,city) => {
                 let type;
+
                 if(ordinal) {
                     switch (ordinal) {
                         case 1:

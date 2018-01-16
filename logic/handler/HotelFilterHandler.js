@@ -43,7 +43,8 @@ class HotelFilterHandler {
         let that = this;
 
         if (thingType === 'Hotel') {
-            if (filterType === "price") {
+                if (filterType === "price") {
+                if(!numVal || numVal ===0 || numVal <0  ) {numVal = 1000}
                 db.find({
                     type: new RegExp(thingType, "i"), website: new RegExp(city, "i"), "annotation.makesOffer": {
                         "$elemMatch": {
@@ -69,6 +70,7 @@ class HotelFilterHandler {
                     }
                 })
             } else if (filterType === "rating") {
+                if(!numVal || numVal ===0 || numVal <0 || numVal > 5  ) {numVal = 1}
                 db.find({
                     type: new RegExp(thingType, "i"),
                     website: new RegExp(city, "i"),
@@ -81,9 +83,8 @@ class HotelFilterHandler {
                         app.db().save("listHotels", that.extractFrom(sorted).slice(0, NR_OF_HOTELS_TO_RETURN), (err) => {
                             outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), '', data.length,thingType));
                         })
-                    }
-                    else {
-                        outputFunction("I'm sorry, I couldn't find any match.");
+                    } else {
+                        outputFunction("I'm sorry, I couldn't find any Hotel for this rating.");
                     }
                 })
             } else {

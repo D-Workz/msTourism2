@@ -28,7 +28,6 @@ class Logic {
         return {
             'LAUNCH': function () {
                 app.toIntent('Default Welcome Intent');
-              //  app.ask('Hej there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? Say first or second to choose one of them');
             },
 
 
@@ -117,7 +116,6 @@ class Logic {
             'HotelShowCardWithContext': function () {
                 handlers.hotelShowCardHandler.doFulfill(app,Annotations);
             },
-
 
             'HotelNearbyWithContext': function () {
             	handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
