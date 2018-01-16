@@ -5,6 +5,7 @@ const config = require('config');
 const app = require('jovo-framework').Jovo;
 const bluebird = require('bluebird');
 const mongoose = require('mongoose');
+const StringConstants = require("./../config/Constants");
 
 mongoose.Promise = bluebird;
 
@@ -32,7 +33,7 @@ class Logic {
 
 
             'Default Welcome Intent': function () {
-                app.ask('Hey there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? SelectSay first or second to choose one of them');
+                app.ask(StringConstants.INTEND_WELCOME);
             },
 
             'InitialChooseCityIntent': function () {

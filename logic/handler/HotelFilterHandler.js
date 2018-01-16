@@ -146,7 +146,7 @@ class HotelFilterHandler {
         let that = this;
         unsorted.forEach((entry) => {
             arr.push({entry: entry, val: that.findSmallestPrice(entry)});
-        })
+        });
 
         arr.sort((a, b) => {
             if (a.val < b.val) {
@@ -155,15 +155,26 @@ class HotelFilterHandler {
                 return 1;
             }
             return 0;
-        })
+        });
         return arr;
     }
 
     formatOutput(data, currency, hitsInTotal,thingtype) {
-        let returnString = "I found the following " + thingtype + ": ";
+        let returnString = "To know more about the five ";
+        if(currency!==""){
+            returnString += "cheapest " + thingtype + "s: ";
+        }else{
+            returnString += "best rated " + thingtype + "s: ";
+        }
+        let i = 0;
         data.forEach((entry) => {
-            returnString += entry.entry.annotation.name + " (" + entry.val + (currency !== "" ? " " + currency : "") + "), ";
-        })
+            i++;
+            if(currency !==""){
+                returnString += "For " + entry.entry.annotation.name + " for " + entry.val +" " + currency + ", say  " +i + ".";
+            }else{
+                returnString += "For " + entry.entry.annotation.name + " with an rating of" + entry.val +", say "+i+".";
+            }
+        });
         let additionalText = "";
         if (data.length < hitsInTotal) {
             additionalText = " and " + (hitsInTotal - data.length) + " others."
