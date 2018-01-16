@@ -46,6 +46,7 @@ Rating key:
     + Answer with "In Hippach"
 3. Alexa will respond with the answer: "I have found 20 restaurants in Hippach. One of them is Almhof Roswitha."
 4. Ask Alexa to "Show details". A card containing details of result will be send to Amazon Alexa companion app.
+5. You can also ask for address ("What's the address"), phone number ("What's the telephone number") and description ("Tell me more about it").
 
 ## scripts
 

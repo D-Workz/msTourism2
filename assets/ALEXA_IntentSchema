@@ -85,10 +85,40 @@
         ]
       },
       {
+        "name": "AskAddress",
+        "samples": [
+          "What's the address",
+          "Where is it located",
+          "Tell me the address"
+        ],
+        "slots": []
+      },
+      {
+        "name": "AskDetails",
+        "samples": [
+          "Tell me more about it",
+          "What's it like",
+          "What does the description say"
+        ],
+        "slots": []
+      },
+      {
+        "name": "AskPhone",
+        "samples": [
+          "What's the telephone number",
+          "What's the phone number",
+          "Tell me the phone number",
+          "Tell me the telephone number"
+        ],
+        "slots": []
+      },
+      {
         "name": "FindFoodEstablishment",
         "samples": [
           "Find a {foodEstablishment} in {city}",
-          "Find {foodEstablishment} in {city}"
+          "Find {foodEstablishment} in {city}",
+          "I'm looking for a {foodEstablishment} in {city}",
+          "I'd like to search a {foodEstablishment} in {city}"
         ],
         "slots": [
           {
@@ -107,6 +137,21 @@
               "{foodEstablishment}",
               "I am looking for a {foodEstablishment}"
             ]
+          }
+        ]
+      },
+      {
+        "name": "NextResult",
+        "samples": [
+          "What's the next result",
+          "Next result",
+          "Next {foodEstablishment}",
+          "What's the next {foodEstablishment} you found"
+        ],
+        "slots": [
+          {
+            "name": "foodEstablishment",
+            "type": "FoodEstablishment"
           }
         ]
       },

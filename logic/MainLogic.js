@@ -17,19 +17,39 @@ class Logic {
     static getHandlers() {
         return {
             'LAUNCH': function () {
-                app.toIntent('Welcome');
+                welcomeMessage(app);
             },
 
-            'Welcome': function () {
-                welcomeMessage(app);
+            'AskAddress': function () {
+                askAddress(app);
+            },
+
+            'AskDetails': function () {
+                askDetails(app);
+            },
+
+            'AskPhone': function () {
+                askPhone(app);
             },
 
             'FindFoodEstablishment': function (city, foodEstablishment) {
                 findFoodEstablishment(app, city, foodEstablishment);
             },
 
+            'NextResult': function () {
+                nextResult(app);
+            },
+
             'ShowDetails': function () {
                 showDetails(app);
+            },
+
+            'AMAZON.HelpIntent': function () {
+                helpMessage(app);
+            },
+
+            'AMAZON.CancelIntent': function () {
+                endMessage(app);
             },
 
             'END': function () {
@@ -42,6 +62,51 @@ class Logic {
 
 function welcomeMessage(app) {
     let speech = "Welcome to food finder, how can I help you?";
+    app.ask(speech, reprompt);
+}
+
+function askAddress(app) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let name = toTitleCase(latestResult.name);
+        if (latestResult.sdoAnnotation.address.streetAddress && latestResult.sdoAnnotation.address.postalCode && latestResult.sdoAnnotation.address.addressLocality) {
+            speech = "The address of " + name + " is:\n" + latestResult.sdoAnnotation.address.streetAddress + ", " + latestResult.sdoAnnotation.address.postalCode + " " + latestResult.sdoAnnotation.address.addressLocality;
+        } else {
+            speech = "I'm sorry. I couldn't find the address of  " + name;
+        }
+    }
+    app.ask(speech, reprompt);
+}
+
+function askDetails(app) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let name = toTitleCase(latestResult.name);
+        if (latestResult.sdoAnnotation.description) {
+            speech = "The description of " + name + " reads as follows:\n" + latestResult.sdoAnnotation.description;
+        } else {
+            speech = "I'm sorry. I couldn't find a description for  " + name;
+        }
+    }
+    app.ask(speech, reprompt);
+}
+
+function askPhone(app) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let name = toTitleCase(latestResult.name);
+        if (latestResult.sdoAnnotation.address.telephone) {
+            speech = "The phone number of " + name + " is:\n" + latestResult.sdoAnnotation.address.telephone;
+        } else {
+            speech = "I'm sorry. I couldn't find a phone number for  " + name;
+        }
+    }
     app.ask(speech, reprompt);
 }
 
@@ -78,6 +143,11 @@ function findFoodEstablishment(app, city, foodEstablishment) {
     }
 }
 
+function nextResult(app) {
+    // TODO
+    app.ask("Next result will be available shortly!")
+}
+
 function showDetails(app) {
     let latestResult = app.getSessionAttribute("latestResult");
     let speech = "First ask me to find a food establishment for you.";
@@ -105,6 +175,11 @@ function showDetails(app) {
         speech = "Done. Open the Amazon Alexa App to view details.";
     }
     app.ask(speech, reprompt);
+}
+
+function helpMessage(app) {
+    // TODO: add help message when Intents are almost final
+    app.ask("Help message will be available shortly!")
 }
 
 function endMessage(app) {
