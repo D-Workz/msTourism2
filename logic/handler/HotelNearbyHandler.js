@@ -121,8 +121,8 @@ class HotelNearbyHandler{
 				entryType = entry.type+" ";
 			}
 			
-			returnString+=entryType+"'"+entry.val.name+"' ("+entry.dist+" km), ";
-		})
+			returnString+=entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, ";
+		});
 		if(returnString===""){
 			return "Sorry, I couldn't find anything nearby of '"+hotelName+"'";
 		}
@@ -138,9 +138,10 @@ class HotelNearbyHandler{
 		thingsToSort.forEach((entry)=>{
 			let entryLongitude = hotel.annotation.geo.longitude;
 			let entryLatitude = entry.annotation.geo.latitude;
-			
-			arr.push({val:entry, dist:helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3)});			
-		})
+			let distance = helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3);
+			if(distance!=="0.000")
+			arr.push({val:entry, dist:distance});
+		});
 		
 		arr.sort((a,b)=>{
 			if(a.dist<b.dist){

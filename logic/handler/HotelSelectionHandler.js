@@ -22,7 +22,7 @@ class HotelSelectionHandler {
 			                data.forEach((entry) => {
 			                    app.db().save("selectedHotel", data, (err) => {
 			                        console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                        app.ask(StringConstants.INFO_POSSIBILITIES);
+			                        app.ask(StringConstants.INFO_POSSIBILITIES_HOTEL);
 			                    });
 			                });
 		            	}else{
@@ -32,7 +32,7 @@ class HotelSelectionHandler {
 		            	if(data){
 			                app.db().save("selectedHotel", data, (err) => {
 			                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                    app.ask(StringConstants.INFO_POSSIBILITIES);
+			                    app.ask(StringConstants.INFO_POSSIBILITIES_HOTEL);
 			                });
 		            	}
 		            	else{

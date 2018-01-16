@@ -7,7 +7,7 @@ class ChangeCityHandler{
 	}
 	
 	doFulfill(app,db){				
-		app.ask("Say 'first' for 'Seefeld' or 'second' for 'Mayrhofen'");		
+		app.ask("For 'Seefeld' say 'one' or For 'Mayrhofen' say 'two'");
 	}		
 }
 
