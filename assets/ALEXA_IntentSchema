@@ -146,7 +146,9 @@
           "What's the next result",
           "Next result",
           "Next {foodEstablishment}",
-          "What's the next {foodEstablishment} you found"
+          "What's the next {foodEstablishment} you found",
+          "I don't like that one",
+          "Next"
         ],
         "slots": [
           {
@@ -161,7 +163,8 @@
           "Show me the details",
           "Show address",
           "Show me the address",
-          "Show details"
+          "Show details",
+          "I like that one"
         ],
         "slots": []
       }

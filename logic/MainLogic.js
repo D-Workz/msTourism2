@@ -121,7 +121,7 @@ function findFoodEstablishment(app, city, foodEstablishment) {
         console.log("city: " + city);
         console.log("foodEstablishment: " + foodEstablishment);
 
-        // TODO: sort by rating descending
+        // TODO: sort by rating descending,
         FoodEstablishments.find({
             "sdoTypes": parseFoodEstablishment(foodEstablishment),
             "sdoAnnotation.address.addressLocality": new RegExp(city, 'i'),
@@ -133,8 +133,16 @@ function findFoodEstablishment(app, city, foodEstablishment) {
 
             if (amount > 0) {
                 let bestResult = results[0];
+                if (amount > 1) {
+                    let results_cids = [];
+                    for (var i = 0; i < amount; i++) {
+                        results_cids.push(results[i].CID)
+                    }
+                    app.setSessionAttribute("results_cids", results_cids);
+                }
                 app.setSessionAttribute("latestResult", bestResult);
-                speech = "I have found " + amount + " results for " + foodEstablishment + " in " + toTitleCase(city) + "." + " One of them is " + toTitleCase(bestResult.name) + ".";
+                app.setSessionAttribute("latestResult_index", 0);
+                speech = "I have found " + amount + " results for " + foodEstablishment + " in " + toTitleCase(city) + "." + " The best result is " + toTitleCase(bestResult.name) + ".";
             } else {
                 app.setSessionAttribute("latestResult", null);
             }
@@ -144,8 +152,31 @@ function findFoodEstablishment(app, city, foodEstablishment) {
 }
 
 function nextResult(app) {
-    // TODO
-    app.ask("Next result will be available shortly!")
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let latestResult_index = app.getSessionAttribute("latestResult_index");
+        let results_cids = app.getSessionAttribute("results_cids");
+        latestResult_index++;
+        let next_cid = results_cids[latestResult_index];
+
+        if (latestResult_index < results_cids.length) {
+            FoodEstablishments.find({
+                "CID": next_cid
+            }, function (err, results) {
+                let bestResult = results[0];
+                app.setSessionAttribute("latestResult", bestResult);
+                app.setSessionAttribute("latestResult_index", latestResult_index);
+                speech = "Next result is " + toTitleCase(bestResult.name) + ".";
+                app.ask(speech, reprompt);
+            });
+        } else {
+            speech = "No results left.";
+            app.setSessionAttribute("latestResult", null);
+            app.ask(speech, reprompt);
+        }
+    }
 }
 
 function showDetails(app) {
