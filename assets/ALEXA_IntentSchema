@@ -256,6 +256,26 @@
           "I like that one"
         ],
         "slots": []
+      },
+      {
+        "name": "SpecificResult",
+        "samples": [
+          "What's the {nth} result",
+          "Tell me about result {nth}",
+          "What was result {nth} again",
+          "What is result number {nth}",
+          "What is result {nth}"
+        ],
+        "slots": [
+          {
+            "name": "nth",
+            "type": "AMAZON.NUMBER",
+            "samples": [
+              "result {nth}",
+              "{nth}"
+            ]
+          }
+        ]
       }
     ],
     "invocationName": "food finder"
@@ -276,6 +296,15 @@
         {
           "type": "PlainText",
           "value": "What kind of Food Establishment are you looking for?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-SpecificResult.IntentSlot-nth",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Please tell me the number of the result you are asking for"
         }
       ]
     }
@@ -303,6 +332,22 @@
             "confirmationRequired": false,
             "prompts": {
               "elicitation": "Elicit.Intent-FindFoodEstablishment.IntentSlot-foodEstablishment"
+            }
+          }
+        ]
+      },
+      {
+        "name": "SpecificResult",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "nth",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-SpecificResult.IntentSlot-nth"
             }
           }
         ]

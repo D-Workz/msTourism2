@@ -44,6 +44,10 @@ class Logic {
                 showDetails(app);
             },
 
+            'SpecificResult': function (nth) {
+                specificResult(app, nth);
+            },
+
             'AMAZON.HelpIntent': function () {
                 helpMessage(app);
             },
@@ -206,6 +210,32 @@ function showDetails(app) {
         speech = "Done. Open the Amazon Alexa App to view details.";
     }
     app.ask(speech, reprompt);
+}
+
+function specificResult(app, nth) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let results_cids = app.getSessionAttribute("results_cids");
+
+        if (nth - 1 < results_cids.length) {
+            let next_cid = results_cids[nth - 1];
+            FoodEstablishments.find({
+                "CID": next_cid
+            }, function (err, results) {
+                let bestResult = results[0];
+                app.setSessionAttribute("latestResult", bestResult);
+                app.setSessionAttribute("latestResult_index", nth - 1);
+                speech = "Result number " + nth + " is " + toTitleCase(bestResult.name) + ".";
+                app.ask(speech, reprompt);
+            });
+        } else {
+            speech = "There are only " + results_cids.length + " results. Try again.";
+            // app.setSessionAttribute("latestResult", null);
+            app.ask(speech, reprompt);
+        }
+    }
 }
 
 function helpMessage(app) {

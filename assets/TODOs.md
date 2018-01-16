@@ -46,4 +46,6 @@ Add normalized addressLocality values to slot type
 
 #### Improve handling of multiple results - OPEN
 - Show x results on phone
-- What is the x th result?
+- What is the x th result? - DONE
+
+#### Result navigation: go back - OPEN
