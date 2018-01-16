@@ -14,6 +14,14 @@ const HotelDistanceCityCenterHandler = require('./handler/HotelDistanceCityCente
 const HotelNearbyHandler = require('./handler/HotelNearbyHandler');
 const GenericThingDescriptionHandler = require('./handler/GenericThingDescriptionHandler');
 const HotelShowCardHandler = require('./handler/HotelShowCardHandler');
+const HotelFilterHandler = require('./handler/HotelFilterHandler');
+const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterListHandler');
+const InitialChooseCityHandler = require('./handler/InitialChooseCityHandler');
+const HelperHandler = require('./handler/HelperHandler');
+const TypeSelectionHandler = require('./handler/TypeSelectionHandler');
+
+const ChangeCityHandler = require('./handler/ChangeCityHandler');
+const ChangeThingHandler = require('./handler/ChangeTypeHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -33,8 +41,19 @@ class HandlerContainer{
 		this.hotelShowCardHandler = new HotelShowCardHandler();
 		this.hotelNearbyHandler = new HotelNearbyHandler();
 		this.genericThingDescriptionHandler = new GenericThingDescriptionHandler();
+		
+		this.hotelFilterHandler = new HotelFilterHandler();
+		this.hotelSelectionAfterListHandler = new HotelSelectionAfterListHandler();
+		this.initialChooseCityHandler = new InitialChooseCityHandler();
+		
+		this.helperHandler = new HelperHandler();
+
+		this.changeCityHandler = new ChangeCityHandler();
+		this.changeTypeHandler = new ChangeThingHandler();
+		this.typeSelectionHandler = new TypeSelectionHandler();
+
+		this.helperHandler = new HelperHandler();
 	}
-	
 }
 
 module.exports = HandlerContainer;

@@ -15,12 +15,13 @@ class HotelDistanceCityCenterHandler {
 
             let latCityCenter = 0;
             let longCityCenter = 0;
+            let isFromMayrhofen = (website == 'MayrhofenAt') || (website == 'MapsMayrhofenAt');
+            let isFromSeefeld = (website =='SeefeldAt')||(website = 'MapsSeefeldAt');
 
-            if(Array.isArray(website) &&
-                (arrayContains('MayrhofenAt',website) || arrayContains('MapsMayrhofenAt',website))){
-            longCityCenter = 11.866667;
+            if( isFromMayrhofen || Array.isArray(website) &&  (arrayContains('MayrhofenAt',website) || arrayContains('MapsMayrhofenAt',website))){
+                longCityCenter = 11.866667;
             latCityCenter = 47.166667;
-            }else if(Array.isArray(website) && (arrayContains('SeefeldAt',website) || arrayContains('MapsSeefeld', website))){
+            }else if(isFromSeefeld || Array.isArray(website) && (arrayContains('SeefeldAt',website) || arrayContains('MapsSeefeld', website))){
                 longCityCenter = 11.189167;
                 latCityCenter = 47.329444;
             }
@@ -30,31 +31,17 @@ class HotelDistanceCityCenterHandler {
             if(latHotel && longHotel) {
                 distance = distanceCalc(latHotel, longHotel, latCityCenter, longCityCenter);
                 console.log("Distance: "+distance.toFixed(2));
-                app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                if(distance <100){
+                    app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                }else {
+                    app.ask("Distance to city center could not be calculated");
+                }
             }else{
                 app.ask("No geo coordinates given for this Hotel.");
             }
 });
     }
 
-}
-
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2-lat1);  // deg2rad below
-    var dLon = deg2rad(lon2-lon1);
-    var a =
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-            Math.sin(dLon/2) * Math.sin(dLon/2)
-        ;
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
-}
-
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
 }
 
 function distanceCalc(lat1, lon1, lat2, lon2) {
