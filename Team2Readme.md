@@ -48,6 +48,7 @@ Rating key:
 4. Ask Alexa to "Show details". A card containing details of result will be send to Amazon Alexa companion app.
 5. You can also ask for address ("What's the address"), phone number ("What's the telephone number") and description ("Tell me more about it").
 6. You can tell Alexa "Next result" or that you don't like that result to goto the next result.
+7. If there are multiple results you can say "What is result x" to talk about that item.
 
 ## scripts
 

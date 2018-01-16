@@ -169,10 +169,10 @@ function nextResult(app) {
             FoodEstablishments.find({
                 "CID": next_cid
             }, function (err, results) {
-                let bestResult = results[0];
-                app.setSessionAttribute("latestResult", bestResult);
+                let currentResult = results[0];
+                app.setSessionAttribute("latestResult", currentResult);
                 app.setSessionAttribute("latestResult_index", latestResult_index);
-                speech = "Next result is " + toTitleCase(bestResult.name) + ".";
+                speech = "Next result is " + toTitleCase(currentResult.name) + ".";
                 app.ask(speech, reprompt);
             });
         } else {
@@ -224,10 +224,10 @@ function specificResult(app, nth) {
             FoodEstablishments.find({
                 "CID": next_cid
             }, function (err, results) {
-                let bestResult = results[0];
-                app.setSessionAttribute("latestResult", bestResult);
+                let currentResult = results[0];
+                app.setSessionAttribute("latestResult", currentResult);
                 app.setSessionAttribute("latestResult_index", nth - 1);
-                speech = "Result number " + nth + " is " + toTitleCase(bestResult.name) + ".";
+                speech = "Result number " + nth + " is " + toTitleCase(currentResult.name) + ".";
                 app.ask(speech, reprompt);
             });
         } else {
