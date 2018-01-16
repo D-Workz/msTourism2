@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class HotelPriceHandler{
@@ -44,7 +45,9 @@ class HotelPriceHandler{
 					roomDistributionText += propertyName + " costs "+roomDistribution[propertyName]+", ";
 				}
 
-                app.ask("Rooms in the "+hotelName +" range between "+totalMinPrice + " and " +totalMaxPrice + "EUR.");
+                app
+                    .followUpState("ThingKnownState")
+					.ask("Rooms in the "+hotelName +" range between "+totalMinPrice + " and " +totalMaxPrice + "EUR.", StringConstants.INFO_NOT_UNDERSTAND);
                 //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 
                 // let responseString = "";
@@ -55,7 +58,9 @@ class HotelPriceHandler{
                 // }
 	    	    // app.ask(responseString);
 			}else{
-				app.ask("I'm sorry, I couldn't find any information about the desired property.");
+				app
+                    .followUpState("ThingKnownState")
+					.ask("I'm sorry, I couldn't find any information about the desired property.", StringConstants.INFO_NOT_UNDERSTAND);
 			}
     	});
 		

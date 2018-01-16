@@ -15,7 +15,8 @@ class TypeSelectionHandler{
 
         let returnQuery = StringConstants.INTEND_TYPE_SELECTION;
 		if(!ordinal && !things){
-            app.ask( returnQuery);
+            app.followUpState("SelectTypeState")
+                .ask( returnQuery, StringConstants.INFO_NOT_UNDERSTAND + StringConstants.INTEND_TYPE_SELECTION);
         }else{
 
             app.db().load('city',(err,city) => {
@@ -68,7 +69,8 @@ class TypeSelectionHandler{
 
                     this.hotelFilterHandler.searchAndFilter(app, db, numVal, city, "rating", type, (resultString) => {
                         console.log("Hotel search result: "+ resultString);
-                        app.ask(resultString );
+                        app.followUpState("SelectThingState")
+                            .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND +resultString  );
                     });
 
                      });

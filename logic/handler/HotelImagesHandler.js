@@ -31,7 +31,9 @@ class HotelImagesHandler {
 
 
                             app.googleAction().showImageCard(title,title,url);
-                            app.ask('What else would you like to know ?');
+                            app
+                                .followUpState("ThingKnownState")
+                                .ask('What else would you like to know ?','What else would you like to know ?' );
 
 
 
@@ -52,7 +54,9 @@ class HotelImagesHandler {
 
             }else if(image){
                 app.googleAction().showImageCard("title","",image.url);
-                app.ask('What else would you like to know ?');
+                app
+                    .followUpState("ThingKnownState")
+                    .ask('What else would you like to know ?', StringConstants.INFO_NOT_UNDERSTAND);
 
 
             }
