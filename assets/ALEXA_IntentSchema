@@ -230,6 +230,25 @@
         ]
       },
       {
+        "name": "FindNearbyFoodEstablishment",
+        "samples": [
+          "Find nearby {foodEstablishment}",
+          "Find a nearby {foodEstablishment}",
+          "Find {foodEstablishment} near me",
+          "Find a {foodEstablishment} near me"
+        ],
+        "slots": [
+          {
+            "name": "foodEstablishment",
+            "type": "FoodEstablishment",
+            "samples": [
+              "I am looking for a {foodEstablishment}",
+              "{foodEstablishment}"
+            ]
+          }
+        ]
+      },
+      {
         "name": "NextResult",
         "samples": [
           "What's the next result",
@@ -265,7 +284,8 @@
           "show me first {amount} results",
           "show {amount} results",
           "show me {amount} results",
-          "show best results"
+          "show best results",
+          "show best {amount} results"
         ],
         "slots": [
           {
@@ -317,6 +337,15 @@
       ]
     },
     {
+      "id": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What kind of Food Establishment are you looking for?"
+        }
+      ]
+    },
+    {
       "id": "Elicit.Intent-SpecificResult.IntentSlot-nth",
       "variations": [
         {
@@ -349,6 +378,22 @@
             "confirmationRequired": false,
             "prompts": {
               "elicitation": "Elicit.Intent-FindFoodEstablishment.IntentSlot-foodEstablishment"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FindNearbyFoodEstablishment",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "foodEstablishment",
+            "type": "FoodEstablishment",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment"
             }
           }
         ]

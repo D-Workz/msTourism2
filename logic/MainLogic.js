@@ -36,6 +36,10 @@ class Logic {
                 findFoodEstablishment(app, city, foodEstablishment);
             },
 
+            'FindNearbyFoodEstablishment': function (foodEstablishment) {
+                findNearbyFoodEstablishment(app, foodEstablishment);
+            },
+
             'NextResult': function () {
                 nextResult(app);
             },
@@ -162,6 +166,13 @@ function findFoodEstablishment(app, city, foodEstablishment) {
             app.ask(speech, reprompt);
         });
     }
+}
+
+function findNearbyFoodEstablishment(app, foodEstablishment) {
+    // TODO: https://www.jovo.tech/framework/docs/amazon-alexa#user-specific-data
+    // https://www.jovo.tech/framework/docs/reference/AlexaDeviceAddress.html
+    // https://developer.amazon.com/de/docs/custom-skills/device-address-api.html
+    app.ask("Location based search will be enabled in the future.")
 }
 
 function nextResult(app) {
