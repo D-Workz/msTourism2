@@ -1,5 +1,6 @@
 
 const HotelFilterHandler = require('./HotelFilterHandler');
+const StringConstants = require("./../../config/Constants");
 
 class TypeSelectionHandler{
 	
@@ -12,7 +13,7 @@ class TypeSelectionHandler{
         let ordinal = app.inputs.ordinal;
         let things = app.inputs.things;
 
-        let returnQuery = "I didnt understand your input. Please select one of the following locations, Hotels Restaurants and Pups. You can select them by Index. First, Second and third or the Location type.";
+        let returnQuery = StringConstants.INTEND_TYPE_SELECTION;
 		if(!ordinal && !things){
             app.ask( returnQuery);
         }else{

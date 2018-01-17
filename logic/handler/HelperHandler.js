@@ -15,8 +15,7 @@ class HelperHandler{
 					retString = "Actually we are talking about "+selectedHotel.annotation.name+" ("+selectedHotel.annotation["@type"]+") in "+city+
 						". But";
 				}
-				app.ask(retString + (retString === "" ? "Y" : " y")+"ou can "+StringConstants.AVAILABLE_CHANGER+". Available things are "+
-						StringConstants.AVAILABLE_TYPE+". You can "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
+				app.ask(retString + StringConstants.AVAILABLE_CHANGER +". "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
 						StringConstants.AVAILABLE_FILTER);
 			});
     	});		
