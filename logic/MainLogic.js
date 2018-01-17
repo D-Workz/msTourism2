@@ -253,8 +253,7 @@ function showResults(app, amount) {
                 app.ask(speech, reprompt);
             });
         } else {
-            speech = "No results left.";
-            app.setSessionAttribute("latestResult", null);
+            speech = "There are only " + resultsCIDs.length + " results. Try again.";
             app.ask(speech, reprompt);
         }
     } else {
