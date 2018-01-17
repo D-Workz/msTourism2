@@ -145,6 +145,9 @@ function findFoodEstablishment(app, city, foodEstablishment) {
 
             // check if there is a result
             if (amount > 0) {
+
+                // TODO shuffle results array
+
                 let bestResult = results[0];
                 // save multiple results to session to get them later again
                 if (amount > 1) {
@@ -236,6 +239,7 @@ function showResults(app, amount) {
     let latestResult = app.getSessionAttribute("latestResult");
     let speech = "There are no results to show you. Ask me to find a food establishment for you.";
 
+    //
     if (latestResult) {
         let resultsCIDs = app.getSessionAttribute("resultsCIDs");
         let number = 5;

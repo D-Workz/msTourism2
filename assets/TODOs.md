@@ -2,7 +2,7 @@
 
 ### LoadFromSemantify.js
 
-#### Standardize addressLocality values - OPEN
+#### Standardize addressLocality values - WORKSFORME
 When loading data from from Semantify values for addressLocality values should be standardized. Eg "Mayrhofen", "Mayrhofen ", "Mayrhofen, Tirol " is the same! 
 
 Query: db.foodestablishments.distinct("sdoAnnotation.address.addressLocality")
@@ -24,19 +24,19 @@ Query: db.foodestablishments.distinct("sdoAnnotation.address.addressLocality")
 
 ### Alexa Skill
 
-#### Sort results by rating desc - OPEN
+#### Sort results by rating desc - OPEN Omar
 
-#### Enable nearby searches based on location - OPEN
+#### Enable nearby searches based on location - LATER
 To get permissions:
 https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_specific/indexAlexaDeviceAddress.js
 
-#### Aks for opening hours - OPEN
+#### Aks for opening hours - OPEN Omar
 Use amazon alexa built in localbusiness intent to ask for opening hours:
 https://developer.amazon.com/de/docs/custom-skills/localbusiness-intents.html
 
-#### Implement AMAZON.HelpIntent - OPEN
+#### Implement AMAZON.HelpIntent - OPEN Hannes
 
-#### Add image to Cards - OPEN
+#### Add image to Cards - LATER
 - Infrastructure to load, scale and serve images over https necessary
 - https://developer.amazon.com/de/docs/custom-skills/include-a-card-in-your-skills-response.html#creating-a-home-card-to-display-text-and-an-image
 - https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_specific/indexAlexaCards.js
@@ -44,8 +44,13 @@ https://developer.amazon.com/de/docs/custom-skills/localbusiness-intents.html
 #### Improve Slot Type AMAZON.AT_CITY - DONE
 Add normalized addressLocality values to slot type
 
-#### Improve handling of multiple results - DONE
-- Show x results on phone - DONE
+#### Improve handling of multiple results - OPEN Hannes
+- Show x results on phone: handle case that less than 5 results - OPEN
 - What is the x th result? - DONE
 
-#### Result navigation: go back - OPEN
+#### Result navigation: go back - OPEN Hannes
+
+#### Improve utterances eg what is what's Hannes und Omar
+
+### clean Repository
+config/default.json Omar

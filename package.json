@@ -14,17 +14,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "loadData": "node scripts/LoadFromSemantify.js"
+    "loadData": "node scripts/LoadFromSemantify.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jovotech/jovo-sample-voice-app-nodejs.git"
   },
   "author": "Jovo",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/jovotech/jovo-sample-voice-app-nodejs/issues"
-  },
-  "homepage": "https://github.com/jovotech/jovo-sample-voice-app-nodejs#readme"
+  "license": "Apache-2.0"
 }
