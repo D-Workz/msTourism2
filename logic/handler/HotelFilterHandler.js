@@ -20,19 +20,12 @@ class HotelFilterHandler {
 
             app.db().load("city", (err, city) => {
                 if (type) {
-                    if (type.toLowerCase() === "hotel") {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
                             app
-                                .followUpState("SelectThingState")
+                                .followUpState("TemporaryListState")
                                 .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
                         });
-                    } else {
-                        that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
-                            app
-                                .followUpState("SelectThingState")
-                                .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
-                    });
-                    }
+
                 } else {
                     app
                         .followUpState("ThingKnownState")

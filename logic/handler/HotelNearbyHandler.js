@@ -73,7 +73,7 @@ class HotelNearbyHandler{
 								
     				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,TOP_N), (err) => {    				            	
     				            	app
-                                        .followUpState("ThingKnownState")
+                                        .followUpState("TemporaryListState")
 										.ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
     				            })
 								
