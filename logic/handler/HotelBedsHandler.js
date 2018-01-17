@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class HotelBedsHandler{
@@ -37,9 +38,13 @@ class HotelBedsHandler{
 					bedVerb="is";
 					bedString="bed";
 				}
-					app.ask("Alright. There are "+nrOfBeds+" beds in total in "+hotelName ); //+": "+roomDistributionText.substring(0,roomDistributionText.length-2)
+					app
+                        .followUpState("ThingKnownState")
+						.ask("Alright. There are "+nrOfBeds+" beds in total in "+hotelName , StringConstants.INFO_NOT_UNDERSTAND); //+": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			}else{
-				app.ask("I'm terrible sorry, but I could not find the desired information");
+				app
+                    .followUpState("ThingKnownState")
+					.ask("I'm terrible sorry, but I could not find the desired information", StringConstants.INFO_NOT_UNDERSTAND);
 			}			
     	});
 		

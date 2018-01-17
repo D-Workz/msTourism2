@@ -1,4 +1,5 @@
 const BasicCard = require('jovo-framework').GoogleAction.BasicCard;
+const StringConstants = require("./../../config/Constants");
 
 class HotelShowCardHandler {
 
@@ -47,7 +48,9 @@ class HotelShowCardHandler {
                 .addButton('Learn more', dataUrl);
 
             app.googleAction().showBasicCard(basicCard);
-            app.ask('What else would you like to know ?');
+            app
+                .followUpState("ThingKnownState")
+				.ask('What else would you like to know ?', 'What else would you like to know ?');
 
 
         });

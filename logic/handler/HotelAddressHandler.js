@@ -1,4 +1,5 @@
 
+const StringConstants = require("./../../config/Constants");
 
 class HotelAddressHandler{
 	
@@ -12,9 +13,13 @@ class HotelAddressHandler{
 			let address = data.annotation.address;
 			if(address){
 				let addressString = address.streetAddress+", "+address.postalCode+" "+address.addressLocality+" ("+address.addressCountry+")";
-	    	    app.ask("'"+data.annotation.name+"' is located in "+addressString);
+	    	    app
+                    .followUpState("ThingKnownState")
+					.ask("'"+data.annotation.name+"' is located in "+addressString, StringConstants.INFO_NOT_UNDERSTAND);
 			}else{
-				app.ask("I'm sorry, I couldn't find any information about that.");
+				app
+                    .followUpState("ThingKnownState")
+					.ask("I'm sorry, I couldn't find any information about that.", StringConstants.INFO_NOT_UNDERSTAND);
 			}
     	});
 		

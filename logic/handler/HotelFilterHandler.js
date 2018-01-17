@@ -22,15 +22,21 @@ class HotelFilterHandler {
                 if (type) {
                     if (type.toLowerCase() === "hotel") {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
-                            app.ask(resultString);
+                            app
+                                .followUpState("SelectThingState")
+                                .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
                         });
                     } else {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
-                            app.ask(resultString);
+                            app
+                                .followUpState("SelectThingState")
+                                .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
                     });
                     }
                 } else {
-                    app.ask(StringContsants.NO_TYPE_DEFINED);
+                    app
+                        .followUpState("ThingKnownState")
+                        .ask(StringConstants.NO_TYPE_DEFINED, StringConstants.INFO_NOT_UNDERSTAND);
                 }
             });
         });

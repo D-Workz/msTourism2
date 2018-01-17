@@ -14,6 +14,7 @@ const INFO_DIDNT_FIND = "I am sorry I couldn't find anything.";
 const INFO_TELL_YOU_ABOUT_CONTEXT = "About what do you want to know more? I can give u information about: ";
 
 // Intends
+const INTEND_CHOOSE_CITY = "About which place do you want to talk? For Mayrhofen say one or for Seefeld say two.";
 const INTEND_WELCOME= "Hey there, I am Touri talker. I can help you find details about a lot of things in Seefeld or Mayrhofen? For Seefeld say 1 and for Mayrhofen 2.";
 const INTEND_TYPE_SELECTION = "I didn't understand what you just said. For Hotel say 1, for Restaurant say 2, for Tourist Attraction say 3, for Ski Resort say 4, for Pubs or Bars say 5, for banks say 6, for museums say 7 or for train stations say 8.";
 //Random
@@ -34,6 +35,7 @@ module.exports = {
 
     INTEND_WELCOME:INTEND_WELCOME,
     INTEND_TYPE_SELECTION:INTEND_TYPE_SELECTION,
+    INTEND_CHOOSE_CITY:INTEND_CHOOSE_CITY,
 
     NO_TYPE_DEFINED: NO_TYPE_DEFINED_TEXT,
     FILTERING_NOT_ALLOWED : FILTERING_NOT_ALLOWED_TEXT
