@@ -16,7 +16,9 @@ class HotelSelectionAfterListHandler {
 
             app.db().save("selectedHotel", data[ordinal], (err) => {
                 console.log('Selected : ' + data[ordinal].annotation.name + ' is now saved to bd');
-                app.ask('Selected : ' + data[ordinal].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +". Or ask my whats nearby.");
+                app
+                    .followUpState("ThingKnownState")
+                    .ask('Selected : ' + data[ordinal].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby.", StringConstants.INFO_NOT_UNDERSTAND + data[ordinal].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby");
             });
 
             console.log('HotelSelectionAfterListHandler');

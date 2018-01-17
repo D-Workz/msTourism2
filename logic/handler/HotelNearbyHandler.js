@@ -72,18 +72,24 @@ class HotelNearbyHandler{
 								let sortedThings = that.sortThingsWithDistance(mergedContent, hotelEntry);
 								
     				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,TOP_N), (err) => {    				            	
-    				            	app.ask(that.formatThingsNearby(sortedThings,hotelEntry));
+    				            	app
+                                        .followUpState("ThingKnownState")
+										.ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
     				            })
 								
 															
 							})
 						}else{
-							app.ask(StringConstants.INFO_NOT_FOUND + "nearby");
+							app
+                                .followUpState("ThingKnownState")
+								.ask(StringConstants.INFO_NOT_FOUND + "nearby", StringConstants.INFO_NOT_UNDERSTAND);
 						}
 							
 					})					
 			}else{
-				app.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.");
+				app
+                    .followUpState("ThingKnownState")
+					.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.", StringConstants.INFO_NOT_UNDERSTAND);
 			}					
 		});		
 	}

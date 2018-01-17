@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 class HotelDistanceCityCenterHandler {
 
@@ -32,12 +33,18 @@ class HotelDistanceCityCenterHandler {
                 distance = distanceCalc(latHotel, longHotel, latCityCenter, longCityCenter);
                 console.log("Distance: "+distance.toFixed(2));
                 if(distance <100){
-                    app.ask("Distance to city center: "+distance.toFixed(2) + "km");
+                    app
+                        .followUpState("ThingKnownState")
+                        .ask("Distance to city center: "+distance.toFixed(2) + "km", StringConstants.INFO_NOT_UNDERSTAND);
                 }else {
-                    app.ask("Distance to city center could not be calculated");
+                    app
+                        .followUpState("ThingKnownState")
+                        .ask("Distance to city center could not be calculated",StringConstants.INFO_NOT_UNDERSTAND);
                 }
             }else{
-                app.ask("No geo coordinates given for this Hotel.");
+                app
+                    .followUpState("ThingKnownState")
+                    .ask("No geo coordinates given for this Hotel.",StringConstants.INFO_NOT_UNDERSTAND);
             }
 });
     }
