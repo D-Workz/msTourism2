@@ -98,26 +98,27 @@ class Logic {
                 'GenericThingDescription': function () {
                     handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
                 },
-                'HotelSelectionAfterList': function () {
+                'Selection': function () {
                     handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
                 },
             },
 
             'SelectCityState': {
-                'InitialChooseCityIntent': function () {
-                    handlers.initialChooseCityHandler.doFulfill(app, Annotations);
-                }
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillCitySelection(app, Annotations);
+                },
+
             },
 
             'SelectTypeState':{
-                'ChooseTypeIntent': function () {
-                    handlers.typeSelectionHandler.doFulfill(app,Annotations);
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillTypeSelection(app,Annotations);
                 },
             },
 
             'SelectThingState':{
-                'HotelSelectionAfterList': function () {
-                    handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
                 },
             },
 

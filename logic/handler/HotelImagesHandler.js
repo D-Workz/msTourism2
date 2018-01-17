@@ -52,11 +52,15 @@ class HotelImagesHandler {
                 // app.googleAction().showCarousel(carousel);
                 // app.ask('What else would you like to know ?');
 
-            }else if(image){
+            }else if(image && image.url){
                 app.googleAction().showImageCard("title","",image.url);
                 app
                     .followUpState("ThingKnownState")
                     .ask('What else would you like to know ?', StringConstants.INFO_NOT_UNDERSTAND);
+
+
+            }else{
+                app.ask('No image available.', StringConstants.INFO_NOT_UNDERSTAND);
 
 
             }
