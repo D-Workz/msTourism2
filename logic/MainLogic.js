@@ -35,6 +35,12 @@ class Logic {
             'HelperStatusIntent': function () {
                 handlers.helperHandler.doFulfill(app,Annotations);
             },
+            'FUNcreditsIntent': function () {
+                handlers.funCreditHandler.doFulfill(app,Annotations);
+            },    
+            'FUNsoundIntent': function () {
+                handlers.funSoundHandler.doFulfill(app,Annotations);
+            },              
             'ChangeCityIntent': function () {
                 handlers.changeCityHandler.doFulfill(app,Annotations);
             },

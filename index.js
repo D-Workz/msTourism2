@@ -9,6 +9,10 @@ const webhook = require('jovo-framework').Webhook;
 const config = require('config');
 
 const handlers = require("./logic/MainLogic").getHandlers();
+const Logger = require('./logic/Logger');
+
+const path = require('path');
+let FILE = path.basename(__filename);
 
 // let myIntentsToSkipUnhandled = [
 //     'CancelIntent',
@@ -26,7 +30,7 @@ const handlers = require("./logic/MainLogic").getHandlers();
 
 // Listen for post requests
 webhook.listen(config.get("port"), function() {
-    console.log('Local development server listening on port.'+  config.get("port"));
+	Logger.log(FILE, 'Local development server listening on port.'+  config.get("port"));    	
 });
 
 webhook.post('/webhook', function(req, res) {

@@ -1,3 +1,7 @@
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+const Logger = require('./../Logger');
+
 //const GoogleAction = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction;
 //const Carousel =   require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.Carousel;
 //const OptionItem = require('jovo-framework/lib/platforms/googleaction/googleAction').GoogleAction.OptionItem;
@@ -36,9 +40,9 @@ class HotelImagesHandler {
                                 .ask('What else would you like to know ?', 'What else would you like to know ?');
 
 
-                            console.log("Image url: " + url);
+                            Logger.log(CURRENT_FILE,"Image url: " + url);
                         } else {
-                            console.log("Image does not contain an url")
+                            Logger.log(CURRENT_FILE,"Image does not contain an url")
                         }
 
                     } else {

@@ -15,11 +15,13 @@ const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterLis
 const InitialChooseCityHandler = require('./handler/InitialChooseCityHandler');
 const HelperHandler = require('./handler/HelperHandler');
 
-
 const SelectionHandler = require('./handler/SelectionHandler');
 
 const ChangeCityHandler = require('./handler/ChangeCityHandler');
 const ChangeThingHandler = require('./handler/ChangeTypeHandler');
+
+const FunCreditHandler = require('./handler/FunCreditHandler');
+const FunSoundHandler = require('./handler/FunSoundHandler');
 
 class HandlerContainer{
 	constructor(){
@@ -52,6 +54,10 @@ class HandlerContainer{
 		this.selectionHandler = new SelectionHandler();
 
 		this.helperHandler = new HelperHandler();
+		
+		this.funCreditHandler = new FunCreditHandler();
+		this.funSoundHandler = new FunSoundHandler();
+		
 	}
 }
 
