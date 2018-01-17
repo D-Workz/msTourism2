@@ -258,6 +258,23 @@
         "slots": []
       },
       {
+        "name": "ShowResults",
+        "samples": [
+          "Show results",
+          "show me the results",
+          "show me first {amount} results",
+          "show {amount} results",
+          "show me {amount} results",
+          "show best results"
+        ],
+        "slots": [
+          {
+            "name": "amount",
+            "type": "AMAZON.NUMBER"
+          }
+        ]
+      },
+      {
         "name": "SpecificResult",
         "samples": [
           "What's the {nth} result",

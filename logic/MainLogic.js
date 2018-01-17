@@ -44,6 +44,10 @@ class Logic {
                 showDetails(app);
             },
 
+            'ShowResults': function (amount) {
+                showResults(app, amount);
+            },
+
             'SpecificResult': function (nth) {
                 specificResult(app, nth);
             },
@@ -135,17 +139,22 @@ function findFoodEstablishment(app, city, foodEstablishment) {
             let speech = "I'm sorry. I couldn't find a " + foodEstablishment + " in " + toTitleCase(city) + ".";
             let amount = results.length;
 
+            // check if there is a result
             if (amount > 0) {
                 let bestResult = results[0];
+                // save multiple results to session to get them later again
                 if (amount > 1) {
-                    let results_cids = [];
+                    let resultsCIDs = [];
                     for (let i = 0; i < amount; i++) {
-                        results_cids.push(results[i].CID)
+                        resultsCIDs.push(results[i].CID)
                     }
-                    app.setSessionAttribute("results_cids", results_cids);
+                    app.setSessionAttribute("resultsCIDs", resultsCIDs);
                 }
+                // save intent info to session
                 app.setSessionAttribute("latestResult", bestResult);
-                app.setSessionAttribute("latestResult_index", 0);
+                app.setSessionAttribute("latestResultIndex", 0);
+                app.setSessionAttribute("foodEstablishment", foodEstablishment);
+                app.setSessionAttribute("city", city);
                 speech = "I have found " + amount + " results for " + foodEstablishment + " in " + toTitleCase(city) + "." + " The best result is " + toTitleCase(bestResult.name) + ".";
             } else {
                 app.setSessionAttribute("latestResult", null);
@@ -160,18 +169,18 @@ function nextResult(app) {
     let speech = "First ask me to find a food establishment for you.";
 
     if (latestResult) {
-        let latestResult_index = app.getSessionAttribute("latestResult_index");
-        let results_cids = app.getSessionAttribute("results_cids");
-        latestResult_index++;
-        let next_cid = results_cids[latestResult_index];
+        let latestResultIndex = app.getSessionAttribute("latestResultIndex");
+        let resultsCIDs = app.getSessionAttribute("resultsCIDs");
+        latestResultIndex++;
+        let nextCID = resultsCIDs[latestResultIndex];
 
-        if (latestResult_index < results_cids.length) {
+        if (latestResultIndex < resultsCIDs.length) {
             FoodEstablishments.find({
-                "CID": next_cid
+                "CID": nextCID
             }, function (err, results) {
                 let currentResult = results[0];
                 app.setSessionAttribute("latestResult", currentResult);
-                app.setSessionAttribute("latestResult_index", latestResult_index);
+                app.setSessionAttribute("latestResultIndex", latestResultIndex);
                 speech = "Next result is " + toTitleCase(currentResult.name) + ".";
                 app.ask(speech, reprompt);
             });
@@ -212,26 +221,75 @@ function showDetails(app) {
     app.ask(speech, reprompt);
 }
 
+function showResults(app, amount) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "There are no results to show you. Ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let resultsCIDs = app.getSessionAttribute("resultsCIDs");
+        let number = 5;
+        if (amount !== 'undefined') {
+            if (amount > 0 && amount <= resultsCIDs.length) {
+                number = amount;
+            }
+        }
+        let CIDsToQuery = [];
+        for (let i = 0; i < number; i++) {
+            CIDsToQuery.push(resultsCIDs[i])
+        }
+        if (CIDsToQuery) {
+            FoodEstablishments.find({
+                "CID": CIDsToQuery
+            }, function (err, results) {
+                foodEstablishment = app.getSessionAttribute("foodEstablishment");
+                city = app.getSessionAttribute("city");
+                let title = "Best results for " + toTitleCase(foodEstablishment) + " in " + toTitleCase(city);
+                let content = "";
+                for (let i = 0; i < results.length; i++) {
+                    content = content + getResultText(results[i]) + "\n\n";
+                }
+                app.alexaSkill().showSimpleCard(title, content);
+                speech = "Done. I've sent you the best " + number + " results. Open the Amazon Alexa App to view results.";
+                app.ask(speech, reprompt);
+            });
+        } else {
+            speech = "No results left.";
+            app.setSessionAttribute("latestResult", null);
+            app.ask(speech, reprompt);
+        }
+    } else {
+        app.ask(speech, reprompt);
+    }
+}
+
+function getResultText(result) {
+    let text = result.name;
+    if (result.sdoAnnotation.address.streetAddress && result.sdoAnnotation.address.postalCode && result.sdoAnnotation.address.addressLocality) {
+        text = text + " - " + result.sdoAnnotation.address.streetAddress + ", " + result.sdoAnnotation.address.postalCode + " " + result.sdoAnnotation.address.addressLocality;
+    }
+    return text;
+}
+
 function specificResult(app, nth) {
     let latestResult = app.getSessionAttribute("latestResult");
     let speech = "First ask me to find a food establishment for you.";
 
     if (latestResult) {
-        let results_cids = app.getSessionAttribute("results_cids");
+        let resultsCIDs = app.getSessionAttribute("resultsCIDs");
 
-        if (nth - 1 < results_cids.length) {
-            let next_cid = results_cids[nth - 1];
+        if (nth - 1 < resultsCIDs.length) {
+            let nextCID = resultsCIDs[nth - 1];
             FoodEstablishments.find({
-                "CID": next_cid
+                "CID": nextCID
             }, function (err, results) {
                 let currentResult = results[0];
                 app.setSessionAttribute("latestResult", currentResult);
-                app.setSessionAttribute("latestResult_index", nth - 1);
+                app.setSessionAttribute("latestResultIndex", nth - 1);
                 speech = "Result number " + nth + " is " + toTitleCase(currentResult.name) + ".";
                 app.ask(speech, reprompt);
             });
         } else {
-            speech = "There are only " + results_cids.length + " results. Try again.";
+            speech = "There are only " + resultsCIDs.length + " results. Try again.";
             // app.setSessionAttribute("latestResult", null);
             app.ask(speech, reprompt);
         }
