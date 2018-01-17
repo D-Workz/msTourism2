@@ -50,6 +50,8 @@ Rating key:
 6. You can tell Alexa "Next result" or that you don't like that result to goto the next result.
 7. If there are multiple results you can say "What is result x" to talk about that item or say "show best {x} results" to send them to the companion app.
 
-## scripts
+## Scripts
 
 **npm run loadData** - Starts the process of loading data from the semantify backend to our backend to fill our database with mayrhofen.at data.
+
+**npm run start** - Starts the backend
