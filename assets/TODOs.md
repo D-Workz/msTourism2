@@ -48,7 +48,7 @@ Add normalized addressLocality values to slot type
 - Show x results on phone: handle case that less than 5 results - DONE
 - What is the x th result? - DONE
 
-#### Result navigation: go back - OPEN Hannes
+#### Result navigation: go back - DONE
 
 #### Improve utterances eg what is what's Hannes und Omar
 
