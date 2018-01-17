@@ -16,29 +16,28 @@ class HotelImagesHandler {
 
             let image = data.annotation.image;
 
-            if(Array.isArray(image)){
+            if (Array.isArray(image)) {
 
-                for(var counter = 0 ; counter < 1 ; counter ++) {
+                for (var counter = 0; counter < 1; counter++) {
 
                     let imageObject = image[counter];
                     if (imageObject) {
                         let url = imageObject.url;
                         if (url && url != "") {
                             let title = image.caption;
-                            if(!title){
-                                title  = data.annotation.name;
+                            if (!title) {
+                                title = data.annotation.name;
                             }
 
 
-                            app.googleAction().showImageCard(title,title,url);
+                            app.googleAction().showImageCard(title, title, url);
                             app
                                 .followUpState("ThingKnownState")
-                                .ask('What else would you like to know ?','What else would you like to know ?' );
-
+                                .ask('What else would you like to know ?', 'What else would you like to know ?');
 
 
                             console.log("Image url: " + url);
-                        }else{
+                        } else {
                             console.log("Image does not contain an url")
                         }
 
@@ -52,17 +51,26 @@ class HotelImagesHandler {
                 // app.googleAction().showCarousel(carousel);
                 // app.ask('What else would you like to know ?');
 
-            }else if(image && image.url){
-                app.googleAction().showImageCard("title","",image.url);
-                app
-                    .followUpState("ThingKnownState")
-                    .ask('What else would you like to know ?', StringConstants.INFO_NOT_UNDERSTAND);
+            } else if (image && image.url) {
+
+                let url = image.url;
+                if (url && url != "") {
+                    let title = image.caption;
+                    if (!title) {
+                        title = data.annotation.name;
+                    }
 
 
-            }else{
-                app.ask('No image available.', StringConstants.INFO_NOT_UNDERSTAND);
+                    app.googleAction().showImageCard(title, title, url);
+                    app
+                        .followUpState("ThingKnownState")
+                        .ask('What else would you like to know ?', StringConstants.INFO_NOT_UNDERSTAND);
+
+                } else {
+                    app.ask('No image available.', StringConstants.INFO_NOT_UNDERSTAND);
 
 
+                }
             }
 
 
