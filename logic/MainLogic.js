@@ -239,14 +239,16 @@ function showResults(app, amount) {
     let latestResult = app.getSessionAttribute("latestResult");
     let speech = "There are no results to show you. Ask me to find a food establishment for you.";
 
-    //
     if (latestResult) {
         let resultsCIDs = app.getSessionAttribute("resultsCIDs");
         let number = 5;
-        if (amount !== 'undefined') {
+        if (amount) {
             if (amount > 0 && amount <= resultsCIDs.length) {
                 number = amount;
             }
+        } else {
+            // check if there are less than 5 results
+            if (resultsCIDs.length < 5) number = resultsCIDs.length;
         }
         let CIDsToQuery = [];
         for (let i = 0; i < number; i++) {

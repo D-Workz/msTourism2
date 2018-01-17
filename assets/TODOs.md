@@ -44,8 +44,8 @@ https://developer.amazon.com/de/docs/custom-skills/localbusiness-intents.html
 #### Improve Slot Type AMAZON.AT_CITY - DONE
 Add normalized addressLocality values to slot type
 
-#### Improve handling of multiple results - OPEN Hannes
-- Show x results on phone: handle case that less than 5 results - OPEN
+#### Improve handling of multiple results - DONE
+- Show x results on phone: handle case that less than 5 results - DONE
 - What is the x th result? - DONE
 
 #### Result navigation: go back - OPEN Hannes
