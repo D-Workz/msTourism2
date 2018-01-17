@@ -1,5 +1,9 @@
-const NR_OF_HOTELS_TO_RETURN = 5;
-const StringConstants = require("./../../config/Constants");
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+
+const Constants = require("./../../config/Constants");
+const Logger = require('./../Logger');
+const HelperMethods = require('./../HelperMethods');
 
 class HotelFilterHandler {
 
@@ -9,7 +13,7 @@ class HotelFilterHandler {
 	
 	doFulfill(app,db){
 		
-		let numVal = app.inputs.numVal;
+		let numVal = HelperMethods.ensureNumber(app.inputs.numVal);
 		if(!numVal || numVal ===0  ) {numVal = 1}
 		let filterType = app.inputs.filter;
 		//if(filterType){}
@@ -24,19 +28,20 @@ class HotelFilterHandler {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
                             app
                                 .followUpState("SelectThingState")
-                                .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
+                                .ask(resultString, Constants.INFO_NOT_UNDERSTAND + resultString);
                         });
                     } else {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
                             app
                                 .followUpState("SelectThingState")
-                                .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString);
+                                .ask(resultString, Constants.INFO_NOT_UNDERSTAND + resultString);
                     });
                     }
                 } else {
+                	Logger.warn(CURRENT_FILE,"No type defined?");
                     app
                         .followUpState("ThingKnownState")
-                        .ask(StringConstants.NO_TYPE_DEFINED, StringConstants.INFO_NOT_UNDERSTAND);
+                        .ask(Constants.NO_TYPE_DEFINED, Constants.INFO_NOT_UNDERSTAND);
                 }
             });
         });
@@ -47,6 +52,7 @@ class HotelFilterHandler {
 
     searchAndFilter(app, db, numVal, city, filterType, thingType, outputFunction) {
         let that = this;
+    	Logger.log(CURRENT_FILE,"Search triggered: {numVal: "+numVal+", city: "+city+", filterType: "+filterType+", thingType: "+thingType+"}");
 
         if (thingType === 'Hotel') {
             if (filterType === "price") {
@@ -65,12 +71,13 @@ class HotelFilterHandler {
                     if (data.length > 0) {
 
                         let sorted = that.prepareAndSortHotelsPricing(data);
-                        console.log("Save ListHotels with length: " + data.length);
+                        Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
 
-                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, NR_OF_HOTELS_TO_RETURN), (err) => {
-                            outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), "EUR", data.length,thingType));
+                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, Constants.TOP_N), (err) => {
+                            outputFunction(that.formatOutput(sorted.slice(0, Constants.TOP_N), "EUR", data.length,thingType));
                         })
                     } else {
+                    	Logger.log(CURRENT_FILE,"No hotels found with price <= "+numVal);
                         outputFunction("I couldn't find any hotels according to that price specification.");
                     }
                 })
@@ -83,37 +90,41 @@ class HotelFilterHandler {
                     if (data.length > 0) {
 
                         let sorted = that.prepareAndSortHotels(data);
-                        console.log("Save ListHotels with length: " + data.length);
-                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, NR_OF_HOTELS_TO_RETURN), (err) => {
-                            outputFunction(that.formatOutput(sorted.slice(0, NR_OF_HOTELS_TO_RETURN), '', data.length,thingType));
+                        Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
+                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, Constants.TOP_N), (err) => {
+                            outputFunction(that.formatOutput(sorted.slice(0, Constants.TOP_N), '', data.length,thingType));
                         })
                     }
                     else {
+                    	Logger.log(CURRENT_FILE,"No hotels found with rating <= "+numVal);                    	
                         outputFunction("I'm sorry, I couldn't find any match.");
                     }
                 })
             } else {
+            	Logger.warn(CURRENT_FILE,"Filter '"+filterType+"' is invalid");
                 outputFunction("I'm sorry, I couldn't recognize this kind of filter.");
             }
         }else{
+        	Logger.log(CURRENT_FILE,"No filter defined, searching for things with type '"+thingType);
             db.find({
                 type: new RegExp(thingType, "i"),
                 website: new RegExp(city, "i")}).then((data) => {
                 if (data.length > 0) {
 
 
-                    console.log("Save ListHotels with length: " + data.length);
+                	Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
 
                     let resultString ='I found the following '+ thingType+ ' :  ';
-                    for(let counter = 0; counter < data.length && counter < NR_OF_HOTELS_TO_RETURN; counter++){
+                    for(let counter = 0; counter < data.length && counter < Constants.TOP_N; counter++){
                         resultString = resultString + data[counter].annotation.name + ", ";
                     }
 
-                    app.db().save("listHotels", data.slice(0, NR_OF_HOTELS_TO_RETURN), (err) => {
+                    app.db().save("listHotels", data.slice(0, Constants.TOP_N), (err) => {
                         outputFunction(resultString);
                     })
                 }
                 else {
+                	Logger.warn(CURRENT_FILE,"Nothing found of type '"+thingType+"'?");                	
                     outputFunction("I'm sorry, I couldn't find any match.");
                 }
             })
@@ -177,7 +188,7 @@ class HotelFilterHandler {
             if(currency !==""){
                 returnString += "For " + entry.entry.annotation.name + " for " + entry.val +" " + currency + ", say  " +i + ".";
             }else{
-                returnString += "For " + entry.entry.annotation.name + " with an rating of" + entry.val +", say "+i+".";
+                returnString += "For " + entry.entry.annotation.name + " with an rating of " + entry.val +", say "+i+".";
             }
         });
         let additionalText = "";

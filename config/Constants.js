@@ -21,6 +21,11 @@ const INTEND_TYPE_SELECTION = "I didn't understand what you just said. For Hotel
 const NO_TYPE_DEFINED_TEXT = "I am sorry, there isn't any type defined";
 const FILTERING_NOT_ALLOWED_TEXT = "I'm terrible sorry, filtering is only allowed on hotels";
 
+const TOP_N_NUMBER = 5;
+const NEAR_IN_METERS = 1000;
+
+const CREDIT_INFO_TEXT = "I was created by Dennis 'the awesome backend guy and data crawler', Stefan 'the intent master and jovo-whisperer' and Alex 'the intent-implementor, query expert and inventor of these lame names'";
+
 module.exports = {
     AVAILABLE_TYPE: AVAILABLE_TYPE_TEXT,
     AVAILABLE_PROPERTIES: AVAILABLE_PROPERTIES_TEXT,
@@ -38,6 +43,9 @@ module.exports = {
     INTEND_CHOOSE_CITY:INTEND_CHOOSE_CITY,
 
     NO_TYPE_DEFINED: NO_TYPE_DEFINED_TEXT,
-    FILTERING_NOT_ALLOWED : FILTERING_NOT_ALLOWED_TEXT
+    FILTERING_NOT_ALLOWED : FILTERING_NOT_ALLOWED_TEXT,
+    TOP_N : TOP_N_NUMBER,
+    NEAR: NEAR_IN_METERS,
+    CREDIT_INFO : CREDIT_INFO_TEXT
 
 };

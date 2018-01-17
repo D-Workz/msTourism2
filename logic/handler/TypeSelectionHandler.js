@@ -1,3 +1,5 @@
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
 
 const HotelFilterHandler = require('./HotelFilterHandler');
 const StringConstants = require("./../../config/Constants");
@@ -61,14 +63,14 @@ class TypeSelectionHandler{
 
 
                 app.db().save("type", type, (err) => {
-                    console.log("Attribute 'type' set with content of '" + type + "'");
+                    Logger.log(CURRENT_FILE, "Attribute 'type' set with content of '" + type + "'");
 
                     let numVal = 1;
 
                     this.hotelFilterHandler = new HotelFilterHandler();
 
                     this.hotelFilterHandler.searchAndFilter(app, db, numVal, city, "rating", type, (resultString) => {
-                        console.log("Hotel search result: "+ resultString);
+                        Logger.log(CURRENT_FILE, "Hotel search result: "+ resultString);
                         app
                             .followUpState("SelectThingState")
                             .ask(resultString, StringConstants.INFO_NOT_UNDERSTAND + resultString  );

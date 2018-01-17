@@ -1,8 +1,12 @@
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+
 const mongoose = require('mongoose');
 const config = require('config');
-const helperMethodsStatic = require('./../HelperMethods');
+const HelperMethods = require('./../HelperMethods');
+const Logger = require('./../Logger');
+const Constants = require('./../../config/Constants');
 
-const TOP_N = 5;
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 
 require('../../model/Annotation');
@@ -25,13 +29,13 @@ class HotelNearbyHandler{
 
             var helper = hotelEntry.annotation.geo;
     		
-			if(helper.longitude && helper.latitude && helper.longitude<=180 && helper.latitude<=90){
+			if(helper.longitude && helper.latitude && HelperMethods.ensureNumber(helper.longitude)<=180 && HelperMethods.ensureNumber(helper.latitude)<=90){
 				geospatialDb.find({
 					"geoInfo": { 
 						$near : {
-							      $geometry: { type: "Point",  coordinates: [ helper.longitude, helper.latitude ] },
+							      $geometry: { type: "Point",  coordinates: [ HelperMethods.ensureNumber(helper.longitude), HelperMethods.ensureNumber(helper.latitude) ] },
 							      $minDistance: 0,
-							      $maxDistance: 1000
+							      $maxDistance: Constants.NEAR
 						         }
 						      }
 						   }
@@ -71,7 +75,7 @@ class HotelNearbyHandler{
 								//sort things
 								let sortedThings = that.sortThingsWithDistance(mergedContent, hotelEntry);
 								
-    				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,TOP_N), (err) => {    				            	
+    				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,Constants.TOP_N), (err) => {    				            	
     				            	app
                                         .followUpState("ThingKnownState")
 										.ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
@@ -80,6 +84,7 @@ class HotelNearbyHandler{
 															
 							})
 						}else{
+							Logger.debug(CURRENT_FILE,"Nothing nearby to '"+hotelEntry.name+"'?")
 							app
                                 .followUpState("ThingKnownState")
 								.ask(StringConstants.INFO_NOT_FOUND + "nearby", StringConstants.INFO_NOT_UNDERSTAND);
@@ -87,6 +92,7 @@ class HotelNearbyHandler{
 							
 					})					
 			}else{
+				Logger.warn(CURRENT_FILE,"Invalid geolocations for '"+hotelEntry.name+"'");
 				app
                     .followUpState("ThingKnownState")
 					.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.", StringConstants.INFO_NOT_UNDERSTAND);
@@ -120,7 +126,7 @@ class HotelNearbyHandler{
 		let hotelName = hotel.annotation.name;
 
 		let that = this;
-		thingsSorted.slice(0,TOP_N).forEach((entry)=>{
+		thingsSorted.slice(0,Constants.TOP_N).forEach((entry)=>{
 			let entryType = "";
 
 			if(thingType===""){
@@ -144,7 +150,7 @@ class HotelNearbyHandler{
 		thingsToSort.forEach((entry)=>{
 			let entryLongitude = hotel.annotation.geo.longitude;
 			let entryLatitude = entry.annotation.geo.latitude;
-			let distance = helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3);
+			let distance = HelperMethods.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3);
 			if(distance!=="0.000")
 			arr.push({val:entry, dist:distance});
 		});
