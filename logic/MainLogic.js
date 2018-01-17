@@ -44,6 +44,10 @@ class Logic {
                 nextResult(app);
             },
 
+            'PreviousResult': function () {
+                previousResult(app);
+            },
+
             'ShowDetails': function () {
                 showDetails(app);
             },
@@ -186,9 +190,9 @@ function nextResult(app) {
         let latestResultIndex = app.getSessionAttribute("latestResultIndex");
         let resultsCIDs = app.getSessionAttribute("resultsCIDs");
         latestResultIndex++;
-        let nextCID = resultsCIDs[latestResultIndex];
 
-        if (latestResultIndex < resultsCIDs.length) {
+        if (0 <= latestResultIndex && latestResultIndex < resultsCIDs.length) {
+            let nextCID = resultsCIDs[latestResultIndex];
             FoodEstablishments.find({
                 "CID": nextCID
             }, function (err, results) {
@@ -200,7 +204,33 @@ function nextResult(app) {
             });
         } else {
             speech = "No results left.";
-            app.setSessionAttribute("latestResult", null);
+            app.ask(speech, reprompt);
+        }
+    }
+}
+
+function previousResult(app) {
+    let latestResult = app.getSessionAttribute("latestResult");
+    let speech = "First ask me to find a food establishment for you.";
+
+    if (latestResult) {
+        let latestResultIndex = app.getSessionAttribute("latestResultIndex");
+        let resultsCIDs = app.getSessionAttribute("resultsCIDs");
+        latestResultIndex--;
+
+        if (0 <= latestResultIndex && latestResultIndex < resultsCIDs.length) {
+            let previousCID = resultsCIDs[latestResultIndex];
+            FoodEstablishments.find({
+                "CID": previousCID
+            }, function (err, results) {
+                let currentResult = results[0];
+                app.setSessionAttribute("latestResult", currentResult);
+                app.setSessionAttribute("latestResultIndex", latestResultIndex);
+                speech = "Previous result was " + toTitleCase(currentResult.name) + ".";
+                app.ask(speech, reprompt);
+            });
+        } else {
+            speech = "No results left.";
             app.ask(speech, reprompt);
         }
     }

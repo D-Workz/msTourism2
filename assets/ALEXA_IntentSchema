@@ -266,6 +266,18 @@
         ]
       },
       {
+        "name": "PreviousResult",
+        "samples": [
+          "Previous result",
+          "go back",
+          "what was the last result",
+          "what was the last result again",
+          "what was the previous result",
+          "what was the previous result again"
+        ],
+        "slots": []
+      },
+      {
         "name": "ShowDetails",
         "samples": [
           "Show me the details",
@@ -301,7 +313,8 @@
           "Tell me about result {nth}",
           "What was result {nth} again",
           "What is result number {nth}",
-          "What is result {nth}"
+          "What is result {nth}",
+          "What's result number {nth}"
         ],
         "slots": [
           {
@@ -323,7 +336,7 @@
       "variations": [
         {
           "type": "PlainText",
-          "value": "Where do you want to go?"
+          "value": "Where should i look for results?"
         }
       ]
     },
