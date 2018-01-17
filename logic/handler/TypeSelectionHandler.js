@@ -23,31 +23,31 @@ class TypeSelectionHandler{
 
                 if(ordinal) {
                     switch (ordinal) {
-                        case 1:
+                        case '1':
                             type = "Hotel";
                             break;
-                        case 2:
+                        case '2':
                             type = "Store";
                             break;
-                        case 3:
+                        case '3':
                             type = "Restaurant";
                             break;
-                        case 4:
+                        case '4':
                             type = 'TouristAttraction';
                             break;
-                        case 5:
+                        case '5':
                             type = 'SkiResort';
                             break;
-                        case 6:
+                        case '6':
                             type = 'BarOrPub';
                             break;
-                        case 7 :
+                        case '7' :
                             type='BankOrCreditUnion' ;
                             break;
-                        case 8:
+                        case '8':
                             type = 'Museum';
                             break;
-                        case 9:
+                        case '9':
                             type = 'TrainStation';
                             break;
 						default:
