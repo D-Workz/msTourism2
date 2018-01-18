@@ -125,7 +125,9 @@ class Logic {
             'SelectThingState':{
                 'Selection': function () {
                     handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
-                },
+                },'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"SelectThingState");
+                }
             },
 
             'ThingKnownState':{
@@ -178,6 +180,10 @@ class Logic {
                 'GenericThingDescription': function () {
                     handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
                 },
+                
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"ThingKnownState");
+                }
             },
 
         };

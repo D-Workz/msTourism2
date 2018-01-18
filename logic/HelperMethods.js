@@ -1,3 +1,5 @@
+const Constants = require("./../config/Constants");
+
 class HelperMethods{
 
 	static distanceCalc(lat1, lon1, lat2, lon2) {
@@ -22,8 +24,128 @@ class HelperMethods{
 	}
 	
 	static ensureNumber(number){
-		return new Number(number);
+		return Number(number);
 	}
+
+//===
+	static extractFrom(sortedAndFormatted) {
+        let arr = [];
+        sortedAndFormatted.forEach((entry) => {
+            arr.push(entry.entry);
+        })
+        return arr;
+    }
+
+	static prepareAndSortHotels(unsorted) {
+        let arr = [];
+        unsorted.forEach((entry) => {
+            arr.push({entry: entry, val: Number(entry.annotation.aggregateRating.ratingValue)});
+        })
+
+        arr.sort((a, b) => {
+            if (a.val < b.val) {
+                return 1;
+            } else if (a.val > b.val) {
+                return -1;
+            }
+            return 0;
+        })
+        return arr;
+    }
+
+	static prepareAndSortHotelsPricing(unsorted) {
+        let arr = [];
+
+        unsorted.forEach((entry) => {
+            arr.push({entry: entry, val: HelperMethods.findSmallestPrice(entry)});
+        });
+
+        arr.sort((a, b) => {
+            if (a.val < b.val) {
+                return -1;
+            } else if (a.val > b.val) {
+                return 1;
+            }
+            return 0;
+        });
+        return arr;
+    }
+
+	static formatOutputStructuredSave(data, currency, hitsInTotal,thingtype) {
+        let returnString = "To know more about the five ";
+        let retObj = {};
+        
+        if(currency!==""){
+            returnString += "cheapest " + thingtype + "s: ";
+        }else{
+            returnString += "best rated " + thingtype + "s: ";
+        }
+        
+        retObj.initialText = returnString;
+        retObj.content = [];
+        
+        let i = 0;
+        data.forEach((entry) => {
+            let entryString=""
+            if(currency !==""){
+            	entryString += "For " + entry.entry.annotation.name + " that costs " + entry.val +" " + currency + ", say  " +(i%Constants.TOP_N+1) + ". ";
+            }else{
+            	entryString += "For " + entry.entry.annotation.name + " with a rating of " + entry.val +", say "+(i%Constants.TOP_N+1)+". ";
+            }
+            retObj.content.push(entryString);
+            i++;
+        });
+        let additionalText = "";
+        //currently not used
+//        if (data.length < hitsInTotal) {
+//            additionalText = "I also found " + (hitsInTotal - data.length) + " others."
+//        }
+        
+        retObj.endString = additionalText
+        
+        return retObj;
+    }
+	
+	static formatOutputStructuredDefault(data, thingType){
+        let returnString = "I found the following '"+ thingType+ "' :  '";
+        let retObj = {};
+        retObj.initialText = returnString;        
+        retObj.content = [];
+        
+        data.forEach((entry)=>{
+        	retObj.content.push(entry.annotation.name + ", ")
+        })
+        
+        retObj.endText="";
+        
+        return retObj;
+	}
+	
+	static formatOutput(data, currency, hitsInTotal,thingtype) {
+		let structuredData = HelperMethods.formatOutputStructuredSave(data, currency, hitsInTotal,thingtype);
+		let returnString = structuredData.initialText;
+		
+		structuredData.content.forEach((entry)=>{
+			returnString+=entry;
+		})
+				
+        return returnString+structuredData.endString;
+    }
+
+	static findSmallestPrice(hotel) {
+        let smallestPrice = Number.MAX_VALUE;
+        hotel.annotation.makesOffer.forEach((makesOfferEntry) => {
+            if (makesOfferEntry.priceSpecification) {
+                makesOfferEntry.priceSpecification.forEach((priceEntry) => {
+                    if (priceEntry.minPrice < smallestPrice && priceEntry.minPrice !== 0) {
+                        smallestPrice = priceEntry.minPrice;
+                    }
+                })
+            }
+        })
+        return smallestPrice;
+    }	
+//===	
 	
 }
 

@@ -26,6 +26,10 @@ const NEAR_IN_METERS = 1000;
 
 const CREDIT_INFO_TEXT = "I was created by Dennis 'the awesome backend guy and data crawler', Stefan 'the intent master and jovo-whisperer' and Alex 'the intent-implementor, query expert and inventor of these lame names'";
 
+const THING_KNOWN_STATE_TEXT = "ThingKnownState";
+const SELECT_THING_STATE_TEXT = "SelectThingState";
+
+
 module.exports = {
     AVAILABLE_TYPE: AVAILABLE_TYPE_TEXT,
     AVAILABLE_PROPERTIES: AVAILABLE_PROPERTIES_TEXT,
@@ -46,6 +50,9 @@ module.exports = {
     FILTERING_NOT_ALLOWED : FILTERING_NOT_ALLOWED_TEXT,
     TOP_N : TOP_N_NUMBER,
     NEAR: NEAR_IN_METERS,
-    CREDIT_INFO : CREDIT_INFO_TEXT
+    CREDIT_INFO : CREDIT_INFO_TEXT,
+    
+    THING_KNOWN_STATE : THING_KNOWN_STATE_TEXT,
+    SELECT_THING_STATE : SELECT_THING_STATE_TEXT
 
 };
