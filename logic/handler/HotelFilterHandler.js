@@ -4,11 +4,12 @@ let CURRENT_FILE = path.basename(__filename);
 const Constants = require("./../../config/Constants");
 const Logger = require('./../Logger');
 const HelperMethods = require('./../HelperMethods');
+const QueryBuilder = require("./../QueryBuilder");
 
 class HotelFilterHandler {
 
     constructor() {
-
+    	this.queryBuilder = new QueryBuilder();
 	}
 	
 	doFulfill(app,db){
@@ -24,19 +25,10 @@ class HotelFilterHandler {
 
             app.db().load("city", (err, city) => {
                 if (type) {
-                    if (type.toLowerCase() === "hotel") {
                         that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
-                            app
-                                .followUpState("SelectThingState")
+                            app.followUpState("SelectThingState")
                                 .ask(resultString, Constants.INFO_NOT_UNDERSTAND + resultString);
-                        });
-                    } else {
-                        that.searchAndFilter(app, db, numVal, city, filterType, type, (resultString) => {
-                            app
-                                .followUpState("SelectThingState")
-                                .ask(resultString, Constants.INFO_NOT_UNDERSTAND + resultString);
-                    });
-                    }
+                        });                    
                 } else {
                 	Logger.warn(CURRENT_FILE,"No type defined?");
                     app
@@ -49,32 +41,27 @@ class HotelFilterHandler {
 
 
     }
-
+//TODO: save query-context for listPagingHandler!!
     searchAndFilter(app, db, numVal, city, filterType, thingType, outputFunction) {
         let that = this;
     	Logger.log(CURRENT_FILE,"Search triggered: {numVal: "+numVal+", city: "+city+", filterType: "+filterType+", thingType: "+thingType+"}");
 
         if (thingType === 'Hotel') {
             if (filterType === "price") {
-                db.find({
-                    type: new RegExp(thingType, "i"), website: new RegExp(city, "i"), "annotation.makesOffer": {
-                        "$elemMatch": {
-                            $and: [{
-                                "priceSpecification.minPrice": {$lte: numVal}
-                            }, {
-                                "priceSpecification.minPrice": {$ne: 0.00}
-                            }
-                            ]
-                        }
-                    }
-                }).then((data) => {
+                db.find(this.queryBuilder.buildPriceFilter(thingType, city, HelperMethods.ensureNumber(numVal))).then((data) => {
                     if (data.length > 0) {
 
-                        let sorted = that.prepareAndSortHotelsPricing(data);
+                        let sorted = HelperMethods.prepareAndSortHotelsPricing(data);
                         Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
 
-                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, Constants.TOP_N), (err) => {
-                            outputFunction(that.formatOutput(sorted.slice(0, Constants.TOP_N), "EUR", data.length,thingType));
+                        app.db().save("listHotels", HelperMethods.extractFrom(sorted), (err) => {
+                        	//save formatted output
+                        	app.db().save("formattedOutput", HelperMethods.formatOutputStructuredSave(sorted, "EUR", data.length,thingType), (err) => {
+                        		// reset page count
+            			    	app.db().save("pageCount", 0, (err) => {
+            			    		outputFunction(HelperMethods.formatOutput(sorted.slice(0, Constants.TOP_N), "EUR", data.length,thingType));                        	
+            			    	});
+                        	})
                         })
                     } else {
                     	Logger.log(CURRENT_FILE,"No hotels found with price <= "+numVal);
@@ -82,21 +69,23 @@ class HotelFilterHandler {
                     }
                 })
             } else if (filterType === "rating") {
-                db.find({
-                    type: new RegExp(thingType, "i"),
-                    website: new RegExp(city, "i"),
-                    "annotation.aggregateRating.ratingValue": {$gte: numVal}
-                }).then((data) => {
+                db.find(this.queryBuilder.buildRatingFilter(thingType, city, HelperMethods.ensureNumber(numVal))).then((data) => {
                     if (data.length > 0) {
 
-                        let sorted = that.prepareAndSortHotels(data);
+                        let sorted = HelperMethods.prepareAndSortHotels(data);
                         Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
-                        app.db().save("listHotels", that.extractFrom(sorted).slice(0, Constants.TOP_N), (err) => {
-                            outputFunction(that.formatOutput(sorted.slice(0, Constants.TOP_N), '', data.length,thingType));
+                        app.db().save("listHotels", HelperMethods.extractFrom(sorted), (err) => {
+                        	//save formatted output
+                        	app.db().save("formattedOutput", HelperMethods.formatOutputStructuredSave(sorted, "", data.length,thingType), (err) => {
+                        		// reset page count
+            			    	app.db().save("pageCount", 0, (err) => {
+            			    		outputFunction(HelperMethods.formatOutput(sorted.slice(0, Constants.TOP_N), '', data.length,thingType));
+            			    	});
+                        	})                            
                         })
                     }
                     else {
-                    	Logger.log(CURRENT_FILE,"No hotels found with rating <= "+numVal);                    	
+                    	Logger.log(CURRENT_FILE,"No hotels found with rating >= "+numVal);                    	
                         outputFunction("I'm sorry, I couldn't find any match.");
                     }
                 })
@@ -106,11 +95,8 @@ class HotelFilterHandler {
             }
         }else{
         	Logger.log(CURRENT_FILE,"No filter defined, searching for things with type '"+thingType);
-            db.find({
-                type: new RegExp(thingType, "i"),
-                website: new RegExp(city, "i")}).then((data) => {
+            db.find(this.queryBuilder.buildGeneralFilter(thingType, city)).then((data) => {
                 if (data.length > 0) {
-
 
                 	Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
 
@@ -119,8 +105,14 @@ class HotelFilterHandler {
                         resultString = resultString + data[counter].annotation.name + ", ";
                     }
 
-                    app.db().save("listHotels", data.slice(0, Constants.TOP_N), (err) => {
-                        outputFunction(resultString);
+                    app.db().save("listHotels", data, (err) => {
+                      //save formatted output                    	
+                    	app.db().save("formattedOutput", HelperMethods.formatOutputStructuredDefault(data,thingType), (err) => {
+                    		// reset page count
+        			    	app.db().save("pageCount", 0, (err) => {
+        			    		outputFunction(resultString);           
+        			    	});
+                    	})                         
                     })
                 }
                 else {
@@ -132,85 +124,7 @@ class HotelFilterHandler {
 
     }
 
-    extractFrom(sortedAndFormatted) {
-        let arr = [];
-        sortedAndFormatted.forEach((entry) => {
-            arr.push(entry.entry);
-        })
-        return arr;
-    }
 
-    prepareAndSortHotels(unsorted) {
-        let arr = [];
-        unsorted.forEach((entry) => {
-            arr.push({entry: entry, val: Number(entry.annotation.aggregateRating.ratingValue)});
-        })
-
-        arr.sort((a, b) => {
-            if (a.val < b.val) {
-                return 1;
-            } else if (a.val > b.val) {
-                return -1;
-            }
-            return 0;
-        })
-        return arr;
-    }
-
-    prepareAndSortHotelsPricing(unsorted) {
-        let arr = [];
-        let that = this;
-        unsorted.forEach((entry) => {
-            arr.push({entry: entry, val: that.findSmallestPrice(entry)});
-        });
-
-        arr.sort((a, b) => {
-            if (a.val < b.val) {
-                return -1;
-            } else if (a.val > b.val) {
-                return 1;
-            }
-            return 0;
-        });
-        return arr;
-    }
-
-    formatOutput(data, currency, hitsInTotal,thingtype) {
-        let returnString = "To know more about the five ";
-        if(currency!==""){
-            returnString += "cheapest " + thingtype + "s: ";
-        }else{
-            returnString += "best rated " + thingtype + "s: ";
-        }
-        let i = 0;
-        data.forEach((entry) => {
-            i++;
-            if(currency !==""){
-                returnString += "For " + entry.entry.annotation.name + " for " + entry.val +" " + currency + ", say  " +i + ".";
-            }else{
-                returnString += "For " + entry.entry.annotation.name + " with an rating of " + entry.val +", say "+i+".";
-            }
-        });
-        let additionalText = "";
-        if (data.length < hitsInTotal) {
-            additionalText = " and " + (hitsInTotal - data.length) + " others."
-        }
-        return returnString.substr(0, returnString.length - 2) + additionalText;
-    }
-
-    findSmallestPrice(hotel) {
-        let smallestPrice = Number.MAX_VALUE;
-        hotel.annotation.makesOffer.forEach((makesOfferEntry) => {
-            if (makesOfferEntry.priceSpecification) {
-                makesOfferEntry.priceSpecification.forEach((priceEntry) => {
-                    if (priceEntry.minPrice < smallestPrice && priceEntry.minPrice !== 0) {
-                        smallestPrice = priceEntry.minPrice;
-                    }
-                })
-            }
-        })
-        return smallestPrice;
-    }
 
 }
 

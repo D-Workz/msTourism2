@@ -122,13 +122,24 @@ class SelectionHandler {
         let ordinal = app.inputs.ordinal - 1;
 
         app.db().load("listHotels", (err, data) => {
-            Logger.log(CURRENT_FILE,'Selected : ' + data[ordinal].annotation.name + ' has been found now');
+            app.db().load("pageCount", (errPageCount, pageCount) => {
+            	let calculatedIndex = (StringConstants.TOP_N*(pageCount))+ordinal;
+            	
+            	Logger.log(CURRENT_FILE, "Calculated index: "+calculatedIndex+", pageCount: "+pageCount+", ordinal: "+ordinal);
 
-            app.db().save("selectedHotel", data[ordinal], (err) => {
-                Logger.log(CURRENT_FILE,'Selected : ' + data[ordinal].annotation.name + ' is now saved to bd');
-                app
-                    .followUpState("ThingKnownState")
-                    .ask('Selected : ' + data[ordinal].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby.", StringConstants.INFO_NOT_UNDERSTAND + data[ordinal].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby");
+            	if(calculatedIndex>data.length-1){
+                    Logger.warn(CURRENT_FILE,"Index "+calculatedIndex+" is higher than last index of array ("+(data.length-1)+"). Setting to 0.");            		
+            		calculatedIndex=0;
+            	}
+            	
+                Logger.log(CURRENT_FILE,'Selected : ' + data[calculatedIndex].annotation.name + ' has been found now');
+                
+	            app.db().save("selectedHotel", data[calculatedIndex], (err) => {
+	                Logger.log(CURRENT_FILE,'Selected : ' + data[calculatedIndex].annotation.name + ' is now saved to bd');
+	                app
+	                    .followUpState("ThingKnownState")
+	                    .ask('Selected : ' + data[calculatedIndex].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby.", StringConstants.INFO_NOT_UNDERSTAND + data[calculatedIndex].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby");
+	            });
             });
 
             Logger.log(CURRENT_FILE,'HotelSelectionAfterListHandler');
