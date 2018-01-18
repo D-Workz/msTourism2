@@ -180,7 +180,9 @@ class Logic {
                 'GenericThingDescription': function () {
                     handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
                 },
-                
+                'Selection': function () {
+                    handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+                },                
                 'ListPagingIntent': function () {
                     handlers.listPagingHandler.doFulfill(app, Annotations,"ThingKnownState");
                 }
