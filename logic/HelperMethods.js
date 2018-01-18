@@ -116,7 +116,7 @@ class HelperMethods{
         	retObj.content.push(entry.annotation.name + ", ")
         })
         
-        retObj.endText="";
+        retObj.endString="";
         
         return retObj;
 	}

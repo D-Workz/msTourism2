@@ -33,6 +33,7 @@ class HotelPriceHandler{
 							}
 							if(priceEntry.maxPrice>maxPrice){
 								maxPrice = priceEntry.maxPrice;
+								totalMaxPrice = priceEntry.maxPrice
 							}
 						})
 						roomDistribution[roomEntry.itemOffered.name]="between "+minPrice+" EUR and "+maxPrice+" EUR";
@@ -47,7 +48,7 @@ class HotelPriceHandler{
 
                 app
                     .followUpState("ThingKnownState")
-					.ask("Rooms in the "+hotelName +" range between "+totalMinPrice + " and " +totalMaxPrice + "EUR.", StringConstants.INFO_NOT_UNDERSTAND);
+					.ask("Rooms in the "+hotelName +" range between "+totalMinPrice + " and " +totalMaxPrice + " EUR.", StringConstants.INFO_NOT_UNDERSTAND);
                 //+ ": "+roomDistributionText.substring(0,roomDistributionText.length-2)
 
                 // let responseString = "";
