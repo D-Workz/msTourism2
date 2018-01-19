@@ -35,6 +35,12 @@ class Logic {
             'HelperStatusIntent': function () {
                 handlers.helperHandler.doFulfill(app,Annotations);
             },
+            'FUNcreditsIntent': function () {
+                handlers.funCreditHandler.doFulfill(app,Annotations);
+            },    
+            'FUNsoundIntent': function () {
+                handlers.funSoundHandler.doFulfill(app,Annotations);
+            },              
             'ChangeCityIntent': function () {
                 handlers.changeCityHandler.doFulfill(app,Annotations);
             },
@@ -119,7 +125,9 @@ class Logic {
             'SelectThingState':{
                 'Selection': function () {
                     handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
-                },
+                },'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"SelectThingState");
+                }
             },
 
             'ThingKnownState':{
@@ -172,6 +180,12 @@ class Logic {
                 'GenericThingDescription': function () {
                     handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
                 },
+                'Selection': function () {
+                    handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+                },                
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"ThingKnownState");
+                }
             },
 
         };

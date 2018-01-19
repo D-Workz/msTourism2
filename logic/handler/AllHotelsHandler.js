@@ -1,4 +1,6 @@
-
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+const Logger = require('./../Logger');
 
 class AllHotelsHandler{
 	
@@ -26,7 +28,7 @@ class AllHotelsHandler{
                     app.ask("I didn't find any Hotel in " + place);
                 } else {
                     app.db().save('listHotels', data, (err) => {
-                        console.log('ListHotels is saved to db');
+                        Logger.log(CURRENT_FILE,'ListHotels is saved to db');
                         allHotels = allHotels.substring(0, allHotels.length - 2);
                         app.ask("These are the best rated Hotels in "+city+": " + allHotels + ". About which of these do you want to know more ?");
                     });
