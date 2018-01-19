@@ -35,8 +35,13 @@ class Logic {
             'HelperStatusIntent': function () {
                 handlers.helperHandler.doFulfill(app,Annotations);
             },
+            'FUNcreditsIntent': function () {
+                handlers.funCreditHandler.doFulfill(app,Annotations);
+            },
+            'FUNsoundIntent': function () {
+                handlers.funSoundHandler.doFulfill(app,Annotations);
+            },
             'ChangeCityIntent': function () {
-
                 handlers.changeCityHandler.doFulfill(app,Annotations);
             },
 
@@ -120,7 +125,7 @@ class Logic {
                     handlers.selectionHandler.doFulfillCitySelection(app, Annotations);
                 },
                 'Unhandled':function () {
-                    console.log('local unhandled');
+                    console.log('SelectCityState unhandled');
                     app.ask(StringConstants.INFO_TELL_YOU_ABOUT_CONTEXT + StringConstants.AVAILABLE_TYPE +".", StringConstants.INTEND_TYPE_SELECTION);
                 },
 
@@ -131,7 +136,7 @@ class Logic {
                     handlers.selectionHandler.doFulfillTypeSelection(app,Annotations);
                 },
                 'Unhandled':function () {
-                    console.log('global unhandled');
+                    console.log('SelectTypeState unhandled');
                     app.ask('Wrong input, answer the question!');
                 },
             },
@@ -140,11 +145,14 @@ class Logic {
                 'Selection': function () {
                     handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
                 },
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"SelectThingState");
+                },
                 'ChangeTypeIntent': function () {
                     handlers.changeTypeHandler.doFulfill(app,Annotations);
                 },
                 'Unhandled':function () {
-                    console.log('global unhandled');
+                    console.log('SelectThingState unhandled');
                     app.ask('Wrong input, answer the question!');
                 },
 
@@ -208,6 +216,9 @@ class Logic {
                     console.log('global unhandled');
                     app.ask('Wrong input, answer the question!');
                 },
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"ThingKnownState");
+                }
             },
 
         };
