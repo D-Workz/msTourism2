@@ -15,8 +15,9 @@ const path = require('path');
 let FILE = path.basename(__filename);
 
 let myIntentsToSkipUnhandled = [
-    'CancelIntent',
-    'HelpIntent',
+    'FUNsoundIntent',
+    'HelperStatusIntent',
+    'FUNcreditsIntent',
 ];
 
 app.setIntentsToSkipUnhandled(myIntentsToSkipUnhandled);
