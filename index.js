@@ -14,19 +14,18 @@ const Logger = require('./logic/Logger');
 const path = require('path');
 let FILE = path.basename(__filename);
 
-// let myIntentsToSkipUnhandled = [
-//     'CancelIntent',
-//     'HelpIntent',
-// ];
+let myIntentsToSkipUnhandled = [
+    'FUNsoundIntent',
+    'HelperStatusIntent',
+    'FUNcreditsIntent',
+];
 
-// Use the setter
-//app.setIntentsToSkipUnhandled(myIntentsToSkipUnhandled);
+app.setIntentsToSkipUnhandled(myIntentsToSkipUnhandled);
 
-// Use setConfig
-// app.setConfig({
-//     intentsToSkipUnhandled: myIntentsToSkipUnhandled,
-//     // Other configurations
-// });
+app.setConfig({
+    intentsToSkipUnhandled: myIntentsToSkipUnhandled,
+    // Other configurations
+});
 
 // Listen for post requests
 webhook.listen(config.get("port"), function() {

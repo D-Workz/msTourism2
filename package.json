@@ -6,7 +6,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "config": "^1.27.0",
-    "jovo-framework": "^0.6.24",
+    "jovo-framework": "^0.6.25",
     "limiter": "^1.1.2",
     "mongoose": "^4.12.4",
     "ngrok": "^2.2.24",
