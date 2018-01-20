@@ -18,6 +18,9 @@ let myIntentsToSkipUnhandled = [
     'FUNsoundIntent',
     'HelperStatusIntent',
     'FUNcreditsIntent',
+    'ChangeCityIntent',
+    'Default Welcome Intent',
+
 ];
 
 app.setIntentsToSkipUnhandled(myIntentsToSkipUnhandled);

@@ -13,7 +13,7 @@ class HelperHandler{
 				let retString = "";
 				if(city && selectedHotel){
 					retString = "Actually we are talking about "+selectedHotel.annotation.name+" ("+selectedHotel.annotation["@type"]+") in "+city+
-						". But";
+						". ";
 				}
 				app.ask(retString + StringConstants.AVAILABLE_CHANGER +". "+StringConstants.AVAILABLE_PROPERTIES+". It is also possible to "+
 						StringConstants.AVAILABLE_FILTER);

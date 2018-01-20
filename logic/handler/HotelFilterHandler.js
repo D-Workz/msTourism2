@@ -71,32 +71,26 @@ class HotelFilterHandler {
                 })
             } else if (filterType === "rating") {
                 if(!numVal || numVal ===0 || numVal <0 || numVal > 5  ) {numVal = 1}
-                db.find({
-                    type: new RegExp(thingType, "i"),
-                    website: new RegExp(city, "i"),
-                    "annotation.aggregateRating.ratingValue": {$gte: numVal}
-                }).then((data) => {
-                db.find(this.queryBuilder.buildRatingFilter(thingType, city, HelperMethods.ensureNumber(numVal))).then((data) => {
-                    if (data.length > 0) {
+                    db.find(this.queryBuilder.buildRatingFilter(thingType, city, HelperMethods.ensureNumber(numVal))).then((data) => {
+                        if (data.length > 0) {
 
-                        let sorted = HelperMethods.prepareAndSortHotels(data);
-                        Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
-                        app.db().save("listHotels", HelperMethods.extractFrom(sorted), (err) => {
-                        	//save formatted output
-                        	app.db().save("formattedOutput", HelperMethods.formatOutputStructuredSave(sorted, "", data.length,thingType), (err) => {
-                        		// reset page count
-            			    	app.db().save("pageCount", 0, (err) => {
-            			    		outputFunction(HelperMethods.formatOutput(sorted.slice(0, Constants.TOP_N), '', data.length,thingType));
-            			    	});
-                        	})
-                        })
-                    }
-                    else {
-                    	Logger.log(CURRENT_FILE,"No hotels found with rating >= "+numVal);
-                        outputFunction("I'm sorry, I couldn't find any match.");
-                    }
-                })
-            } else {
+                            let sorted = HelperMethods.prepareAndSortHotels(data);
+                            Logger.log(CURRENT_FILE, "Save ListHotels with length: " + data.length);
+                            app.db().save("listHotels", HelperMethods.extractFrom(sorted), (err) => {
+                                //save formatted output
+                                app.db().save("formattedOutput", HelperMethods.formatOutputStructuredSave(sorted, "", data.length, thingType), (err) => {
+                                    // reset page count
+                                    app.db().save("pageCount", 0, (err) => {
+                                        outputFunction(HelperMethods.formatOutput(sorted.slice(0, Constants.TOP_N), '', data.length, thingType));
+                                    });
+                                });
+                            });
+                        }else {
+                            Logger.log(CURRENT_FILE, "No hotels found with rating >= " + numVal);
+                            outputFunction("I'm sorry, I couldn't find any match.");
+                        }
+                    });
+                } else {
             	Logger.warn(CURRENT_FILE,"Filter '"+filterType+"' is invalid");
                 outputFunction("I'm sorry, I couldn't recognize this kind of filter.");
             }
