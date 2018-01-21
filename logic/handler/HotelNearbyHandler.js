@@ -131,7 +131,7 @@ class HotelNearbyHandler{
 				entryType = entry.type+" ";
 			}
 			
-			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, say "+i;
+			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, say "+i +". ";
 			i++;
 		});
 		if(returnString===""){

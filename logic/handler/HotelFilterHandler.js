@@ -100,10 +100,11 @@ class HotelFilterHandler {
                 if (data.length > 0) {
 
                 	Logger.log(CURRENT_FILE,"Save ListHotels with length: " + data.length);
-
+                    let i=1;
                     let resultString ='I found the following '+ thingType+ ' :  ';
                     for(let counter = 0; counter < data.length && counter < Constants.TOP_N; counter++){
-                        resultString = resultString + data[counter].annotation.name + ", ";
+                        resultString += "For " + data[counter].annotation.name + " say  "+ i + ". ";
+                        i++;
                     }
 
                     app.db().save("listHotels", data, (err) => {

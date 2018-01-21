@@ -146,10 +146,19 @@ class SelectionHandler {
                 Logger.log(CURRENT_FILE,'Selected : ' + data[calculatedIndex].annotation.name + ' has been found now');
                 
 	            app.db().save("selectedHotel", data[calculatedIndex], (err) => {
+	                app.db().load("type", (errType, type) => {
+	                    let possibilities = "";
+	                    if(type === "Hotel" || type === "BedAndBreakfast" || type === "LodgingBusiness" || type === "Hostel"){
+	                        possibilities+= StringConstants.INFO_POSSIBILITIES_HOTEL;
+                        }else{
+	                        possibilities+= StringConstants.INFO_POSSIBILITIES
+                        }
+                        app
+                            .followUpState("ThingKnownState")
+                            .ask('Selected : ' + data[calculatedIndex].annotation.name + ". "+ possibilities +" Or ask me whats nearby.", StringConstants.INFO_NOT_UNDERSTAND + data[calculatedIndex].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby");
+                    });
 	                Logger.log(CURRENT_FILE,'Selected : ' + data[calculatedIndex].annotation.name + ' is now saved to bd');
-	                app
-	                    .followUpState("ThingKnownState")
-	                    .ask('Selected : ' + data[calculatedIndex].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby.", StringConstants.INFO_NOT_UNDERSTAND + data[calculatedIndex].annotation.name + ". "+StringConstants.INFO_POSSIBILITIES_HOTEL +" Or ask me whats nearby");
+
 	            });
             });
 

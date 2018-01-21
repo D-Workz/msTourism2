@@ -8,6 +8,7 @@ const AVAILABLE_FILTER_TEXT = "filter Hotels either by saying 'better rated than
 
 // Info
 const INFO_POSSIBILITIES_HOTEL_STRING = "What do you want to know? I can give you a description, information about rooms and prices, the location, contact infos and the average rating. ";
+const INFO_POSSIBILITIES_STRING = "What do you want to know? I can give you a description, information about the location and contact infos.";
 const INFO_DIDNT_UNDERSTAND = "I am sorry I didn't get that. ";
 const INFO_DIDNT_FIND_CONTEXT = "I am sorry I couldn't find anything with: ";
 const INFO_DIDNT_FIND = "I am sorry I couldn't find anything.";
@@ -47,6 +48,7 @@ module.exports = {
     AVAILABLE_FILTER: AVAILABLE_FILTER_TEXT,
 
     INFO_POSSIBILITIES_HOTEL: INFO_POSSIBILITIES_HOTEL_STRING,
+    INFO_POSSIBILITIES: INFO_POSSIBILITIES_STRING,
     INFO_NOT_UNDERSTAND: INFO_DIDNT_UNDERSTAND,
     INFO_NOT_FOUND_CONTEXT: INFO_DIDNT_FIND_CONTEXT,
     INFO_TELL_YOU_ABOUT_CONTEXT: INFO_TELL_YOU_ABOUT_CONTEXT,
