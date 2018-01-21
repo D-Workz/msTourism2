@@ -5,6 +5,7 @@ const config = require('config');
 const app = require('jovo-framework').Jovo;
 const bluebird = require('bluebird');
 const mongoose = require('mongoose');
+const StringConstants = require("./../config/Constants");
 
 mongoose.Promise = bluebird;
 
@@ -31,135 +32,207 @@ class Logic {
               //  app.ask('Hej there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? Say first or second to choose one of them');
             },
 
+            'HelperStatusIntent': function () {
+                handlers.helperHandler.doFulfill(app,Annotations);
+            },
+            'FUNcreditsIntent': function () {
+                handlers.funCreditHandler.doFulfill(app,Annotations);
+            },
+            'FUNsoundIntent': function () {
+                handlers.funSoundHandler.doFulfill(app,Annotations);
+            },
+
+            'ChangeCityIntent': function () {
+                handlers.changeCityHandler.doFulfill(app,Annotations);
+            },
+              'CancelIntent': function () {
+                app.tell("I hope you found all the information you wanted. Thanks for the talk. Good Bye.")
+            },
+
+
+
 
             'Default Welcome Intent': function () {
-                app.ask('Hey there, do you want me to tell you about the Hotels in Seefeld or Mayrhofen? SelectSay first or second to choose one of them');
+                app
+                    .followUpState("SelectCityState")
+                    .ask(StringConstants.INTEND_WELCOME, StringConstants.INFO_NOT_UNDERSTAND + StringConstants.INTEND_CHOOSE_CITY);
             },
 
-            'InitialChooseCityIntent': function () {
-            handlers.initialChooseCityHandler.doFulfill(app,Annotations);
+            'Unhandled':function () {
+              console.log('global unhandled');
+              app.ask(StringConstants.UNHANDLED_GLOBAL_STATE_TEXT);
             },
 
-            'ListHotels': function () {
-                handlers.allHotelsHandler.doFulfill(app, Annotations);
+            'TemporaryListState':{
+                'HotelFilterWithoutContext': function () {
+                    handlers.hotelFilterHandler.doFulfill(app,Annotations);
+                },
+                'HotelDescriptionWithContext': function () {
+                    console.log('HotelDescriptionWithContext');
+                    handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelRoomsWithContext': function () {
+                    handlers.hotelRoomsHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelBedsWithContext': function () {
+                    handlers.hotelBedsHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelStarsWithContext': function () {
+                    handlers.hotelRatingHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelPriceWithContext': function () {
+                    handlers.hotelPriceHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelSendImagesWithContext': function () {
+                    handlers.hotelImagesHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelAddressWithContext': function () {
+                    handlers.hotelAddressHandler.doFulfill(app,Annotations);
+                },
+                'HotelContactWithContext': function () {
+                    handlers.hotelContactHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelDistanceCityCenterWithContext':function () {
+                    handlers.hotelDistanceCityCenterHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelShowCardWithContext': function () {
+                    handlers.hotelShowCardHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelNearbyWithContext': function () {
+                    handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
+                },
+
+                'GenericThingDescription': function () {
+                    handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
+                },
+                'Selection': function () {
+                    handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+                },
+                'ChangeTypeIntent': function () {
+                    handlers.changeTypeHandler.doFulfill(app,Annotations);
+                },
+                'Unhandled':function () {
+                    console.log('global unhandled');
+                    app.ask(StringConstants.UNHANDLED_TEMPORARY_LIST_STATE_TEXT);
+                },
             },
 
-            'HotelSelectionAfterList': function () {
-                handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+            'SelectCityState': {
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillCitySelection(app, Annotations);
+                },
+                'Unhandled':function () {
+                    console.log('SelectCityState unhandled');
+                    app.ask(StringConstants.UNHANDLED_SELECT_CITY_STATE_TEXT);
+                   // app.ask(StringConstants.INFO_TELL_YOU_ABOUT_CONTEXT + StringConstants.AVAILABLE_TYPE +".", StringConstants.INTEND_TYPE_SELECTION);
+                },
+
             },
 
-
-            // 'HotelSelectionWithContext': function () {
-            //     handlers.hotelSelectionHandler.doFulfill(app,Annotations);
-            // },
-
-
-            'HotelDescriptionWithContext': function () {
-            	handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+            'SelectTypeState':{
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillTypeSelection(app,Annotations);
+                },
+                'Unhandled':function () {
+                    console.log('SelectTypeState unhandled');
+                    app.ask(StringConstants.UNHANDLED_SELECT_TYPE_STATE_TEXT);
+                },
             },
 
+            'SelectThingState':{
+                'Selection': function () {
+                    handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
+                },
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"SelectThingState");
+                },
+                'ChangeTypeIntent': function () {
+                    handlers.changeTypeHandler.doFulfill(app,Annotations);
+                },
+                'Unhandled':function () {
+                    console.log('SelectThingState unhandled');
+                    app.ask(StringConstants.UNHANDLED_SELECT_THING_STATE_TEXT);
+                },
 
-            'ChooseTypeIntent': function () {
-            	handlers.typeSelectionHandler.doFulfill(app,Annotations);
             },
 
-            // 'HotelDescriptionWithoutContext': function () {
-            //     setHotelNameKnown(app, Annotations,handlers.hotelDescriptionHandler.doFulfill() );
-            // },
+            'ThingKnownState':{
+                'ChangeTypeIntent': function () {
+                    handlers.changeTypeHandler.doFulfill(app,Annotations);
+                },
+                'HotelFilterWithoutContext': function () {
+                    handlers.hotelFilterHandler.doFulfill(app,Annotations);
+                },
+                'HotelDescriptionWithContext': function () {
+                    console.log('HotelDescriptionWithContext');
+                    handlers.hotelDescriptionHandler.doFulfill(app,Annotations);
+                },
 
-            'HotelRoomsWithContext': function () {
-                handlers.hotelRoomsHandler.doFulfill(app, Annotations);
+                'HotelRoomsWithContext': function () {
+                    handlers.hotelRoomsHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelBedsWithContext': function () {
+                    handlers.hotelBedsHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelStarsWithContext': function () {
+                    handlers.hotelRatingHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelPriceWithContext': function () {
+                    handlers.hotelPriceHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelSendImagesWithContext': function () {
+                    handlers.hotelImagesHandler.doFulfill(app, Annotations);
+                },
+
+                'HotelAddressWithContext': function () {
+                    handlers.hotelAddressHandler.doFulfill(app,Annotations);
+                },
+                'HotelContactWithContext': function () {
+                    handlers.hotelContactHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelDistanceCityCenterWithContext':function () {
+                    handlers.hotelDistanceCityCenterHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelShowCardWithContext': function () {
+                    handlers.hotelShowCardHandler.doFulfill(app,Annotations);
+                },
+
+                'HotelNearbyWithContext': function () {
+                    handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
+                },
+
+                'GenericThingDescription': function () {
+                    handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
+                },
+                'Unhandled':function () {
+                    console.log('ThingKnownState unhandled');
+                    app.ask(StringConstants.UNHANDLED_THING_KNOW_STATE);
+                },
+
+                'ListPagingIntent': function () {
+                    handlers.listPagingHandler.doFulfill(app, Annotations,"ThingKnownState");
+                }
             },
 
-            // 'HotelRoomsWithoutContext': function () {
-            //     setHotelNameKnown(app, Annotations,handlers.hotelRoomsHandler.doFulfill());
-            // },
-
-            'HotelBedsWithContext': function () {
-                handlers.hotelBedsHandler.doFulfill(app, Annotations);
-            },
-
-            // 'HotelBedsWithoutContext': function () {
-            //     setHotelNameKnown(app, Annotations,handlers.hotelBedsHandler.doFulfill());
-            // },
-
-            'HotelStarsWithContext': function () {
-                handlers.hotelRatingHandler.doFulfill(app, Annotations);
-            },
-
-            // 'HotelStarsWithoutContext': function () {
-            //     setHotelNameKnown(app, Annotations,handlers.hotelRatingHandler.doFulfill());
-            // },
-
-            'HotelPriceWithContext': function () {
-                handlers.hotelPriceHandler.doFulfill(app, Annotations);
-            },
-
-            'HotelSendImagesWithContext': function () {
-                handlers.hotelImagesHandler.doFulfill(app, Annotations);
-            },
-
-            // 'HotelSendImagesWithoutContext': function () {
-            //     setHotelNameKnown(app, Annotations,handlers.hotelImagesHandler.doFulfill);
-            // },
-
-            'HotelAddressWithContext': function () {
-            	handlers.hotelAddressHandler.doFulfill(app,Annotations);
-            },            
-            'HotelContactWithContext': function () {
-            	handlers.hotelContactHandler.doFulfill(app,Annotations);
-            },
-
-            'HotelDistanceCityCenterWithContext':function () {
-                handlers.hotelDistanceCityCenterHandler.doFulfill(app,Annotations);
-            },
-
-            'HotelShowCardWithContext': function () {
-                handlers.hotelShowCardHandler.doFulfill(app,Annotations);
-            },
-
-
-            'HotelNearbyWithContext': function () {
-            	handlers.hotelNearbyHandler.doFulfill(app,Annotations,GeospatialProjections);
-            },
-            'GenericThingDescription': function () {
-            	handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
-            },
-            'HotelFilterWithoutContext': function () {
-            	handlers.hotelFilterHandler.doFulfill(app,Annotations);
-            },
-            'HelperStatusIntent': function () {
-            	handlers.helperHandler.doFulfill(app,Annotations);
-            },
-            'ChangeCityIntent': function () {
-            	handlers.changeCityHandler.doFulfill(app,Annotations);
-            },
-            'ChangeTypeIntent': function () {
-            	handlers.changeTypeHandler.doFulfill(app,Annotations);
-            }
         };
     }
 
 }
-
-function setHotelNameKnown(app,db,functionToCall) {
-    let hotelName = app.inputs.hotelName;
-
-    if(hotelName && hotelName!=''){
-    db.mfindOne({type:/Hotel/, "annotation.name": new RegExp(hotelName,"i")}).then((data) => {
-
-        if (data) {
-            app.db().save("selectedHotel", data, (err) => {
-                console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-                functionToCall(app, db);
-            });
-        }else{
-            console.log('Problem with setting Hotel Name');
-        }
-    });
-    }
-}
-
 
 
 module.exports = Logic;

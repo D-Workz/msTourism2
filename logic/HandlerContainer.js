@@ -1,7 +1,3 @@
-
-
-const AllHotelsHandler = require('./handler/AllHotelsHandler');
-const HotelSelectionHandler = require('./handler/HotelSelectionHandler');
 const HotelDescriptionHandler = require('./handler/HotelDescriptionHandler');
 const HotelBedsHandler = require('./handler/HotelBedsHandler');
 const HotelPriceHandler = require('./handler/HotelPriceHandler');
@@ -16,17 +12,21 @@ const GenericThingDescriptionHandler = require('./handler/GenericThingDescriptio
 const HotelShowCardHandler = require('./handler/HotelShowCardHandler');
 const HotelFilterHandler = require('./handler/HotelFilterHandler');
 const HotelSelectionAfterListHandler = require('./handler/HotelSelectionAfterListHandler');
-const InitialChooseCityHandler = require('./handler/InitialChooseCityHandler');
 const HelperHandler = require('./handler/HelperHandler');
-const TypeSelectionHandler = require('./handler/TypeSelectionHandler');
+
+const SelectionHandler = require('./handler/SelectionHandler');
 
 const ChangeCityHandler = require('./handler/ChangeCityHandler');
 const ChangeThingHandler = require('./handler/ChangeTypeHandler');
+const ListPagingHandler = require('./handler/ListPagingHandler');
+
+const FunCreditHandler = require('./handler/FunCreditHandler');
+const FunSoundHandler = require('./handler/FunSoundHandler');
+
 
 class HandlerContainer{
 	constructor(){
-		this.allHotelsHandler = new AllHotelsHandler();
-		this.hotelSelectionHandler = new HotelSelectionHandler();
+
 		this.hotelDescriptionHandler = new HotelDescriptionHandler();
 		this.hotelPriceHandler = new HotelPriceHandler();
 		this.hotelBedsHandler = new HotelBedsHandler();
@@ -44,15 +44,20 @@ class HandlerContainer{
 		
 		this.hotelFilterHandler = new HotelFilterHandler();
 		this.hotelSelectionAfterListHandler = new HotelSelectionAfterListHandler();
-		this.initialChooseCityHandler = new InitialChooseCityHandler();
-		
+
 		this.helperHandler = new HelperHandler();
 
 		this.changeCityHandler = new ChangeCityHandler();
 		this.changeTypeHandler = new ChangeThingHandler();
-		this.typeSelectionHandler = new TypeSelectionHandler();
+
+		this.selectionHandler = new SelectionHandler();
+		this.listPagingHandler = new ListPagingHandler();		
 
 		this.helperHandler = new HelperHandler();
+		
+		this.funCreditHandler = new FunCreditHandler();
+		this.funSoundHandler = new FunSoundHandler();
+		
 	}
 }
 

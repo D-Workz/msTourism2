@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class ChangeCityHandler{
@@ -7,7 +8,8 @@ class ChangeCityHandler{
 	}
 	
 	doFulfill(app,db){				
-		app.ask("Say 'first' for 'Seefeld' or 'second' for 'Mayrhofen'");		
+		app.followUpState("SelectCityState")
+			.ask("For 'Seefeld' say 'one' or For 'Mayrhofen' say 'two'", StringConstants.INFO_NOT_UNDERSTAND + "For 'Seefeld' say 'one' or For 'Mayrhofen' say 'two'");
 	}		
 }
 

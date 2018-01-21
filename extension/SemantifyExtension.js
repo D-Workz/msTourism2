@@ -95,6 +95,8 @@ class SemantifyExtension {
             let annotationLanguage = this.checkIfAnnotationDesired(annotationCID);
             if (annotationLanguage !== null) {
                 let annotationId = annotations[index].id;
+
+
                 (function (id, cid, language, requestError, index, size) {
                     request({
                         url: that.host + that.requestPathDetailsOfAnnotation + cid,

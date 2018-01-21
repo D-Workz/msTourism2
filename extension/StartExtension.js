@@ -6,9 +6,9 @@ const SemantifyExtension = require("./SemantifyExtension");
 const config = require('config');
 
 let startParameters =
-    // "all";
+    "all";
 // "MapsMayrhofen";
-"MapsSeefeld";
+// "MapsSeefeld";
 // "SeefeldAt";
 // "MayrhofenAt";
 

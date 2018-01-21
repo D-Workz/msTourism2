@@ -26,10 +26,14 @@ class HotelRoomsHandler{
 				for(var propertyName in roomDistribution){
 					roomDistributionText += roomDistribution[propertyName] + " room"+(roomDistribution[propertyName] > 1 ? "s" : "")+" of type "+propertyName+", ";
 				}				
-	    	    app.ask(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available"); 	   //: "+roomDistributionText.substring(0,roomDistributionText.length-2)
+	    	    app
+                    .followUpState("ThingKnownState")
+					.ask(hotelName + " has "+rooms.length+" room"+(rooms.length > 1 ? "s" : "") +" available", StringConstants.INFO_NOT_UNDERSTAND); 	   //: "+roomDistributionText.substring(0,roomDistributionText.length-2)
 			}
 			else{
-				app.ask(StringConstants.INFO_NOT_FOUND_CONTEXT + data.annotation.name);
+				app
+                    .followUpState("ThingKnownState")
+					.ask(StringConstants.INFO_NOT_FOUND_CONTEXT + data.annotation.name, StringConstants.INFO_NOT_UNDERSTAND);
 			}
     	});		
 	}		

@@ -1,3 +1,4 @@
+const StringConstants = require("./../../config/Constants");
 
 
 class HotelRatingHandler{
@@ -10,9 +11,13 @@ class HotelRatingHandler{
 		app.db().load("selectedHotel", (err, data) => {
 			var rating = data.annotation.aggregateRating;
 			if(rating){
-    	    app.ask(data.annotation.name+" has a rating of "+rating.ratingValue + " among "+rating.reviewCount + " ratings.");
+    	    app
+                .followUpState("ThingKnownState")
+				.ask(data.annotation.name+" has a rating of "+rating.ratingValue + " among "+rating.reviewCount + " ratings.", StringConstants.INFO_NOT_UNDERSTAND);
             }else{
-                app.ask(data.annotation.name+" has no rating information");
+                app
+                    .followUpState("ThingKnownState")
+					.ask(data.annotation.name+" has no rating information", StringConstants.INFO_NOT_UNDERSTAND);
 			}
     	});
 		

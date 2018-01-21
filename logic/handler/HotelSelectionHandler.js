@@ -1,3 +1,7 @@
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+const Logger = require('./../Logger');
+
 const StringConstants = require("./../../config/Constants");
 
 
@@ -21,8 +25,8 @@ class HotelSelectionHandler {
 		            	if(data.length>0){
 			                data.forEach((entry) => {
 			                    app.db().save("selectedHotel", data, (err) => {
-			                        console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                        app.ask(StringConstants.INFO_POSSIBILITIES);
+			                        Logger.log(CURRENT_FILE,"Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+			                        app.ask(StringConstants.INFO_POSSIBILITIES_HOTEL);
 			                    });
 			                });
 		            	}else{
@@ -31,8 +35,8 @@ class HotelSelectionHandler {
 		            } else {
 		            	if(data){
 			                app.db().save("selectedHotel", data, (err) => {
-			                    console.log("Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
-			                    app.ask(StringConstants.INFO_POSSIBILITIES);
+			                    Logger.log(CURRENT_FILE,"Attribute 'selectedHotel' set with content of '" + data.annotation.name + "'");
+			                    app.ask(StringConstants.INFO_POSSIBILITIES_HOTEL);
 			                });
 		            	}
 		            	else{

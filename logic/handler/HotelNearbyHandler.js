@@ -1,18 +1,24 @@
+const path = require('path');
+let CURRENT_FILE = path.basename(__filename);
+
 const mongoose = require('mongoose');
 const config = require('config');
-const helperMethodsStatic = require('./../HelperMethods');
+const HelperMethods = require('./../HelperMethods');
+const Logger = require('./../Logger');
+const Constants = require('./../../config/Constants');
 
-const TOP_N = 5;
 mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
 
 require('../../model/Annotation');
 const Annotations = mongoose.model('Annotation');
 const StringConstants = require("./../../config/Constants");
+const QueryBuilder = require("./../QueryBuilder");
+
 
 class HotelNearbyHandler{
 	
 	constructor(){
-
+		this.queryBuilder = new QueryBuilder();
 	}
 	
 	doFulfill(app,db, geospatialDb){
@@ -25,17 +31,11 @@ class HotelNearbyHandler{
 
             var helper = hotelEntry.annotation.geo;
     		
-			if(helper.longitude && helper.latitude && helper.longitude<=180 && helper.latitude<=90){
-				geospatialDb.find({
-					"geoInfo": { 
-						$near : {
-							      $geometry: { type: "Point",  coordinates: [ helper.longitude, helper.latitude ] },
-							      $minDistance: 0,
-							      $maxDistance: 1000
-						         }
-						      }
-						   }
-						).then((data)=>{
+			if(helper.longitude && helper.latitude && HelperMethods.ensureNumber(helper.longitude)<=180 && HelperMethods.ensureNumber(helper.latitude)<=90){
+				
+				let queryGeospatial = this.queryBuilder.buildGeospatialFilter(HelperMethods.ensureNumber(helper.longitude), HelperMethods.ensureNumber(helper.latitude));
+				
+				geospatialDb.find(queryGeospatial).then((data)=>{
 							
 							if(data.length>0){
 							//build annotationIds
@@ -70,20 +70,30 @@ class HotelNearbyHandler{
 								})
 								//sort things
 								let sortedThings = that.sortThingsWithDistance(mergedContent, hotelEntry);
-								
-    				            app.db().save("listHotels", that.extractFrom(sortedThings).slice(0,TOP_N), (err) => {    				            	
-    				            	app.ask(that.formatThingsNearby(sortedThings,hotelEntry));
-    				            })
-								
-															
+																
+    				            app.db().save("listHotels", that.extractFrom(sortedThings), (err) => {
+    				            	//save formatted output
+    	                        	app.db().save("formattedOutput", that.formatThingsNearbyForSave(sortedThings, hotelEntry.name, thing), (err) => {
+    	                        		// reset page count
+    	            			    	app.db().save("pageCount", 0, (err) => {
+    	            			    		app.followUpState("TemporaryListState").ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
+    	            			    	});
+    	                        	})          				            	
+    				            })																							
 							})
 						}else{
-							app.ask(StringConstants.INFO_NOT_FOUND + "nearby");
+							Logger.debug(CURRENT_FILE,"Nothing nearby to '"+hotelEntry.name+"'?")
+							app
+                                .followUpState("ThingKnownState")
+								.ask(StringConstants.INFO_NOT_FOUND + "nearby", StringConstants.INFO_NOT_UNDERSTAND);
 						}
 							
 					})					
 			}else{
-				app.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.");
+				Logger.warn(CURRENT_FILE,"Invalid geolocations for '"+hotelEntry.name+"'");
+				app
+                    .followUpState("ThingKnownState")
+					.ask("I'm terrible sorry. "+hotelEntry.name+" has invalid or no coordinates set.", StringConstants.INFO_NOT_UNDERSTAND);
 			}					
 		});		
 	}
@@ -113,34 +123,56 @@ class HotelNearbyHandler{
 		let returnString = "";
 		let hotelName = hotel.annotation.name;
 
-		let that = this;
-		thingsSorted.slice(0,TOP_N).forEach((entry)=>{
+		let i = 1;
+		thingsSorted.slice(0,Constants.TOP_N).forEach((entry)=>{
 			let entryType = "";
 
 			if(thingType===""){
 				entryType = entry.type+" ";
 			}
 			
-			returnString+=entryType+"'"+entry.val.name+"' ("+entry.dist+" km), ";
-		})
+			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, say "+i +". ";
+			i++;
+		});
 		if(returnString===""){
 			return "Sorry, I couldn't find anything nearby of '"+hotelName+"'";
 		}
 		return "This is what I found near '"+hotelName+"': "+returnString.substr(0, returnString.length-2);
 	}
 	
+	formatThingsNearbyForSave(sortedThings, hotelName, thingType){
+        let returnString = "This is what I found near '"+hotelName+"': ";
+        let retObj = {};
+        retObj.initialText = returnString;        
+        retObj.content = [];
+        
+        sortedThings.forEach((entry)=>{
+        	let entryType = "";
+
+			if(thingType===""){
+				entryType = entry.type+" ";
+			}
+						
+        	retObj.content.push(entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, ");
+        })
+        
+        retObj.endString="";
+                
+        return retObj;
+	}
+	
 	sortThingsWithDistance(thingsToSort, hotel){
 		let arr=[];
-		let that = this;
 		let hotelLongitude = hotel.annotation.geo.longitude;
 		let hotelLatitude = hotel.annotation.geo.latitude;
 		
 		thingsToSort.forEach((entry)=>{
 			let entryLongitude = hotel.annotation.geo.longitude;
 			let entryLatitude = entry.annotation.geo.latitude;
-			
-			arr.push({val:entry, dist:helperMethodsStatic.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3)});			
-		})
+			let distance = HelperMethods.distanceCalc(hotelLatitude, hotelLongitude, entryLatitude, entryLongitude).toFixed(3);
+			if(distance!=="0.000")
+			arr.push({val:entry, dist:distance});
+		});
 		
 		arr.sort((a,b)=>{
 			if(a.dist<b.dist){
