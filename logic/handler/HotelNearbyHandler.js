@@ -76,7 +76,7 @@ class HotelNearbyHandler{
     	                        	app.db().save("formattedOutput", that.formatThingsNearbyForSave(sortedThings, hotelEntry.name, thing), (err) => {
     	                        		// reset page count
     	            			    	app.db().save("pageCount", 0, (err) => {
-    	            			    		app.followUpState("ThingKnownState").ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
+    	            			    		app.followUpState("TemporaryListState").ask(that.formatThingsNearby(sortedThings,hotelEntry),StringConstants.INFO_NOT_UNDERSTAND);
     	            			    	});
     	                        	})          				            	
     				            })																							
@@ -123,7 +123,7 @@ class HotelNearbyHandler{
 		let returnString = "";
 		let hotelName = hotel.annotation.name;
 
-		let that = this;
+		let i = 1;
 		thingsSorted.slice(0,Constants.TOP_N).forEach((entry)=>{
 			let entryType = "";
 
@@ -131,7 +131,8 @@ class HotelNearbyHandler{
 				entryType = entry.type+" ";
 			}
 			
-			returnString+=entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, ";
+			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, say "+i;
+			i++;
 		});
 		if(returnString===""){
 			return "Sorry, I couldn't find anything nearby of '"+hotelName+"'";
@@ -162,7 +163,6 @@ class HotelNearbyHandler{
 	
 	sortThingsWithDistance(thingsToSort, hotel){
 		let arr=[];
-		let that = this;
 		let hotelLongitude = hotel.annotation.geo.longitude;
 		let hotelLatitude = hotel.annotation.geo.latitude;
 		

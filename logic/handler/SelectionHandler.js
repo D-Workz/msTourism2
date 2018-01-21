@@ -42,7 +42,7 @@ class SelectionHandler {
         app.db().save("city", city, (err) => {
             console.log("Attribute 'city' set with content of '" + city + "'");
             app.followUpState("SelectTypeState")
-                  .ask("In "+ city +" " + StringConstants.INFO_TELL_YOU_ABOUT_CONTEXT + StringConstants.AVAILABLE_TYPE +".", StringConstants.INTEND_TYPE_SELECTION);
+                  .ask(city +" is an interesting place, with a lot to offer. There are " + StringConstants.AVAILABLE_TYPE +" About what do you want to talk?", StringConstants.INTEND_TYPE_SELECTION);
         });
 
 

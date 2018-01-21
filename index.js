@@ -20,7 +20,7 @@ let myIntentsToSkipUnhandled = [
     'FUNcreditsIntent',
     'ChangeCityIntent',
     'Default Welcome Intent',
-
+    'CancelIntent'
 ];
 
 app.setIntentsToSkipUnhandled(myIntentsToSkipUnhandled);

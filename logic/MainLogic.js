@@ -45,6 +45,11 @@ class Logic {
             'ChangeCityIntent': function () {
                 handlers.changeCityHandler.doFulfill(app,Annotations);
             },
+              'CancelIntent': function () {
+                app.tell("I hope you found all the information you wanted. Thanks for the talk. Good Bye.")
+            },
+
+
 
 
             'Default Welcome Intent': function () {
