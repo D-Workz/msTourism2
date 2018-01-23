@@ -25,7 +25,7 @@ const FILTERING_NOT_ALLOWED_TEXT = "I'm terrible sorry, filtering is only allowe
 const TOP_N_NUMBER = 5;
 const NEAR_IN_METERS = 1000;
 
-const CREDIT_INFO_TEXT = "I was created by Dennis 'the awesome backend guy and data crawler', Stefan 'the intent master and jovo-whisperer' and Alex 'the intent-implementor, query expert and inventor of these lame names'";
+const CREDIT_INFO_TEXT = "I was developed by Dennis, Stefan and Alex";
 const UNHANDLED_THING_KNOW_STATE_TEXT ='I did not understand you, say help for a list of the available commands!';
 const UNHANDLED_TEMPORARY_LIST_STATE_TEXT = 'I did not understand you. Please select something from the list presented or say help for a list of the available commands';
 const UNHANDLED_SELECT_TYPE_STATE_TEXT = 'I did not understand you. Please select one of the types presented.';
