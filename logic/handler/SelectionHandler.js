@@ -131,12 +131,18 @@ class SelectionHandler {
 
 
         let ordinal = app.inputs.ordinal - 1;
-
+        if(ordinal === null || ordinal === "" || ordinal === -1){
+            app.ask(StringConstants.INFO_NOT_UNDERSTAND + "Please  say a number to select one from the list.");
+            return;
+        }
         app.db().load("listHotels", (err, data) => {
             app.db().load("pageCount", (errPageCount, pageCount) => {
+
+
             	let calculatedIndex = (StringConstants.TOP_N*(pageCount))+ordinal;
             	
             	Logger.log(CURRENT_FILE, "Calculated index: "+calculatedIndex+", pageCount: "+pageCount+", ordinal: "+ordinal);
+
 
             	if(calculatedIndex>data.length-1){
                     Logger.warn(CURRENT_FILE,"Index "+calculatedIndex+" is higher than last index of array ("+(data.length-1)+"). Setting to 0.");            		

@@ -115,7 +115,7 @@ class Logic {
                     handlers.genericThingDescriptionHandler.doFulfill(app,Annotations);
                 },
                 'Selection': function () {
-                    handlers.hotelSelectionAfterListHandler.doFulfill(app,Annotations);
+                    handlers.selectionHandler.doFulfillThingSelection(app,Annotations);
                 },
                 'ChangeTypeIntent': function () {
                     handlers.changeTypeHandler.doFulfill(app,Annotations);

@@ -130,8 +130,8 @@ class HotelNearbyHandler{
 			if(thingType===""){
 				entryType = entry.type+" ";
 			}
-			
-			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, say "+i +". ";
+            let distInMeters = new Number(entry.dist) * 1000;
+			returnString+= "For "+entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+ distInMeters+" m, say "+i +". ";
 			i++;
 		});
 		if(returnString===""){
@@ -152,8 +152,9 @@ class HotelNearbyHandler{
 			if(thingType===""){
 				entryType = entry.type+" ";
 			}
-						
-        	retObj.content.push(entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+entry.dist+" km, ");
+
+			let distInMeters = new Number(entry.dist) * 1000;
+			retObj.content.push(entryType+"'"+entry.val.name+"' is a "+entry.val.type +" in a distance of "+ distInMeters +" m, ");
         })
         
         retObj.endString="";
