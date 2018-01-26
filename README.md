@@ -235,6 +235,22 @@ in your case
 mongorestore -d tourism2 tourism2/
 ```
 
+#### Create geoSpatialIndex
+To run the nearby queries it is important to create an index on the GeoSpatialProjections. 
+
+After either restoring both collections or executing the extension, you should have two collections inside the mongodb: tourism2
+1. Annotations 
+2. GeoSpatialProjections
+
+To initialize this index, execute the query at:
+```
+/mongoDump/collectedQueries/createGeospatialIndex.js
+
+```
+
+The easiest way, to run the query, is to use either robomongo or studio 3t and copy-paste the query into the query-field.
+
+
 ### Run the Extension
 
 Run the extension as described above. 
