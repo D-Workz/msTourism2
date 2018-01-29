@@ -174,7 +174,8 @@ The backend is configured with the config.json file.
 * requestFrequencyMilliseconds: milliseconds between each request
 
 ## The model
-The model is called annotation and is organized as following: 
+There are two models 
+#### Annotation: 
 ```
     type: {type: String},
     name: {type: String},
@@ -190,6 +191,24 @@ The model is called annotation and is organized as following:
 * annotationId: id of the annotation used for update 
 * website: one of the websites defined in the config.json file
 * language: the language of the annotation format: "en", "de"
+
+#### GeoSpatialProjections
+```
+	annotationID: {
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'Annotation'
+	},
+	geoInfo : {
+		type: {type: String}, 
+		coordinates : [Number,Number]
+	}
+```
+
+Before the GeoSpatialProjections can be used with the App and the nearby intent. It is important to create the missing index on the table. 
+Execute the Query inside: 
+```
+/mongoDump/collectedQueries/createGeoSpatialIndex.js
+``` 
 
 ## Extension 
 
