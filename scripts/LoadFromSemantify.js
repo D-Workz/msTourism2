@@ -129,10 +129,10 @@ function checkIfAnnotationShouldBeLoaded(dataItem) {
     return true;
 }
 
-
+//if we accept Winery, we should accept Brewery, which is also a subtype of FoodEstablishment http://schema.org/FoodEstablishment
 function checkIfAnnotationTypeIsDesired(typeArray) {
     let desiredTypes= [
-      "FoodEstablishment","Bakery", "BarOrPub", "CafeOrCoffeeShop", "Restaurant", "FastFoodRestaurant", "IceCreamShop", "Winery"
+      "FoodEstablishment","Bakery", "BarOrPub", "CafeOrCoffeeShop", "Restaurant", "FastFoodRestaurant", "IceCreamShop", "Winery", "Brewery"
     ];
     for(let i=0;i<typeArray.length;i++){
         if(desiredTypes.indexOf(typeArray[i]) !== -1){

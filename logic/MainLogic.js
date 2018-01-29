@@ -4,7 +4,7 @@
 const config = require('config');
 const app = require('jovo-framework').Jovo;
 const mongoose = require('mongoose');
-mongoose.connect(config.get("DBUrl"), {useMongoClient: true});
+mongoose.connect(config.get("url_mongoDB"), {useMongoClient: true});
 require('../model/FoodEstablishment');
 
 const FoodEstablishments = mongoose.model('FoodEstablishment');
@@ -137,7 +137,6 @@ function findFoodEstablishment(app, city, foodEstablishment) {
         console.log("city: " + city);
         console.log("foodEstablishment: " + foodEstablishment);
 
-        // TODO: sort by rating descending
         FoodEstablishments.find({
             "sdoTypes": parseFoodEstablishment(foodEstablishment),
             "sdoAnnotation.address.addressLocality": new RegExp(city, 'i'),
@@ -150,7 +149,8 @@ function findFoodEstablishment(app, city, foodEstablishment) {
             // check if there is a result
             if (amount > 0) {
 
-                // TODO shuffle results array
+
+                results = shuffleResultsBasedOnRatings(results);  // TODO shuffle results array
 
                 let bestResult = results[0];
                 // save multiple results to session to get them later again
@@ -173,6 +173,29 @@ function findFoodEstablishment(app, city, foodEstablishment) {
             app.ask(speech, reprompt);
         });
     }
+}
+
+function shuffleResultsBasedOnRatings(annotationArray) {
+    let newArraySort = [];
+    for(let i=0;i<annotationArray.length;i++){
+        newArraySort.push({
+            rating: Math.floor(annotationArray[i].rating * Math.random()),
+            annotation: annotationArray[i]
+        });
+    }
+    newArraySort = sortByKey(newArraySort, "rating");
+    let returnObject = [];
+    for(let i=0;i<newArraySort.length;i++){
+        returnObject.push(newArraySort[i].annotation);
+    }
+    return returnObject;
+}
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
 }
 
 function findNearbyFoodEstablishment(app, foodEstablishment) {
@@ -358,6 +381,7 @@ function toTitleCase(str) {
 }
 
 // Jovo currently does not support Entity Resolution (https://developer.amazon.com/de/docs/custom-skills/define-synonyms-and-ids-for-slot-type-values-entity-resolution.html)
+//if we accept Winery, we should accept Brewery, which is also a subtype of FoodEstablishment http://schema.org/FoodEstablishment
 function parseFoodEstablishment(foodEstablishment) {
     switch (foodEstablishment) {
         case "winery":
@@ -374,8 +398,9 @@ function parseFoodEstablishment(foodEstablishment) {
             return "CafeOrCoffeeShop";
         case "bar" || "pub":
             return "BarOrPub";
+        case "brewery":
+            return "Brewery";
     }
 }
 
 module.exports = Logic;
-

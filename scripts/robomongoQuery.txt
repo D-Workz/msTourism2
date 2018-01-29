@@ -1,0 +1,20 @@
+db.getCollection('foodestablishments').aggregate([
+    {
+        $match: {
+            rating: { $not: {$size: 0} }
+        }
+    },
+    { $unwind: "$rating" },
+    {
+        $group: {
+            _id: {$toLower: '$rating'},
+            count: { $sum: 1 }
+        }
+    },
+    {
+        $match: {
+            count: { $gte: 2 }
+        }
+    },
+    { $sort : { count : -1} }
+]);

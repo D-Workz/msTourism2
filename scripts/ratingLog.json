@@ -1,0 +1,11 @@
+{
+  "annotationsAmount": 333,
+  "contactPoint_occurrenceError": 315,
+  "hasMap_occurrenceError": 315,
+  "servesCuisine_occurrenceError": 315,
+  "aggregateRating_occurrenceError": 315,
+  "openingHoursSpecification_occurrenceError": 313,
+  "priceRange_occurrenceError": 315,
+  "url_occurrenceError": 63,
+  "description_occurrenceError": 18
+}

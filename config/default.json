@@ -1,16 +1,7 @@
 {
-  "requestPathListAnnotations" : "/api/annotation/list/",
-  "requestPathDetailsOfAnnotation" : "/api/annotation/cid/",
-  "host" : "https://semantify.it",
-  "DBUrl": "mongodb://localhost:27017/FoodFinder",
   "port": 3000,
-  "apikey": {
-    "MapsMayrhofen": "ryJfFtrYZ",
-    "MapsSeefeld": "rk8gFtSKW",
-    "SeefeldAt": "r1Rpt-rpx",
-    "MayrhofenAt": "HycivrHG-"
-  },
   "url_listMayrhofenAt":  "https://semantify.it/api/annotation/list/HycivrHG-",
   "url_annotationByCID":  "https://semantify.it/api/annotation/cid/",
-  "url_mongoDB":  "mongodb://localhost:27017/FoodFinder"
+  "url_mongoDB":  "mongodb://localhost:27017/FoodFinder",
+  "url_annotationValid": "https://semantify.it/api/validate/annotation"
 }
