@@ -24,19 +24,19 @@ Query: db.foodestablishments.distinct("sdoAnnotation.address.addressLocality")
 
 ### Alexa Skill
 
-#### Sort results by rating desc - OPEN Omar
+#### Sort results by rating desc - DONE Omar
 
 #### Enable nearby searches based on location - LATER
 To get permissions:
 https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_specific/indexAlexaDeviceAddress.js
 
-#### Aks for opening hours - OPEN Omar
+#### Aks for opening hours - OPEN Omar (OMIT, only 20 of 333 annotations have openingHoursSpecification, see ratingLog.json)
 Use amazon alexa built in localbusiness intent to ask for opening hours:
 https://developer.amazon.com/de/docs/custom-skills/localbusiness-intents.html
 
 #### Implement AMAZON.HelpIntent - OPEN Hannes
 
-#### Add image to Cards - LATER
+#### Add image to Cards - LATER (OMIT, too much work for little gain)
 - Infrastructure to load, scale and serve images over https necessary
 - https://developer.amazon.com/de/docs/custom-skills/include-a-card-in-your-skills-response.html#creating-a-home-card-to-display-text-and-an-image
 - https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_specific/indexAlexaCards.js
@@ -52,5 +52,5 @@ Add normalized addressLocality values to slot type
 
 #### Improve utterances eg what is what's Hannes und Omar
 
-### clean Repository
-config/default.json Omar
+#### clean Repository - DONE
+config/default.json - DONE (Omar)

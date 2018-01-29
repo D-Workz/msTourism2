@@ -15,6 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "loadData": "node scripts/LoadFromSemantify.js",
+    "rateData": "node scripts/RateAnnotations.js",
     "start": "node index.js"
   },
   "repository": {

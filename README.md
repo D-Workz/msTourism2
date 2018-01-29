@@ -4,6 +4,7 @@
 
 [Mid Term Presentation](https://docs.google.com/presentation/d/1pfnbbwZvV4VeHb1lQhlh-8YRDjX5QNt_3NpMxJeX_-M/edit?usp=sharing)
 
+[Jovo Readme](https://www.jovo.tech/framework/docs/routing)
 
 
 ## Application Workflow
