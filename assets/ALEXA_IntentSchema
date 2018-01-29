@@ -178,7 +178,9 @@
         "samples": [
           "What's the address",
           "Where is it located",
-          "Tell me the address"
+          "Tell me the address",
+          "What is the address",
+          "Give me the address"
         ],
         "slots": []
       },
@@ -187,7 +189,12 @@
         "samples": [
           "Tell me more about it",
           "What's it like",
-          "What does the description say"
+          "What does the description say",
+          "What is it like",
+          "What's the description",
+          "what is the description",
+          "give me the description",
+          "tell me the description"
         ],
         "slots": []
       },
@@ -197,7 +204,11 @@
           "What's the telephone number",
           "What's the phone number",
           "Tell me the phone number",
-          "Tell me the telephone number"
+          "Tell me the telephone number",
+          "what is the telephone number",
+          "what is the phone number",
+          "give me the phone number",
+          "give me the telephone number"
         ],
         "slots": []
       },
@@ -207,7 +218,12 @@
           "Find a {foodEstablishment} in {city}",
           "Find {foodEstablishment} in {city}",
           "I'm looking for a {foodEstablishment} in {city}",
-          "I'd like to search a {foodEstablishment} in {city}"
+          "I'd like to search a {foodEstablishment} in {city}",
+          "I am looking for a {foodEstablishment} in {city}",
+          "I am looking for a {foodEstablishment}",
+          "I'm looking for a {foodEstablishment} ",
+          "Find {foodEstablishment}",
+          "Find a {foodEstablishment}"
         ],
         "slots": [
           {
@@ -230,25 +246,6 @@
         ]
       },
       {
-        "name": "FindNearbyFoodEstablishment",
-        "samples": [
-          "Find nearby {foodEstablishment}",
-          "Find a nearby {foodEstablishment}",
-          "Find {foodEstablishment} near me",
-          "Find a {foodEstablishment} near me"
-        ],
-        "slots": [
-          {
-            "name": "foodEstablishment",
-            "type": "FoodEstablishment",
-            "samples": [
-              "I am looking for a {foodEstablishment}",
-              "{foodEstablishment}"
-            ]
-          }
-        ]
-      },
-      {
         "name": "NextResult",
         "samples": [
           "What's the next result",
@@ -256,7 +253,9 @@
           "Next {foodEstablishment}",
           "What's the next {foodEstablishment} you found",
           "I don't like that one",
-          "Next"
+          "Next",
+          "What is the next result",
+          "What is the next {foodEstablishment} you found"
         ],
         "slots": [
           {
@@ -273,7 +272,11 @@
           "what was the last result",
           "what was the last result again",
           "what was the previous result",
-          "what was the previous result again"
+          "what was the previous result again",
+          "what's the last result",
+          "what's the last result again",
+          "what's the previous result",
+          "what's the previous result again"
         ],
         "slots": []
       },
@@ -281,8 +284,6 @@
         "name": "ShowDetails",
         "samples": [
           "Show me the details",
-          "Show address",
-          "Show me the address",
           "Show details",
           "I like that one"
         ],
@@ -297,7 +298,10 @@
           "show {amount} results",
           "show me {amount} results",
           "show best results",
-          "show best {amount} results"
+          "show best {amount} results",
+          "show me the {amount} best results",
+          "show the best {amount} results",
+          "show the best results"
         ],
         "slots": [
           {
@@ -350,15 +354,6 @@
       ]
     },
     {
-      "id": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment",
-      "variations": [
-        {
-          "type": "PlainText",
-          "value": "What kind of Food Establishment are you looking for?"
-        }
-      ]
-    },
-    {
       "id": "Elicit.Intent-SpecificResult.IntentSlot-nth",
       "variations": [
         {
@@ -391,22 +386,6 @@
             "confirmationRequired": false,
             "prompts": {
               "elicitation": "Elicit.Intent-FindFoodEstablishment.IntentSlot-foodEstablishment"
-            }
-          }
-        ]
-      },
-      {
-        "name": "FindNearbyFoodEstablishment",
-        "confirmationRequired": false,
-        "prompts": {},
-        "slots": [
-          {
-            "name": "foodEstablishment",
-            "type": "FoodEstablishment",
-            "elicitationRequired": true,
-            "confirmationRequired": false,
-            "prompts": {
-              "elicitation": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment"
             }
           }
         ]
