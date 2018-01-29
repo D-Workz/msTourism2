@@ -178,7 +178,9 @@
         "samples": [
           "What's the address",
           "Where is it located",
-          "Tell me the address"
+          "Tell me the address",
+          "What is the address",
+          "Give me the address"
         ],
         "slots": []
       },
@@ -187,7 +189,12 @@
         "samples": [
           "Tell me more about it",
           "What's it like",
-          "What does the description say"
+          "What does the description say",
+          "What is it like",
+          "What's the description",
+          "what is the description",
+          "give me the description",
+          "tell me the description"
         ],
         "slots": []
       },
@@ -197,7 +204,11 @@
           "What's the telephone number",
           "What's the phone number",
           "Tell me the phone number",
-          "Tell me the telephone number"
+          "Tell me the telephone number",
+          "what is the telephone number",
+          "what is the phone number",
+          "give me the phone number",
+          "give me the telephone number"
         ],
         "slots": []
       },
@@ -207,7 +218,8 @@
           "Find a {foodEstablishment} in {city}",
           "Find {foodEstablishment} in {city}",
           "I'm looking for a {foodEstablishment} in {city}",
-          "I'd like to search a {foodEstablishment} in {city}"
+          "I'd like to search a {foodEstablishment} in {city}",
+          "I am looking for a {foodEstablishment} in {city}"
         ],
         "slots": [
           {
@@ -256,7 +268,9 @@
           "Next {foodEstablishment}",
           "What's the next {foodEstablishment} you found",
           "I don't like that one",
-          "Next"
+          "Next",
+          "What is the next result",
+          "What is the next {foodEstablishment} you found"
         ],
         "slots": [
           {
@@ -273,7 +287,11 @@
           "what was the last result",
           "what was the last result again",
           "what was the previous result",
-          "what was the previous result again"
+          "what was the previous result again",
+          "what's the last result",
+          "what's the last result again",
+          "what's the previous result",
+          "what's the previous result again"
         ],
         "slots": []
       },
@@ -281,8 +299,6 @@
         "name": "ShowDetails",
         "samples": [
           "Show me the details",
-          "Show address",
-          "Show me the address",
           "Show details",
           "I like that one"
         ],
