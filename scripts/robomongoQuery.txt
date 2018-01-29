@@ -18,3 +18,23 @@ db.getCollection('foodestablishments').aggregate([
     },
     { $sort : { count : -1} }
 ]);
+
+
+id = rating
+count = amount of annotations with this rating
+{
+    "_id" : "23",
+    "count" : 250.0
+}
+{
+    "_id" : "20",
+    "count" : 63.0
+}
+{
+    "_id" : "0",
+    "count" : 18.0
+}
+{
+    "_id" : "24",
+    "count" : 2.0
+}
