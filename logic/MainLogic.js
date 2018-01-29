@@ -343,8 +343,7 @@ function specificResult(app, nth) {
 }
 
 function helpMessage(app) {
-    // TODO: add help message when Intents are almost final
-    app.ask("Help message will be available shortly!")
+    app.ask('You can ask me to find food establishments for you. For example say, "Find restaurant". You can then ask me to tell you the address, phone number, description or show you the results.')
 }
 
 function endMessage(app) {

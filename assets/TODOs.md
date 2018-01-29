@@ -34,7 +34,7 @@ https://github.com/jovotech/jovo-framework-nodejs/blob/master/examples/alexa_spe
 Use amazon alexa built in localbusiness intent to ask for opening hours:
 https://developer.amazon.com/de/docs/custom-skills/localbusiness-intents.html
 
-#### Implement AMAZON.HelpIntent - OPEN Hannes
+#### Implement AMAZON.HelpIntent - DONE
 
 #### Add image to Cards - LATER
 - Infrastructure to load, scale and serve images over https necessary
@@ -50,7 +50,7 @@ Add normalized addressLocality values to slot type
 
 #### Result navigation: go back - DONE
 
-#### Improve utterances eg what is what's Hannes und Omar
+#### Improve utterances - DONE
 
 ### clean Repository
 config/default.json Omar
