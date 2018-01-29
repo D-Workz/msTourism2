@@ -219,7 +219,11 @@
           "Find {foodEstablishment} in {city}",
           "I'm looking for a {foodEstablishment} in {city}",
           "I'd like to search a {foodEstablishment} in {city}",
-          "I am looking for a {foodEstablishment} in {city}"
+          "I am looking for a {foodEstablishment} in {city}",
+          "I am looking for a {foodEstablishment}",
+          "I'm looking for a {foodEstablishment} ",
+          "Find {foodEstablishment}",
+          "Find a {foodEstablishment}"
         ],
         "slots": [
           {
@@ -237,25 +241,6 @@
             "samples": [
               "{foodEstablishment}",
               "I am looking for a {foodEstablishment}"
-            ]
-          }
-        ]
-      },
-      {
-        "name": "FindNearbyFoodEstablishment",
-        "samples": [
-          "Find nearby {foodEstablishment}",
-          "Find a nearby {foodEstablishment}",
-          "Find {foodEstablishment} near me",
-          "Find a {foodEstablishment} near me"
-        ],
-        "slots": [
-          {
-            "name": "foodEstablishment",
-            "type": "FoodEstablishment",
-            "samples": [
-              "I am looking for a {foodEstablishment}",
-              "{foodEstablishment}"
             ]
           }
         ]
@@ -313,7 +298,10 @@
           "show {amount} results",
           "show me {amount} results",
           "show best results",
-          "show best {amount} results"
+          "show best {amount} results",
+          "show me the {amount} best results",
+          "show the best {amount} results",
+          "show the best results"
         ],
         "slots": [
           {
@@ -366,15 +354,6 @@
       ]
     },
     {
-      "id": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment",
-      "variations": [
-        {
-          "type": "PlainText",
-          "value": "What kind of Food Establishment are you looking for?"
-        }
-      ]
-    },
-    {
       "id": "Elicit.Intent-SpecificResult.IntentSlot-nth",
       "variations": [
         {
@@ -407,22 +386,6 @@
             "confirmationRequired": false,
             "prompts": {
               "elicitation": "Elicit.Intent-FindFoodEstablishment.IntentSlot-foodEstablishment"
-            }
-          }
-        ]
-      },
-      {
-        "name": "FindNearbyFoodEstablishment",
-        "confirmationRequired": false,
-        "prompts": {},
-        "slots": [
-          {
-            "name": "foodEstablishment",
-            "type": "FoodEstablishment",
-            "elicitationRequired": true,
-            "confirmationRequired": false,
-            "prompts": {
-              "elicitation": "Elicit.Intent-FindNearbyFoodEstablishment.IntentSlot-foodEstablishment"
             }
           }
         ]
